@@ -1,0 +1,184 @@
+/* Tarabao-Designsystem (Tailwind v4, CSS-first). app.css ist app.tcss aus
+   claude-figma-automation/2-tarabao, Stand 29.09.2026 abends (3d8a193), unverändert. Die
+   Endung .css braucht Next/Turbopack. */
+@import './design-system/app.css';
+
+@plugin "tailwindcss-animate";
+
+/* Schriften: app.css nennt die Figma-Familien LUMOSKY, BROWN NOW ONE,
+   BROWN NOW TWO und Manrope. next/font lädt sie im Root-Layout unter
+   eigenen Variablen. Deshalb zeigen die Tokens zuerst auf diese Variablen
+   und fallen auf die Figma-Namen zurück (Storybook, .storybook/fonts.css). */
+@theme static {
+  --font-display: var(--font-lumosky, 'LUMOSKY'), serif;
+  --font-accent-one: var(--font-brown-now-one, 'BROWN NOW ONE'), sans-serif;
+  --font-accent-two: var(--font-brown-now-two, 'BROWN NOW TWO'), sans-serif;
+  --font-body: var(--font-manrope, 'Manrope'), sans-serif;
+}
+
+:root {
+  color-scheme: light only;
+}
+
+/* Zustände wie die Figma-Varianten Hover?=True: echtes :hover oder
+   data-hovered (Bibliothek und Storybook zeigen den Zustand statisch).
+   Deaktivierte Elemente bekommen keinen Hover. */
+@custom-variant hovered {
+  &:where(:hover, [data-hovered]):not(:disabled, [aria-disabled='true']) {
+    @slot;
+  }
+}
+@custom-variant group-hovered {
+  :where(.group):where(:hover, [data-hovered]):not(:disabled, [aria-disabled='true']) & {
+    @slot;
+  }
+}
+@custom-variant group-disabled {
+  :where(.group):where(:disabled, [aria-disabled='true']) & {
+    @slot;
+  }
+}
+
+/* Figma State=Selected / Selected?=True / On?=True. Greift auf alle
+   ARIA- und Radix-Zustände (Toggle, ToggleGroup, Tabs, Radio, Checkbox).
+   Spezifität 0,3,0 — schlägt hovered (0,2,0), damit ein gewähltes Element
+   beim Hover nicht in den Hover-Look springt. */
+@custom-variant selected {
+  &:is(
+      [data-state='on'],
+      [data-state='active'],
+      [data-state='checked'],
+      [aria-pressed='true'],
+      [aria-checked='true'],
+      [aria-selected='true']
+    ):not(:disabled) {
+    @slot;
+  }
+}
+@custom-variant group-selected {
+  :where(.group):is(
+      [data-state='on'],
+      [data-state='active'],
+      [data-state='checked'],
+      [aria-pressed='true'],
+      [aria-checked='true'],
+      [aria-selected='true']
+    ):not(:disabled)
+    & {
+    @slot;
+  }
+}
+
+/* MegaSwitch: Hover gilt nur über der nicht gewählten Hälfte (data-half am Label),
+   wie „While hovering“ am Label in Figma. data-hovered zeigt den Zustand statisch. */
+@custom-variant free-hovered {
+  &:is(
+      [data-state='unchecked']:has([data-half='on']:hover),
+      [data-state='checked']:has([data-half='off']:hover),
+      [data-hovered]
+    ):not(:disabled) {
+    @slot;
+  }
+}
+@custom-variant group-free-hovered {
+  :where(.group):is(
+      [data-state='unchecked']:has([data-half='on']:hover),
+      [data-state='checked']:has([data-half='off']:hover),
+      [data-hovered]
+    ):not(:disabled)
+    & {
+    @slot;
+  }
+}
+
+/* Scrollrichtung für die Breadcrumb in Templates / Page (PageBreadcrumb).
+   Chrome und Edge ab 144 lesen die zuletzt gescrollte Richtung per
+   scroll-state(scrolled) am <html>. Die übrigen Browser bekommen
+   data-scroll-direction="down" vom Skript in PageBreadcrumb. */
+:root {
+  container-type: scroll-state;
+}
+@custom-variant scroll-down {
+  @container scroll-state(scrolled: bottom) {
+    @slot;
+  }
+  :where(:root[data-scroll-direction='down']) & {
+    @slot;
+  }
+}
+
+/* Effekt-Stile aus Figma („Cards default“, „Cards on-hover“, „Search on-hover“, „Filter-Chips on-hover“,
+   „Img-inner-shadow strong“, BlogCard). app.tcss führt keine Schatten; siehe docs/ABWEICHUNGEN.md. */
+@theme {
+  --shadow-card: 0.09375rem 0.09375rem 0.25rem 0 rgb(58 56 66 / 0.1);
+  --shadow-card-hover:
+    0.1875rem 0.1875rem 0.125rem 0.25rem rgb(58 56 66 / 0.14), 0.0625rem 0.0625rem 0.03125rem 0 rgb(58 56 66 / 0.1);
+  --shadow-card-blog: 0.0625rem 0.0625rem 0.3125rem 0 rgb(27 27 22 / 0.05);
+  --shadow-card-blog-hover:
+    0.175rem 0.2375rem 0.125rem 0.25rem rgb(58 56 66 / 0.08),
+    -0.0625rem -0.0625rem 0.125rem 0.625rem rgb(58 56 66 / 0.05);
+  --shadow-search-hover: 0.09375rem 0.15625rem 0 0.0625rem rgb(54 53 63 / 0.12);
+  --shadow-filter-hover: 0.0625rem 0.125rem 0 0.0625rem rgb(54 53 64 / 0.1);
+  --inset-shadow-search: inset 0.0625rem 0.0625rem 0 0 rgb(58 56 66 / 0.1);
+  --inset-shadow-img-strong: inset 0 0 0.15625rem 0 rgb(58 56 66 / 0.35);
+}
+
+/* Textstil „Megacard/fließtext“ (Manrope 24/36, −2 %) stammt in Figma aus einer
+   eingebundenen Bibliothek und fehlt in app.tcss; siehe docs/ABWEICHUNGEN.md. */
+@utility type-megacard-fliesstext {
+  font-family: var(--font-body);
+  font-size: var(--text-24);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Input / Field · Type=Textarea (9767:33432): Textstil „Input/TextareaText“ (Manrope 18/1.4)
+   und die Höhe „Input/Textarea/min-h“ (164 px) fehlen in app.tcss (Stand 3d8a193);
+   siehe docs/ABWEICHUNGEN.md. */
+@utility type-input-textarea-text {
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@theme {
+  --height-input-textarea: 10.25rem; /* Input/Textarea/min-h 164px */
+}
+@utility min-h-input-textarea {
+  min-height: var(--height-input-textarea);
+}
+
+@theme {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

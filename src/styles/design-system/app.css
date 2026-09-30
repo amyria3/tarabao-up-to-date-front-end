@@ -1,0 +1,1620 @@
+@import "tailwindcss";
+
+/* ================================================================
+ *  DESIGN TOKENS — Figma → Tailwind v4
+ *  Source: Figma file rLwATluwV4CSS5rXceLptH
+ *  Docs: 2-tarabao/2.6-design-tokens-tailwind-v4.md
+ *
+ *  Layer stack:
+ *    1. Primitives            :root (raw hex, never themed, never used directly)
+ *    2. Semantic tokens       :root + [data-theme] / [data-lively-theme] /
+ *                             [data-special-theme] switches
+ *    3. Tailwind utilities    @theme inline (colors) + @theme static (scales)
+ *                             + @utility (heights, content widths, text styles)
+ *
+ *  Never write the character pair star-slash inside a comment: it ends the
+ *  comment early and turns the rest into a selector. Browsers then drop the
+ *  following rule block. Write "Buttons/…/Inline" for path wildcards.
+ *
+ *  WHAT BELONGS TO WHAT
+ *
+ *  Figma collection                  CSS section   token prefix        components
+ *  ────────────────────────────────  ───────────   ─────────────────   ─────────────────────────
+ *  Clrs / Primitives                 §1           (palette names)     none — never used directly
+ *  Clrs / Color Modes                §2a          --surface-*         page & section surfaces
+ *    switched via [data-theme],                   --content-*         body copy, headlines
+ *    4 modes = brand × surface:                   --btn-primary-*     Buttons/…/PrimaryButton
+ *      cole   × warm | snow                       --btn-secondary-*   Buttons/…/SecondaryButton
+ *      purple × warm | snow                       --btn-inline-*      Buttons/…/Inline
+ *                                                 --input-*           Input, Input Field plain
+ *                                                 --segmented-*       Segment Control, TabControl
+ *                                                 --switch-*          Switches
+ *                                                 --counter-*         Buttons/Counter, PlusMinus
+ *                                                 --btn-icon-*        Button-Icon
+ *                                                 --btn-option-selection-*   Buttons/XS/OptionSelection
+ *                                                 --card-*            Cards/… (except MegaCard)
+ *                                                 --block-*           Components/BlockElements/…
+ *                                                 --error-*, --success-*   validation & feedback
+ *  Clrs / Filter Panel               §2b          --filter-chip-*     Filter/FilterChip
+ *    single mode — never themed                   --price-filter-*    Filter/PriceRange…
+ *                                                 --price-dd-*        Filter/PriceRange/DropDown
+ *                                                 --filter-panel-*    Filter/FilterPanel
+ *  Clrs / Search                     §2b          --search-*          Search/Input, QueryState
+ *  Clrs / Sustainability Tags        §2b          --tag-*             sustainability tag chips
+ *  Clrs / NutmixerTags               §2b          --nutmixer-tag-*    NutmixerTags chip
+ *  Clrs / Mega Cards                 §2c          --megacard-*        Cards/MegaCard, Section/MegaCards
+ *    switched via [data-lively-theme]             --megacard-btn-*    Buttons/LG/Primary + Inline
+ *  Clrs / Special                    §2e          --special-*         Cards/VoucherCard, Layout/PromoBar
+ *    switched via [data-special-theme]
+ *  Lyt scl / Heights                 §2d          --height-*          → @utility h-*, §5
+ *  Lyt scl / Breakpoints (md, lg)    §4           --breakpoint-*      variants md: / lg:
+ *  Text Styles (families)            §4           --font-*            all type
+ *  Typografy                         §4           --text-*            all type
+ *  Text Styles (leading)             §4           --leading-*         line-height, all type
+ *  Text Styles (tracking)            §4           --tracking-*        letter-spacing, all type
+ *  Box Spacing + Gaps                §4           --spacing-*         all padding/gap/margin
+ *  Lyt scl / Width                   §4           --container-*       → w-/min-w-/max-w-
+ *  Lyt scl / Width › min/max-w-content  §4 + §5   --content-min/-max  → @utility min-w-content, max-w-content
+ *  Text Styles                       §6           (none)              → @utility type-*, one class per style
+ *
+ *  Collections prefixed "__" are content data, not design tokens — not mapped here.
+ *  Check against Figma: 2-tarabao/token-check (figma-dump.js + token_check.py).
+ * ================================================================ */
+
+
+/* ================================================================
+ *  1. PRIMITIVES — Raw palette values, never themed
+ *     57 variables, "Clrs / Primitives"
+ * ================================================================ */
+
+:root {
+  /* Cole Tint */
+  --cole-tint-100: #1d2020;
+  --cole-tint-90: #1d2020e5;
+  --cole-tint-80: #1d2020cc;
+  --cole-tint-60: #1d202099;
+
+  /* Purple Tint Light */
+  --purple-tint-light-100: #48426a;
+  --purple-tint-light-old: #57536f;
+  --purple-tint-light-60: #57536f99;
+
+  /* Purple Tint Dark */
+  --purple-tint-dark-dark: #25232b;
+  --purple-tint-dark-90: #25232be5;
+  --purple-tint-dark-80: #25232bcc;
+  --purple-tint-dark-60: #25232b99;
+
+  /* Warm White */
+  --warm-white-100: #fff9f2;
+  --between-warm-and-snow: #fffbf7;
+  --warm-white-80: #fff9f2cc;
+  --warm-white-60: #fff9f299;
+
+  /* Snow White */
+  --snow-white-100: #ffffff;
+  --snow-white-90: #ffffffe5;
+  --snow-white-60: #ffffff99;
+
+  /* Purple Early Evening Sky */
+  --purple-early-evening-sky-100: #d0cde3;
+  --purple-early-evening-sky-40: #d9d6eb66;
+  --purple-early-evening-sky-40-opaque: #e7e5f2;
+  --purple-early-evening-sky-light: #fafaff;
+
+  /* Sustainability Tag palette (60 % / 100 % pairs) */
+  --pale-lime-green-100: #e0ffcc;
+  --pale-lime-green-60: #e0ffcc99;
+  --mint-green-100: #bdffd8;
+  --mint-green-60: #bdffd899;
+  --pale-lilac-100: #f6e4ff;
+  --pale-lilac-60: #f6e4ff99;
+  --periwinkle-purple-100: #b8afff;
+  --periwinkle-purple-60: #b8afff99;
+
+  /* Golden Orange */
+  --golden-orange-100: #ff7f4c;
+  --golden-orange-90: #ff7f4ce5;
+
+  /* Peachy Coral */
+  --peachy-coral-100: #ffbb83;
+  --peachy-coral-90: #ffbb83e5;
+
+  /* Yellow */
+  --yellow-sunflower-100: #ffb900;
+  --yellow-sunflower-90: #ffb900e5;
+  --yellow-lemon-100: #ffd000;
+
+  /* Greens */
+  --pistachio-green-100: #cbf7e2;
+  --pistachio-green-95: #cbf7e2f2;
+  --forest-green-100: #00463d;
+  --tarabao-green-100: #005c5b;
+  --vibrant-green-100: #00cb6a;
+  --vibrant-green-10: #00cb6a1a;
+
+  /* Blues & Purples */
+  --passiflore-purple-100: #514a9f;
+  --sky-blue-100: #4b76f3;
+  --sky-blue-90: #4b76f3e5;
+  --morning-sky-purple-100: #ece8ff;
+  --morning-sky-purple-80: #ece8ffcc;
+  --cloudy-blue-100: #b8d2ef;
+  --cloudy-lilac-purple-100: #9d97c6;
+  --lilac-purple-100: #c6beff;
+  --lilac-purple-90: #c6beffe5;
+
+  /* Pinks */
+  --flower-rosa-100: #e7b3e2;
+  --peach-rosa-100: #ffabaa;
+
+  /* Functional Raw */
+  --vivid-red-100: #ff0000;
+  --vivid-red-10: #ff00001a;
+
+  /* Transparent (transparent cole-tint, not pure transparent) */
+  --transparent-100: #1d202000;
+}
+
+
+/* ================================================================
+ *  2a. COLOR MODES — [data-theme], section- or component-level
+ *
+ *  63 tokens from "Clrs / Color Modes", 4 modes:
+ *    cole-tint-surface-warm   (default)
+ *    cole-tint-surface-snow
+ *    purple-tint-surface-warm
+ *    purple-tint-surface-snow
+ *
+ *  Each block is COMPLETE on purpose. Do not reduce these to diffs —
+ *  custom properties inherit, so a partial block leaks the ancestor's
+ *  theme for every token it omits. Completeness is what makes nesting
+ *  (<section data-theme=A><article data-theme=B>) behave like a Figma
+ *  mode pin.
+ * ================================================================ */
+
+/* ---- Mode 1 (default): cole-tint-surface-warm ---- */
+:root,
+[data-theme="cole-tint-surface-warm"] {
+  /* Surface */
+  --surface-color: var(--warm-white-100);
+  --surface-placeholder: var(--purple-tint-light-old);
+  --surface-highlighted: var(--purple-early-evening-sky-40-opaque);
+
+  /* Content */
+  --content-text: var(--cole-tint-100);
+  --content-weak: var(--cole-tint-80);
+  --content-loud-headline: var(--cole-tint-100);
+
+  /* Button Primary */
+  --btn-primary-bg: var(--cole-tint-90);
+  --btn-primary-label: var(--warm-white-80);
+  --btn-primary-bg-hover: var(--cole-tint-100);
+  --btn-primary-label-hover: var(--warm-white-100);
+  --btn-primary-bg-inactive: var(--cole-tint-60);
+  --btn-primary-label-inactive: var(--warm-white-60);
+
+  /* Button Secondary */
+  --btn-secondary-bg: var(--transparent-100);
+  --btn-secondary-label: var(--cole-tint-90);
+  --btn-secondary-bg-hover: var(--cole-tint-90);
+  --btn-secondary-label-hover: var(--warm-white-100);
+  --btn-secondary-bg-inactive: var(--transparent-100);
+  --btn-secondary-label-inactive: var(--cole-tint-60);
+
+  /* Button Inline */
+  --btn-inline-bg: var(--transparent-100);
+  --btn-inline-label: var(--cole-tint-90);
+  --btn-inline-bg-hover: var(--cole-tint-90);
+  --btn-inline-label-hover: var(--warm-white-80);
+  --btn-inline-bg-inactive: var(--transparent-100);
+  --btn-inline-label-inactive: var(--cole-tint-60);
+
+  /* Input */
+  --input-label: var(--cole-tint-90);
+  --input-bg-focused: var(--purple-early-evening-sky-40-opaque);
+  --input-label-focused: var(--cole-tint-100);
+  --input-placeholder: var(--cole-tint-60);
+  --input-label-inactive: var(--cole-tint-60);
+
+  /* Segmented */
+  --segmented-bg: var(--transparent-100);
+  --segmented-label: var(--cole-tint-90);
+  --segmented-bg-hover: var(--cole-tint-90);
+  --segmented-label-hover: var(--warm-white-60);
+  --segmented-bg-selected: var(--cole-tint-90);
+  --segmented-label-selected: var(--warm-white-80);
+
+
+  /* Switch */
+  --switch-bg-hover: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-bg: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-label: var(--cole-tint-90);
+  --switch-segment-bg-selected: var(--cole-tint-90);
+  --switch-segment-label-selected: var(--warm-white-80);
+  --switch-segment-bg-selected-hover: var(--warm-white-100);
+  --switch-segment-label-selected-hover: var(--cole-tint-100);
+
+  /* Counter */
+  --counter-bg: var(--transparent-100);
+  --counter-label: var(--purple-tint-dark-90);
+  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+
+  /* Button Icon */
+  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+
+  /* Options Selector Buttons */
+  --btn-option-selection-bg: var(--purple-early-evening-sky-40);
+  --btn-option-selection-label: var(--cole-tint-90);
+  --btn-option-selection-bg-hover: var(--cole-tint-90);
+  --btn-option-selection-label-hover: var(--warm-white-100);
+  --btn-option-selection-bg-selected: var(--cole-tint-90);
+  --btn-option-selection-label-selected: var(--warm-white-80);
+
+  /* Card */
+  --card-surface: var(--between-warm-and-snow);
+  --card-surface-hover: var(--snow-white-90);
+  --card-content-text: var(--cole-tint-100);
+  --card-content-text-hover: var(--cole-tint-100);
+  --card-btn: var(--warm-white-100);
+  --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+
+  /* Block */
+  --block-surface: var(--warm-white-100);
+  --block-content-text: var(--cole-tint-100);
+
+  /* Functional (theme-independent, but restated for completeness) */
+  --error-content: var(--vivid-red-100);
+  --error-bg: var(--vivid-red-10);
+  --success-content: var(--vibrant-green-100);
+  --success-bg: var(--vibrant-green-10);
+}
+
+/* ---- Mode 2: cole-tint-surface-snow ---- */
+[data-theme="cole-tint-surface-snow"] {
+  /* Surface */
+  --surface-color: var(--snow-white-100);
+  --surface-placeholder: var(--purple-tint-light-old);
+  --surface-highlighted: var(--purple-early-evening-sky-40-opaque);
+
+  /* Content */
+  --content-text: var(--cole-tint-100);
+  --content-weak: var(--cole-tint-80);
+  --content-loud-headline: var(--cole-tint-100);
+
+  /* Button Primary */
+  --btn-primary-bg: var(--cole-tint-90);
+  --btn-primary-label: var(--warm-white-80);
+  --btn-primary-bg-hover: var(--cole-tint-100);
+  --btn-primary-label-hover: var(--warm-white-100);
+  --btn-primary-bg-inactive: var(--cole-tint-60);
+  --btn-primary-label-inactive: var(--warm-white-60);
+
+  /* Button Secondary */
+  --btn-secondary-bg: var(--transparent-100);
+  --btn-secondary-label: var(--cole-tint-90);
+  --btn-secondary-bg-hover: var(--cole-tint-90);
+  --btn-secondary-label-hover: var(--snow-white-100);
+  --btn-secondary-bg-inactive: var(--transparent-100);
+  --btn-secondary-label-inactive: var(--cole-tint-60);
+
+  /* Button Inline */
+  --btn-inline-bg: var(--transparent-100);
+  --btn-inline-label: var(--cole-tint-90);
+  --btn-inline-bg-hover: var(--cole-tint-90);
+  --btn-inline-label-hover: var(--snow-white-90);
+  --btn-inline-bg-inactive: var(--transparent-100);
+  --btn-inline-label-inactive: var(--cole-tint-60);
+
+  /* Input */
+  --input-label: var(--cole-tint-90);
+  --input-bg-focused: var(--purple-early-evening-sky-40-opaque);
+  --input-label-focused: var(--cole-tint-100);
+  --input-placeholder: var(--cole-tint-60);
+  --input-label-inactive: var(--cole-tint-60);
+
+  /* Segmented */
+  --segmented-bg: var(--transparent-100);
+  --segmented-label: var(--cole-tint-90);
+  --segmented-bg-hover: var(--cole-tint-90);
+  --segmented-label-hover: var(--snow-white-60);
+  --segmented-bg-selected: var(--cole-tint-90);
+  --segmented-label-selected: var(--snow-white-90);
+
+
+  /* Switch */
+  --switch-bg-hover: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-bg: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-label: var(--cole-tint-90);
+  --switch-segment-bg-selected: var(--cole-tint-90);
+  --switch-segment-label-selected: var(--snow-white-90);
+  --switch-segment-bg-selected-hover: var(--snow-white-100);
+  --switch-segment-label-selected-hover: var(--cole-tint-100);
+
+  /* Counter */
+  --counter-bg: var(--transparent-100);
+  --counter-label: var(--purple-tint-dark-90);
+  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+
+  /* Button Icon */
+  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+
+  /* Options Selector Button */
+  --btn-option-selection-bg: var(--purple-early-evening-sky-40);
+  --btn-option-selection-label: var(--cole-tint-90);
+  --btn-option-selection-bg-hover: var(--cole-tint-90);
+  --btn-option-selection-label-hover: var(--snow-white-100);
+  --btn-option-selection-bg-selected: var(--cole-tint-90);
+  --btn-option-selection-label-selected: var(--snow-white-90);
+
+  /* Card */
+  --card-surface: var(--snow-white-100);
+  --card-surface-hover: var(--snow-white-100);
+  --card-content-text: var(--cole-tint-100);
+  --card-content-text-hover: var(--cole-tint-100);
+  --card-btn: var(--snow-white-100);
+  --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+
+  /* Block */
+  --block-surface: var(--snow-white-100);
+  --block-content-text: var(--cole-tint-100);
+
+  /* Functional */
+  --error-content: var(--vivid-red-100);
+  --error-bg: var(--vivid-red-10);
+  --success-content: var(--vibrant-green-100);
+  --success-bg: var(--vibrant-green-10);
+}
+
+/* ---- Mode 3: purple-tint-surface-warm ---- */
+[data-theme="purple-tint-surface-warm"] {
+  /* Surface */
+  --surface-color: var(--warm-white-100);
+  --surface-placeholder: var(--purple-tint-light-old);
+  --surface-highlighted: var(--purple-early-evening-sky-40-opaque);
+
+  /* Content */
+  --content-text: var(--purple-tint-dark-dark);
+  --content-weak: var(--purple-tint-dark-80);
+  --content-loud-headline: var(--purple-tint-light-100);
+
+  /* Button Primary */
+  --btn-primary-bg: var(--purple-tint-light-old);
+  --btn-primary-label: var(--warm-white-80);
+  --btn-primary-bg-hover: var(--purple-tint-light-100);
+  --btn-primary-label-hover: var(--warm-white-100);
+  --btn-primary-bg-inactive: var(--purple-tint-light-60);
+  --btn-primary-label-inactive: var(--warm-white-60);
+
+  /* Button Secondary */
+  --btn-secondary-bg: var(--transparent-100);
+  --btn-secondary-label: var(--purple-tint-light-old);
+  --btn-secondary-bg-hover: var(--purple-tint-light-old);
+  --btn-secondary-label-hover: var(--warm-white-100);
+  --btn-secondary-bg-inactive: var(--transparent-100);
+  --btn-secondary-label-inactive: var(--cole-tint-60);
+
+  /* Button Inline */
+  --btn-inline-bg: var(--transparent-100);
+  --btn-inline-label: var(--purple-tint-dark-90);
+  --btn-inline-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-inline-label-hover: var(--purple-tint-dark-dark);
+  --btn-inline-bg-inactive: var(--transparent-100);
+  --btn-inline-label-inactive: var(--cole-tint-60);
+
+  /* Input */
+  --input-label: var(--purple-tint-dark-90);
+  --input-bg-focused: var(--purple-early-evening-sky-40-opaque);
+  --input-label-focused: var(--purple-tint-dark-dark);
+  --input-placeholder: var(--purple-tint-dark-60);
+  --input-label-inactive: var(--purple-tint-dark-60);
+
+  /* Segmented */
+  --segmented-bg: var(--transparent-100);
+  --segmented-label: var(--purple-tint-light-old);
+  --segmented-bg-hover: var(--purple-early-evening-sky-100);
+  --segmented-label-hover: var(--purple-tint-light-100);
+  --segmented-bg-selected: var(--purple-tint-light-old);
+  --segmented-label-selected: var(--warm-white-80);
+
+
+  /* Switch */
+  --switch-bg-hover: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-bg: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-label: var(--purple-tint-light-old);
+  --switch-segment-bg-selected: var(--purple-tint-light-old);
+  --switch-segment-label-selected: var(--warm-white-80);
+  --switch-segment-bg-selected-hover: var(--warm-white-100);
+  --switch-segment-label-selected-hover: var(--purple-tint-light-100);
+
+  /* Counter */
+  --counter-bg: var(--transparent-100);
+  --counter-label: var(--purple-tint-light-old);
+  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+
+  /* Button Icon */
+  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+
+  /* Option Selector Button */
+  --btn-option-selection-bg: var(--purple-early-evening-sky-40);
+  --btn-option-selection-label: var(--purple-tint-light-old);
+  --btn-option-selection-bg-hover: var(--purple-tint-dark-90);
+  --btn-option-selection-label-hover: var(--warm-white-100);
+  --btn-option-selection-bg-selected: var(--purple-tint-light-old);
+  --btn-option-selection-label-selected: var(--warm-white-80);
+
+  /* Card */
+  --card-surface: var(--between-warm-and-snow);
+  --card-surface-hover: var(--snow-white-90);
+  --card-content-text: var(--purple-tint-dark-dark);
+  --card-content-text-hover: var(--purple-tint-dark-dark);
+  --card-btn: var(--warm-white-100);
+  --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+
+  /* Block */
+  --block-surface: var(--warm-white-100);
+  --block-content-text: var(--purple-tint-dark-dark);
+
+  /* Functional */
+  --error-content: var(--vivid-red-100);
+  --error-bg: var(--vivid-red-10);
+  --success-content: var(--vibrant-green-100);
+  --success-bg: var(--vibrant-green-10);
+}
+
+/* ---- Mode 4: purple-tint-surface-snow ---- */
+[data-theme="purple-tint-surface-snow"] {
+  /* Surface */
+  --surface-color: var(--snow-white-100);
+  --surface-placeholder: var(--purple-tint-light-old);
+  --surface-highlighted: var(--purple-early-evening-sky-40-opaque);
+
+  /* Content */
+  --content-text: var(--purple-tint-dark-dark);
+  --content-weak: var(--purple-tint-dark-80);
+  --content-loud-headline: var(--purple-tint-light-100);
+
+  /* Button Primary */
+  --btn-primary-bg: var(--purple-tint-light-old);
+  --btn-primary-label: var(--snow-white-90);
+  --btn-primary-bg-hover: var(--purple-tint-light-100);
+  --btn-primary-label-hover: var(--snow-white-100);
+  --btn-primary-bg-inactive: var(--purple-tint-light-60);
+  --btn-primary-label-inactive: var(--snow-white-60);
+
+  /* Button Secondary */
+  --btn-secondary-bg: var(--transparent-100);
+  --btn-secondary-label: var(--purple-tint-light-old);
+  --btn-secondary-bg-hover: var(--purple-tint-light-old);
+  --btn-secondary-label-hover: var(--snow-white-100);
+  --btn-secondary-bg-inactive: var(--transparent-100);
+  --btn-secondary-label-inactive: var(--cole-tint-60);
+
+  /* Button Inline */
+  --btn-inline-bg: var(--transparent-100);
+  --btn-inline-label: var(--purple-tint-dark-90);
+  --btn-inline-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-inline-label-hover: var(--purple-tint-dark-dark);
+  --btn-inline-bg-inactive: var(--transparent-100);
+  --btn-inline-label-inactive: var(--cole-tint-60);
+
+  /* Input */
+  --input-label: var(--purple-tint-dark-90);
+  --input-bg-focused: var(--purple-early-evening-sky-40-opaque);
+  --input-label-focused: var(--purple-tint-dark-dark);
+  --input-placeholder: var(--purple-tint-dark-60);
+  --input-label-inactive: var(--purple-tint-dark-60);
+
+  /* Segmented */
+  --segmented-bg: var(--transparent-100);
+  --segmented-label: var(--purple-tint-light-old);
+  --segmented-bg-hover: var(--purple-early-evening-sky-100);
+  --segmented-label-hover: var(--purple-tint-light-100);
+  --segmented-bg-selected: var(--purple-tint-light-old);
+  --segmented-label-selected: var(--snow-white-90);
+
+
+  /* Switch */
+  --switch-bg-hover: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-bg: var(--purple-early-evening-sky-40-opaque);
+  --switch-segment-label: var(--purple-tint-light-old);
+  --switch-segment-bg-selected: var(--purple-tint-light-old);
+  --switch-segment-label-selected: var(--snow-white-90);
+  --switch-segment-bg-selected-hover: var(--snow-white-100);
+  --switch-segment-label-selected-hover: var(--purple-tint-light-100);
+
+  /* Counter */
+  --counter-bg: var(--transparent-100);
+  --counter-label: var(--purple-tint-light-old);
+  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+
+  /* Button Icon */
+  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+
+  /* Options Selector Button */
+  --btn-option-selection-bg: var(--purple-early-evening-sky-40);
+  --btn-option-selection-label: var(--purple-tint-light-old);
+  --btn-option-selection-bg-hover: var(--purple-tint-dark-90);
+  --btn-option-selection-label-hover: var(--snow-white-100);
+  --btn-option-selection-bg-selected: var(--purple-tint-light-old);
+  --btn-option-selection-label-selected: var(--snow-white-90);
+
+  /* Card */
+  --card-surface: var(--snow-white-100);
+  --card-surface-hover: var(--snow-white-100);
+  --card-content-text: var(--purple-tint-dark-dark);
+  --card-content-text-hover: var(--purple-tint-dark-dark);
+  --card-btn: var(--snow-white-100);
+  --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+
+  /* Block */
+  --block-surface: var(--snow-white-100);
+  --block-content-text: var(--purple-tint-dark-dark);
+
+  /* Functional */
+  --error-content: var(--vivid-red-100);
+  --error-bg: var(--vivid-red-10);
+  --success-content: var(--vibrant-green-100);
+  --success-bg: var(--vibrant-green-10);
+}
+
+
+/* ================================================================
+ *  2b. SINGLE-MODE COLLECTIONS — fixed, never follow [data-theme]
+ *      "Clrs / Filter Panel" (26), "Clrs / Search" (7),
+ *      "Clrs / Sustainability Tags" (8), "Clrs / NutmixerTags" (4)
+ *      Opt-out is structural: they are simply never re-declared
+ *      inside a [data-theme] block.
+ * ================================================================ */
+
+:root {
+  /* ---- Filter Panel / Filter Chips ---- */
+  --filter-chip-bg: var(--purple-early-evening-sky-40);
+  --filter-chip-label: var(--purple-tint-light-old);
+  --filter-chip-bg-hover: var(--morning-sky-purple-100);
+  --filter-chip-label-hover: var(--purple-tint-light-100);
+  --filter-chip-bg-selected: var(--purple-tint-light-old);
+  --filter-chip-label-selected: var(--warm-white-80);
+  --filter-chip-bg-selected-hover: var(--purple-tint-light-100);
+  --filter-chip-label-selected-hover: var(--warm-white-100);
+
+  /* ---- Filter Panel / shared element stroke ---- */
+  --filter-panel-stroke: var(--snow-white-100);
+
+  /* ---- Filter Panel / Price Range Filter ---- */
+  --price-filter-stroke: var(--filter-panel-stroke); /* aliased in Figma */
+  --price-filter-bg: var(--morning-sky-purple-80);
+  --price-filter-label: var(--purple-tint-light-old);
+  --price-filter-bg-hover: var(--morning-sky-purple-100);
+  --price-filter-label-hover: var(--purple-tint-dark-dark);
+  --price-filter-bg-selected: var(--purple-tint-light-100);
+  --price-filter-label-selected: var(--warm-white-80);
+  --price-filter-bg-selected-hover: var(--purple-tint-dark-dark);
+  --price-filter-label-selected-hover: var(--warm-white-100);
+
+  /* ---- Filter Panel / Price Range Drop Down Button ---- */
+  --price-dd-bg: var(--morning-sky-purple-80);
+  --price-dd-label: var(--purple-tint-light-old);
+  --price-dd-bg-hover: var(--morning-sky-purple-100);
+  --price-dd-label-hover: var(--purple-tint-light-100);
+  --price-dd-bg-selected: var(--purple-tint-light-old);
+  --price-dd-label-selected: var(--warm-white-80);
+  --price-dd-bg-selected-hover: var(--purple-tint-light-100);
+  --price-dd-label-selected-hover: var(--warm-white-100);
+
+  /* ---- Search ---- */
+  --search-bg: var(--snow-white-90);
+  --search-bg-hover: var(--morning-sky-purple-100);
+  --search-bg-focused: var(--morning-sky-purple-100);
+  --search-stroke-focused: var(--snow-white-100);
+  --search-icon: var(--purple-tint-light-old);
+  --search-input-text: var(--purple-tint-light-old);
+  --search-close-icon: var(--snow-white-100);
+
+  /* ---- Sustainability Tags (single mode) ----
+     One colour pair per category: 60 % as the resting chip fill,
+     100 % on active/hover. Theme-independent by design. */
+  --tag-transportation-bg: var(--pale-lime-green-60);
+  --tag-transportation-bg-hover-click: var(--pale-lime-green-100);
+  --tag-cultivation-environment-bg: var(--mint-green-60);
+  --tag-cultivation-environment-bg-hover-click: var(--mint-green-100);
+  --tag-social-commitment-bg: var(--pale-lilac-60);
+  --tag-social-commitment-bg-hover-click: var(--pale-lilac-100);
+  --tag-supply-chain-fairness-bg: var(--periwinkle-purple-60);
+  --tag-supply-chain-fairness-bg-hover-click: var(--periwinkle-purple-100);
+
+
+  /* ---- Nutmixer Tags (single mode) ---- */
+  --nutmixer-tag-bg-default: var(--warm-white-100);
+  --nutmixer-tag-bg-selected: var(--forest-green-100);
+  --nutmixer-tag-label-stroke-default: var(--cole-tint-100);
+  --nutmixer-tag-label-selected: var(--warm-white-100); /* Figma-Var heisst "…-bg-label-selected", ist aber die Label-Farbe, nicht bg */
+}
+
+
+/* ================================================================
+ *  2c. LIVELY THEMES — [data-lively-theme], a parallel theme axis
+ *      Same mechanism as [data-theme], own token namespace, so the two
+ *      compose: an element may carry both. Chosen per component.
+ *      Blocks are complete for the same nesting reason as above.
+ *
+ *      Source: one collection "Clrs / Mega Cards" — the MegaCard and
+ *      the LG buttons it contains switch together, so the mode values are
+ *      the collection modes, without group prefixes.
+ * ================================================================ */
+
+:root,
+[data-lively-theme="blue-pistacio-green"] {
+  /* Mega Card */
+  --megacard-section-bg: var(--snow-white-100);
+  --megacard-span-bg: var(--cloudy-blue-100);
+  --megacard-title-text: var(--pistachio-green-100);
+  --megacard-title-span-bg: var(--sky-blue-100);
+  --megacard-default-text: var(--snow-white-100);
+  --megacard-text-span-bg: var(--sky-blue-100);
+
+  /* Mega Card Primary Button */
+  --megacard-btn-primary-bg: var(--sky-blue-90);
+  --megacard-btn-primary-bg-hover: var(--sky-blue-100);
+  --megacard-btn-primary-label: var(--pistachio-green-95);
+  --megacard-btn-primary-label-hover: var(--pistachio-green-100);
+
+  /* Mega Card Inline Button */
+  --megacard-btn-inline-label: var(--purple-tint-light-100);
+  --megacard-btn-inline-label-hover: var(--purple-tint-light-100);
+  --megacard-btn-inline-highlight-hover: var(--yellow-sunflower-90);
+}
+
+[data-lively-theme="orange-black"] {
+  /* Mega Card */
+  --megacard-section-bg: var(--snow-white-100);
+  --megacard-span-bg: var(--peachy-coral-100);
+  --megacard-title-text: var(--purple-tint-light-100);
+  --megacard-title-span-bg: var(--warm-white-100);
+  --megacard-default-text: var(--purple-tint-light-100);
+  --megacard-text-span-bg: var(--transparent-100);
+
+  /* Mega Card Primary Button */
+  --megacard-btn-primary-bg: var(--purple-tint-light-old);
+  --megacard-btn-primary-bg-hover: var(--purple-tint-light-100);
+  --megacard-btn-primary-label: var(--warm-white-80);
+  --megacard-btn-primary-label-hover: var(--warm-white-100);
+
+  /* Mega Card Inline Button */
+  --megacard-btn-inline-label: var(--purple-tint-light-100);
+  --megacard-btn-inline-label-hover: var(--purple-tint-light-100);
+  --megacard-btn-inline-highlight-hover: var(--yellow-sunflower-90);
+}
+
+[data-lively-theme="happy-christmas"] {
+  /* Mega Card */
+  --megacard-section-bg: var(--warm-white-100);
+  --megacard-span-bg: var(--warm-white-100);
+  --megacard-title-text: var(--cole-tint-100);
+  --megacard-title-span-bg: var(--yellow-sunflower-100);
+  --megacard-default-text: var(--cole-tint-100);
+  --megacard-text-span-bg: var(--transparent-100);
+
+  /* Mega Card Primary Button */
+  --megacard-btn-primary-bg: var(--yellow-sunflower-90);
+  --megacard-btn-primary-bg-hover: var(--yellow-sunflower-100);
+  --megacard-btn-primary-label: var(--cole-tint-90);
+  --megacard-btn-primary-label-hover: var(--cole-tint-100);
+
+  /* Mega Card Inline Button */
+  --megacard-btn-inline-label: var(--purple-tint-light-100);
+  --megacard-btn-inline-label-hover: var(--purple-tint-light-100);
+  --megacard-btn-inline-highlight-hover: var(--yellow-sunflower-90);
+}
+
+[data-lively-theme="purple-black"] {
+  /* Mega Card */
+  --megacard-section-bg: var(--snow-white-100);
+  --megacard-span-bg: var(--snow-white-100);
+  --megacard-title-text: var(--lilac-purple-100);
+  --megacard-title-span-bg: var(--purple-tint-light-old);
+  --megacard-default-text: var(--purple-tint-light-100);
+  --megacard-text-span-bg: var(--snow-white-100);
+
+  /* Mega Card Primary Button */
+  --megacard-btn-primary-bg: var(--golden-orange-90);
+  --megacard-btn-primary-bg-hover: var(--golden-orange-100);
+  --megacard-btn-primary-label: var(--cole-tint-90);
+  --megacard-btn-primary-label-hover: var(--cole-tint-100);
+
+  /* Mega Card Inline Button */
+  --megacard-btn-inline-label: var(--purple-tint-light-100);
+  --megacard-btn-inline-label-hover: var(--purple-tint-light-100);
+  --megacard-btn-inline-highlight-hover: var(--yellow-sunflower-90);
+}
+
+/* ================================================================
+ *  2d. COMPONENT HEIGHTS — plain custom properties
+ *      Tailwind v4 has NO height theme namespace, so these are kept
+ *      as variables and exposed through @utility further down.
+ *      "Lyt scl / Heights" (10)
+ * ================================================================ */
+
+:root {
+  --height-btn-lg: 3.75rem;        /* btns/L/fix-h        60px */
+  --height-btn-md: 2.75rem;        /* btns/MD/fix-h       44px */
+  --height-btn-sm: 2.5rem;         /* btns/SM/fix-h       40px */
+  --height-btn-x-sm: 2.25rem;      /* btns/X-SM/fix-h     36px */
+  --height-btn-xx-sm: 1.75rem;     /* btns/XX-SM/fix-h    28px */
+  --height-btn-xxxx-sm: 1.25rem;   /* btns/XXXX-SM/fix-h  20px */
+  --height-input-inline: 2.25rem;  /* Input/Inline/fix-h  36px */
+  --height-input-search: 3.5rem;   /* Input/Search/fix-h  56px */
+  --height-card-md-min: 24rem;     /* Cards/MD/min-h     384px */
+  --height-card-md-max: 42rem;     /* Cards/MD/max-h     672px
+                                      alias [twuc]-168 (42rem) */
+}
+
+
+/* ================================================================
+ *  3. TAILWIND UTILITY REGISTRATION — COLORS
+ *     @theme inline is required: it makes utilities emit var(--…)
+ *     so [data-theme] / [data-lively-theme] switching works at runtime.
+ *     Without inline the values are frozen at build time.
+ * ================================================================ */
+
+@theme inline {
+  /* ---- Surface & Content ---- */
+  --color-surface: var(--surface-color);
+  --color-surface-placeholder: var(--surface-placeholder);
+  --color-surface-highlighted: var(--surface-highlighted);
+  --color-content-text: var(--content-text);
+  --color-content-weak: var(--content-weak);
+  --color-content-loud-headline: var(--content-loud-headline);
+
+  /* ---- Button Primary ---- */
+  --color-btn-primary-bg: var(--btn-primary-bg);
+  --color-btn-primary-label: var(--btn-primary-label);
+  --color-btn-primary-bg-hover: var(--btn-primary-bg-hover);
+  --color-btn-primary-label-hover: var(--btn-primary-label-hover);
+  --color-btn-primary-bg-inactive: var(--btn-primary-bg-inactive);
+  --color-btn-primary-label-inactive: var(--btn-primary-label-inactive);
+
+  /* ---- Button Secondary ---- */
+  --color-btn-secondary-bg: var(--btn-secondary-bg);
+  --color-btn-secondary-label: var(--btn-secondary-label);
+  --color-btn-secondary-bg-hover: var(--btn-secondary-bg-hover);
+  --color-btn-secondary-label-hover: var(--btn-secondary-label-hover);
+  --color-btn-secondary-bg-inactive: var(--btn-secondary-bg-inactive);
+  --color-btn-secondary-label-inactive: var(--btn-secondary-label-inactive);
+
+  /* ---- Button Inline ---- */
+  --color-btn-inline-bg: var(--btn-inline-bg);
+  --color-btn-inline-label: var(--btn-inline-label);
+  --color-btn-inline-bg-hover: var(--btn-inline-bg-hover);
+  --color-btn-inline-label-hover: var(--btn-inline-label-hover);
+  --color-btn-inline-bg-inactive: var(--btn-inline-bg-inactive);
+  --color-btn-inline-label-inactive: var(--btn-inline-label-inactive);
+
+  /* ---- Input ---- */
+  --color-input-label: var(--input-label);
+  --color-input-bg-focused: var(--input-bg-focused);
+  --color-input-label-focused: var(--input-label-focused);
+  --color-input-placeholder: var(--input-placeholder);
+  --color-input-label-inactive: var(--input-label-inactive);
+
+  /* ---- Segmented ---- */
+  --color-segmented-bg: var(--segmented-bg);
+  --color-segmented-label: var(--segmented-label);
+  --color-segmented-bg-hover: var(--segmented-bg-hover);
+  --color-segmented-label-hover: var(--segmented-label-hover);
+  --color-segmented-bg-selected: var(--segmented-bg-selected);
+  --color-segmented-label-selected: var(--segmented-label-selected);
+
+  /* Switch */
+  --color-switch-bg-hover: var(--switch-bg-hover);
+  --color-switch-segment-bg: var(--switch-segment-bg);
+  --color-switch-segment-label: var(--switch-segment-label);
+  --color-switch-segment-bg-selected: var(--switch-segment-bg-selected);
+  --color-switch-segment-label-selected: var(--switch-segment-label-selected);
+  --color-switch-segment-bg-selected-hover: var(--switch-segment-bg-selected-hover);
+  --color-switch-segment-label-selected-hover: var(--switch-segment-label-selected-hover);
+
+  /* ---- Counter ---- */
+  --color-counter-bg: var(--counter-bg);
+  --color-counter-label: var(--counter-label);
+  --color-counter-bg-hover-click: var(--counter-bg-hover-click);
+
+  /* ---- Button Icon ---- */
+  --color-btn-icon-bg-hover: var(--btn-icon-bg-hover);
+
+  /* ---- Option Selector Button ---- */
+  --color-btn-option-selection-bg: var(--btn-option-selection-bg);
+  --color-btn-option-selection-label: var(--btn-option-selection-label);
+  --color-btn-option-selection-bg-hover: var(--btn-option-selection-bg-hover);
+  --color-btn-option-selection-label-hover: var(--btn-option-selection-label-hover);
+  --color-btn-option-selection-bg-selected: var(--btn-option-selection-bg-selected);
+  --color-btn-option-selection-label-selected: var(--btn-option-selection-label-selected);
+
+  /* ---- Card ---- */
+  --color-card-surface: var(--card-surface);
+  --color-card-surface-hover: var(--card-surface-hover);
+  --color-card-content-text: var(--card-content-text);
+  --color-card-content-text-hover: var(--card-content-text-hover);
+  --color-card-btn: var(--card-btn);
+  --color-card-btn-hover-click: var(--card-btn-hover-click);
+
+  /* ---- Block ---- */
+  --color-block-surface: var(--block-surface);
+  --color-block-content-text: var(--block-content-text);
+
+  /* ---- Functional ---- */
+  --color-error-content: var(--error-content);
+  --color-error-bg: var(--error-bg);
+  --color-success-content: var(--success-content);
+  --color-success-bg: var(--success-bg);
+
+  /* ---- Filter Panel ---- */
+  --color-filter-chip-bg: var(--filter-chip-bg);
+  --color-filter-chip-label: var(--filter-chip-label);
+  --color-filter-chip-bg-hover: var(--filter-chip-bg-hover);
+  --color-filter-chip-label-hover: var(--filter-chip-label-hover);
+  --color-filter-chip-bg-selected: var(--filter-chip-bg-selected);
+  --color-filter-chip-label-selected: var(--filter-chip-label-selected);
+  --color-filter-chip-bg-selected-hover: var(--filter-chip-bg-selected-hover);
+  --color-filter-chip-label-selected-hover: var(--filter-chip-label-selected-hover);
+  --color-filter-panel-stroke: var(--filter-panel-stroke);
+  --color-price-filter-stroke: var(--price-filter-stroke);
+  --color-price-filter-bg: var(--price-filter-bg);
+  --color-price-filter-label: var(--price-filter-label);
+  --color-price-filter-bg-hover: var(--price-filter-bg-hover);
+  --color-price-filter-label-hover: var(--price-filter-label-hover);
+  --color-price-filter-bg-selected: var(--price-filter-bg-selected);
+  --color-price-filter-label-selected: var(--price-filter-label-selected);
+  --color-price-filter-bg-selected-hover: var(--price-filter-bg-selected-hover);
+  --color-price-filter-label-selected-hover: var(--price-filter-label-selected-hover);
+  --color-price-dd-bg: var(--price-dd-bg);
+  --color-price-dd-label: var(--price-dd-label);
+  --color-price-dd-bg-hover: var(--price-dd-bg-hover);
+  --color-price-dd-label-hover: var(--price-dd-label-hover);
+  --color-price-dd-bg-selected: var(--price-dd-bg-selected);
+  --color-price-dd-label-selected: var(--price-dd-label-selected);
+  --color-price-dd-bg-selected-hover: var(--price-dd-bg-selected-hover);
+  --color-price-dd-label-selected-hover: var(--price-dd-label-selected-hover);
+
+  /* ---- Search ---- */
+  --color-search-bg: var(--search-bg);
+  --color-search-bg-hover: var(--search-bg-hover);
+  --color-search-bg-focused: var(--search-bg-focused);
+  --color-search-stroke-focused: var(--search-stroke-focused);
+  --color-search-icon: var(--search-icon);
+  --color-search-input-text: var(--search-input-text);
+  --color-search-close-icon: var(--search-close-icon);
+
+
+  /* ---- Sustainability Tags ---- */
+  --color-tag-transportation-bg: var(--tag-transportation-bg);
+  --color-tag-transportation-bg-hover-click: var(--tag-transportation-bg-hover-click);
+  --color-tag-cultivation-environment-bg: var(--tag-cultivation-environment-bg);
+  --color-tag-cultivation-environment-bg-hover-click: var(--tag-cultivation-environment-bg-hover-click);
+  --color-tag-social-commitment-bg: var(--tag-social-commitment-bg);
+  --color-tag-social-commitment-bg-hover-click: var(--tag-social-commitment-bg-hover-click);
+  --color-tag-supply-chain-fairness-bg: var(--tag-supply-chain-fairness-bg);
+  --color-tag-supply-chain-fairness-bg-hover-click: var(--tag-supply-chain-fairness-bg-hover-click);
+
+  /* ---- Nutmixer Tags ---- */
+  --color-nutmixer-tag-bg-default: var(--nutmixer-tag-bg-default);
+  --color-nutmixer-tag-bg-selected: var(--nutmixer-tag-bg-selected);
+  --color-nutmixer-tag-label-stroke-default: var(--nutmixer-tag-label-stroke-default);
+  --color-nutmixer-tag-label-selected: var(--nutmixer-tag-label-selected);
+
+  /* ---- Lively theme: Mega Cards (card + its LG buttons) ---- */
+  --color-megacard-section-bg: var(--megacard-section-bg);
+  --color-megacard-span-bg: var(--megacard-span-bg);
+  --color-megacard-title-text: var(--megacard-title-text);
+  --color-megacard-title-span-bg: var(--megacard-title-span-bg);
+  --color-megacard-default-text: var(--megacard-default-text);
+  --color-megacard-text-span-bg: var(--megacard-text-span-bg);
+  --color-megacard-btn-primary-bg: var(--megacard-btn-primary-bg);
+  --color-megacard-btn-primary-bg-hover: var(--megacard-btn-primary-bg-hover);
+  --color-megacard-btn-primary-label: var(--megacard-btn-primary-label);
+  --color-megacard-btn-primary-label-hover: var(--megacard-btn-primary-label-hover);
+  --color-megacard-btn-inline-label: var(--megacard-btn-inline-label);
+  --color-megacard-btn-inline-label-hover: var(--megacard-btn-inline-label-hover);
+  --color-megacard-btn-inline-highlight-hover: var(--megacard-btn-inline-highlight-hover);
+  --color-special-surface-color-voucher: var(--special-surface-color-voucher);
+  --color-special-content-text: var(--special-content-text);
+
+}
+
+/* ================================================================
+ *  2e. SPECIAL — [data-special-theme], a parallel theme axis
+ *      Source: "Clrs / Special" (2), special surfaces (voucher, banner).
+ *      forest = default, lilac is pinned per frame.
+ * ================================================================ */
+:root,
+[data-special-theme="forest"] {
+  --special-surface-color-voucher: var(--forest-green-100);
+  --special-content-text: var(--surface-color);
+}
+
+[data-special-theme="lilac"] {
+  --special-surface-color-voucher: var(--lilac-purple-90);
+  --special-content-text: var(--purple-tint-dark-dark);
+}
+
+
+
+/* ================================================================
+ *  4. TAILWIND UTILITY REGISTRATION — STATIC SCALES
+ *     @theme static (not inline): every variable is emitted, also
+ *     when no utility uses it, so var(--…) from the Figma code syntax
+ *     works in hand-written CSS.
+ *     None of these are theme-dependent.
+ * ================================================================ */
+
+@theme static {
+  /* ---- Breakpoints — "Lyt scl / Breakpoints" (Fensterbreite) ----
+     Konstanten: Eine Media-Query kann keine Variable lesen.
+     base (360) hat keine Media-Query, alles ohne Praefix gilt ab 0.
+     initial entfernt die Tailwind-Standards sm, xl und 2xl.
+     Nur Figma: base, calc(md - 1), calc(lg - 1). */
+  --breakpoint-*: initial;
+  --breakpoint-md: 48rem;               /* md   768px */
+  --breakpoint-lg: 64rem;               /* lg  1024px */
+
+  /* ---- Font families (from Text Styles) ---- */
+  --font-display: "LUMOSKY", serif;         /* H1, H2, MegaCard/Lumo, Featured */
+  --font-accent-one: "BROWN NOW ONE", sans-serif;
+  --font-accent-two: "BROWN NOW TWO", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  /* ---- Font sizes — "Typografy" (17), Figma px → rem @ 16px base ----
+     Correct namespace is --text-*, which generates text-<name>.
+     Usage: text-16, text-34, text-60 … */
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-12: 0.75rem;
+  --text-13: 0.8125rem;
+  --text-14: 0.875rem;
+  --text-16: 1rem;
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-22: 1.375rem;
+  --text-24: 1.5rem;
+  --text-26: 1.625rem;
+  --text-30: 1.875rem;
+  --text-32: 2rem;
+  --text-34: 2.125rem;
+  --text-40: 2.5rem;
+  --text-48: 3rem;
+  --text-60: 3.75rem;
+
+  /* ---- Line height — Leading scale (from Text Styles) ----
+     Relative %, min = font height. Figma % / 100 -> unitless.
+     Usage: leading-tight, leading-heading, leading-body, leading-relaxed */
+  --leading-tighter: 0.85; /* 85% — H1 Subtitle (Display, bewusst unter Fonthöhe) */
+  --leading-tight: 1;      /* 100% — single-line: buttons, labels, inputs, nav */
+  --leading-heading: 1.15; /* 115% — wrapping titles/headlines */
+  --leading-body: 1.4;     /* 140% — wrapping body copy */
+  --leading-relaxed: 1.6;  /* 160% — long-form reading (reserve) */
+
+  /* ---- Letter spacing — Tracking scale (from Text Styles) ----
+     Figma % / 100 -> em (scales with font size). */
+  --tracking-tight: -0.02em; /* -2% — display faces (LUMOSKY, BROWN NOW) */
+  --tracking-normal: 0em;    /*  0% — body & UI (Manrope) */
+  --tracking-wide: 0.02em;   /* +2% — small spaced labels (Navigation/Route) */
+
+  /* ---- Spacing — unified Box Spacing + Gaps (identical per step) ----
+     Usage: p-md, px-lg, gap-sm, m-xl …
+     NOTE: v4's dynamic numeric scale stays active, so p-4 also still
+     works and bypasses these tokens. Uncomment the line below to
+     enforce token-only spacing. */
+  /* --spacing-*: initial; */
+  --spacing-zero: 0rem;
+  --spacing-xxxs: 0.125rem; /*  2px */
+  --spacing-xxs: 0.25rem;   /*  4px */
+  --spacing-xs: 0.375rem;   /*  6px */
+  --spacing-sm: 0.5rem;     /*  8px */
+  --spacing-md-sm: 0.75rem; /* 12px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-md-l: 1.25rem;  /* 20px */
+  --spacing-lg: 1.75rem;    /* 28px */
+  --spacing-xl: 2.5rem;     /* 40px */
+  --spacing-xxl: 3rem;      /* 48px */
+  --spacing-xxxl: 3.5rem;   /* 56px */
+
+  /* ---- Breiten — "Lyt scl / Width" ----
+     Namespace --container-* erzeugt w-, min-w- und max-w-.
+     Namen = Code-Syntax (Web) der Figma-Variablen.
+     Gleicher Wert in allen Modi: nur hier.
+     Wert je Modus: hier der base-Wert, :root setzt ab md/lg neu (unten).
+     Verweist die Figma-Variable auf max-w-content, steht hier var(--content-max).
+     min-w-content und max-w-content: eigene @utility in §5.
+     Nur Figma, ohne Token: viewport-range, min-w-screen, max-w-screen, visible-md-up. */
+  --container-block-double-max: var(--content-max); /* Block Element/Double/max-w → max-w-content */
+  --container-block-inline-min: 6rem;         /* Block Element/Inline/min-w  96px */
+  --container-card-min: 15rem;                /* Cards/DefaultSize/min-w  240px */
+  --container-card-max: 24rem;                /* Cards/DefaultSize/max-w  384px */
+  --container-card-img-max: 13rem;            /* Cards/DefaultSize/Img/max-w  208px */
+  --container-card-compact-min: 15rem;        /* Cards/CompactSize/min-w  240px */
+  --container-card-compact-max: 20.5rem;      /* Cards/CompactSize/max-w  328px */
+  --container-card-compact-img-max: 13rem;    /* Cards/CompactSize/Img/max-w  208px */
+  --container-card-small-min: 16rem;          /* Cards/Small/min-w  256px */
+  --container-card-discovery-max: 42rem;      /* Cards/Discovery/max-w  672px */
+  --container-btn-min: 15rem;                 /* Buttons/min-w  240px */
+  --container-nav-block-min: 7rem;            /* Nav/Block/min-w  112px */
+  --container-nav-block-max: 16rem;           /* Nav/Block/max-w  256px */
+  --container-footer-header-max: 28rem;       /* Footer/header-max-w  448px */
+  --container-overlay-message-max: 32rem;     /* Overlay Message/max-w  512px */
+  --container-panel-max: var(--content-max);  /* Panel/max-w → max-w-content */
+  --container-fieldset-min: 15rem;            /* Fieldset/min-w  240px */
+  --container-icon-counter-min: 0.875rem;     /* Icons/Counter/min-w  14px */
+  --container-list-item-img-min: 4.5rem;      /* List Item/Img/min-w  72px */
+  --container-search-max: 37.5rem;            /* Search/max-w  600px */
+  --container-impact-scale-min: 8rem;         /* ImpactScale/min-w  128px */
+  --container-impact-scale-max: 14rem;        /* ImpactScale/max-w  224px */
+  --container-megacard-max: var(--content-max); /* Mega Cards/max-w → max-w-content */
+
+  /* Wert je Modus (base) */
+  --container-block-max: var(--content-max);  /* Block Element/max-w → max-w-content */
+  --container-btn-max: var(--content-max);    /* Buttons/max-w → max-w-content */
+  --container-btn-payment-max: var(--content-max); /* Buttons/Payment/max-w → max-w-content */
+  --container-subscription-management-max: var(--content-max); /* Subscription Management/max-w → max-w-content */
+  --container-nuss-abo-cancellation-status-max: var(--content-max); /* Nuss-AboCancellationStatus/max-w → max-w-content */
+  --container-block-min: 20rem;               /* Block Element/min-w  320px */
+  --container-overlay-message-min: 20rem;     /* Overlay Message/min-w  320px */
+  --container-panel-min: 20rem;               /* Panel/min-w  320px */
+  --container-product-page-column-min: 20rem; /* Product Page/column-min-w  320px */
+  --container-megacard-min: 20rem;            /* Mega Cards/min-w  320px */
+}
+/* ---- Breitenbereiche — Pin an :root ----
+   Entspricht dem Modus-Pin an Templates / Page in Figma.
+   Werte base · md · lg aus "Lyt scl / Width". */
+:root {
+  --content-min: 20rem;                       /* min-w-content  320px */
+  --content-max: 48rem;                       /* max-w-content  768px → Breakpoints/md */
+  @variant md {
+    --container-block-max: 32rem;             /* 512px */
+    --container-btn-max: 32rem;               /* 512px */
+    --container-btn-payment-max: 28rem;       /* 448px */
+    --container-subscription-management-max: 40rem; /* 640px */
+    --container-nuss-abo-cancellation-status-max: 24rem; /* 384px */
+    --container-block-min: 20rem;
+    --container-overlay-message-min: 24rem;
+    --container-panel-min: 24rem;
+    --container-product-page-column-min: 20.5rem;
+    --container-megacard-min: 26.5rem;
+    --content-min: 45.5rem;                   /* 728px */
+    --content-max: 64rem;                     /* 1024px → Breakpoints/lg */
+  }
+  @variant lg {
+    --container-block-max: 32rem;             /* 512px */
+    --container-btn-max: 32rem;               /* 512px */
+    --container-btn-payment-max: 28rem;       /* 448px */
+    --container-subscription-management-max: 40rem; /* 640px */
+    --container-nuss-abo-cancellation-status-max: 24rem; /* 384px */
+    --container-block-min: 24rem;
+    --container-overlay-message-min: 24rem;
+    --container-panel-min: 24rem;
+    --container-product-page-column-min: 20.5rem;
+    --container-megacard-min: 26.5rem;
+    --content-min: 61.5rem;                   /* 984px */
+    --content-max: 78rem;                     /* 1248px → [twuc]-312 */
+  }
+}
+
+
+
+/* ================================================================
+ *  5. HEIGHT AND CONTENT-WIDTH UTILITIES — @utility
+ *     v4 has no height theme namespace, so fixed/min/max heights are
+ *     declared explicitly. Values come from §2d.
+ *     min-w-content / max-w-content carry the Figma names as class names.
+ *     A --container-content token would also create min-w-content with
+ *     the maximum value, so both are declared explicitly. Values: §4.
+ * ================================================================ */
+
+@utility max-w-content { max-width: var(--content-max); }
+@utility min-w-content { min-width: var(--content-min); }
+
+@utility h-btn-lg      { height: var(--height-btn-lg); }
+@utility h-btn-md      { height: var(--height-btn-md); }
+@utility h-btn-sm      { height: var(--height-btn-sm); }
+@utility h-btn-x-sm    { height: var(--height-btn-x-sm); }
+@utility h-btn-xx-sm   { height: var(--height-btn-xx-sm); }
+@utility h-btn-xxxx-sm { height: var(--height-btn-xxxx-sm); }
+
+@utility h-input-inline { height: var(--height-input-inline); }
+@utility h-input-search { height: var(--height-input-search); }
+
+@utility min-h-card-md { min-height: var(--height-card-md-min); }
+@utility max-h-card-md { max-height: var(--height-card-md-max); }
+
+
+/* ================================================================
+ *  6. TEXT STYLES — @utility type-*, one class per Figma text style
+ *     Class name = style name in kebab case with the prefix type-:
+ *     "/" and spaces become "-", camel case is split, "&" is dropped.
+ *     Example: "ShoppingCart & Checkout/MainHeadline"
+ *              → type-shopping-cart-checkout-main-headline
+ *     Values come from §4 (--font-*, --text-*, --leading-*, --tracking-*).
+ *     Paragraph spacing: & + & (between two paragraphs of the same style).
+ *     Generated with token-check/token_check.py --emit-type.
+ * ================================================================ */
+
+@utility type-h1 { /* H1 */
+  font-family: var(--font-display);
+  font-size: var(--text-48);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h1-subtitle { /* H1 Subtitle */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-40);
+  font-weight: 400;
+  line-height: var(--leading-tighter);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h2 { /* H2 */
+  font-family: var(--font-display);
+  font-size: var(--text-24);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h2-alternative { /* H2 Alternative */
+  font-family: var(--font-accent-one);
+  font-size: var(--text-22);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-navigation-route { /* Navigation/Route */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wide);
+  text-decoration-line: underline;
+}
+@utility type-navigation-full-screen-shipping-costs { /* Navigation/FullScreen/ShippingCosts */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-navigation-full-screen-main-category { /* Navigation/FullScreen/MainCategory */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+}
+@utility type-navigation-full-screen-sub-category { /* Navigation/FullScreen/SubCategory */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-navigation-side-navigation-main-category { /* Navigation/SideNavigation/MainCategory */
+  font-family: var(--font-body);
+  font-size: var(--text-13);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+}
+@utility type-navigation-side-navigation-sub-category { /* Navigation/SideNavigation/SubCategory */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-buttons-lg { /* Buttons/LG */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-34);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-buttons-lg-underlined { /* Buttons/LG Underlined */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-34);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-decoration-line: underline;
+}
+@utility type-buttons-md { /* Buttons/MD */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-24);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-buttons-sm { /* Buttons/SM */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-cards-product-title { /* Cards/ProductTitle */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+}
+@utility type-cards-md { /* Cards/MD */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-22);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+@utility type-cards-light { /* Cards/Light */
+  font-family: var(--font-body);
+  font-size: var(--text-10);
+  font-weight: 300;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-cards-mega-card-body { /* Cards/MegaCard/Body */
+  font-family: var(--font-body);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  & + & { margin-top: 1.625rem; }
+}
+@utility type-cards-mega-card-lumo { /* Cards/MegaCard/Lumo */
+  font-family: var(--font-display);
+  font-size: var(--text-40);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-cards-blog-title { /* Cards/Blog/Title */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-cards-featured-title { /* Cards/Featured/Title */
+  font-family: var(--font-display);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-table-th { /* Table/<th> */
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-table-cell { /* Table/Cell */
+  font-family: var(--font-body);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-product-title { /* ProductPage/ProductTitle */
+  font-family: var(--font-body);
+  font-size: var(--text-24);
+  font-weight: 800;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-hightlighted { /* ProductPage/Hightlighted */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 800;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-dropdown-summary { /* ProductPage/Dropdown/Summary */
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-dropdown-h3-manufacturer-name { /* ProductPage/Dropdown/H3 ManufacturerName */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-dropdown-body-text-responce { /* ProductPage/Dropdown/BodyText - Responce */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-product-page-dropdown-h4-question { /* ProductPage/Dropdown/H4 Question */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-shopping-cart-checkout-main-headline { /* ShoppingCart & Checkout/MainHeadline */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-34);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-shopping-cart-checkout-headline { /* ShoppingCart & Checkout/Headline */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-shopping-cart-checkout-body { /* ShoppingCart & Checkout/Body */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 500;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-shopping-cart-checkout-hightlighted { /* ShoppingCart & Checkout/Hightlighted */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-shopping-cart-checkout-subtle { /* ShoppingCart & Checkout/Subtle */
+  font-family: var(--font-body);
+  font-size: var(--text-11);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-input-label-default { /* Input/LabelDefault */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-input-label-sm { /* Input/Label SM */
+  font-family: var(--font-body);
+  font-size: var(--text-10);
+  font-weight: 300;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-input-input-text { /* Input/InputText */
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-input-warning-default-text { /* Input/Warning&DefaultText */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-label-default { /* Label/default */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-comment-body-text { /* Comment/BodyText */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-comment-name-time { /* Comment/Name&Time */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-user-message-default { /* UserMessage/Default */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-user-message-lg { /* UserMessage/LG */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-price-range-filter-label { /* PriceRangeFilter/Label */
+  font-family: var(--font-body);
+  font-size: var(--text-10);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-data-blocks-summary-item-title { /* DataBlocks/SummaryItemTitle */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 300;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-data-blocks-summary-item-content { /* DataBlocks/SummaryItemContent */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-h2-subtitle { /* H2 Subtitle */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h3 { /* H3 */
+  font-family: var(--font-accent-one);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h3-subtitle { /* H3 Subtitle */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-default-text-lg { /* DefaultText LG */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 300;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  & + & { margin-top: var(--spacing-md); }
+}
+@utility type-default-text-md { /* DefaultText MD */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  & + & { margin-top: var(--spacing-md); }
+}
+@utility type-default-text-s { /* DefaultText S */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 300;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-bullet-points { /* BulletPoints */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-comment { /* Comment */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 300;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-link { /* Link */
+  font-family: var(--font-body);
+  font-size: var(--text-16);
+  font-weight: 600;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
+  text-decoration-line: underline;
+}
+@utility type-buttons-x-sm { /* Buttons/X-SM */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-18);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-buttons-xx-sm { /* Buttons/XX-SM */
+  font-family: var(--font-accent-one);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-buttons-xx-sm-underlined { /* Buttons/XX-SM underlined */
+  font-family: var(--font-accent-one);
+  font-size: var(--text-14);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-decoration-line: underline;
+}
+@utility type-buttons-quantity-packaging { /* Buttons/Quantity&Packaging */
+  font-family: var(--font-body);
+  font-size: var(--text-14);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-normal);
+}
+@utility type-buttons-xxxs-inline { /* Buttons/XXXS Inline */
+  font-family: var(--font-accent-one);
+  font-size: var(--text-12);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-label-selected { /* Label/Selected */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-16);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-user-message-x-lg { /* UserMessage/X-LG */
+  font-family: var(--font-accent-two);
+  font-size: var(--text-20);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h2-produktkategorie { /* H2 Produktkategorie */
+  font-family: var(--font-display);
+  font-size: var(--text-40);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-navigation-endpoint { /* Navigation/Endpoint */
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-wide);
+}

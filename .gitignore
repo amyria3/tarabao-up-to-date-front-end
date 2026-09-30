@@ -1,0 +1,36 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# next.js
+/.next/
+/out/
+/build
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+.swc
+
+# debug
+npm-debug.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env.local
+.env*.local
+
+# storybook
+*storybook.log
+storybook-static

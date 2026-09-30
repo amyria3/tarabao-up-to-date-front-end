@@ -1,0 +1,26 @@
+/* Storybook lädt kein next/font. Die Tokens in globals.css fallen deshalb auf
+   die Figma-Familiennamen zurück; diese @font-face-Regeln liefern sie. */
+@font-face {
+  font-family: 'LUMOSKY';
+  src: url('../src/styles/fonts/LUMOSKY-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BROWN NOW ONE';
+  src: url('../src/styles/fonts/BrownNowOne.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BROWN NOW TWO';
+  src: url('../src/styles/fonts/BrownNowTwo.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Manrope';
+  src: url('../src/styles/fonts/Manrope-Variable-latin.woff2') format('woff2');
+  font-weight: 200 800;
+  font-display: swap;
+}
