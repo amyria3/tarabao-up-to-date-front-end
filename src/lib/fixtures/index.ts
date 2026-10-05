@@ -27,6 +27,7 @@ import type {
   TeaserModel,
   VoucherModel,
 } from '@/lib/view-models'
+import { slugify } from '@/lib/shop/routes'
 
 export const PRODUCTS: ProductCardModel[] = [
   {
@@ -81,25 +82,25 @@ export const MEGA_CARDS: Record<'orange-black' | 'blue-green' | 'happy-yellow' |
     titleLines: ['Wenn einfach ALLES', 'stimmt'],
     body: 'Manchmal trifft man Menschen oder Unternehmen, die einfach alles haben: Werte, Vision und den Willen, die Welt ein kleines Stück besser zu machen. Genau so ging es uns mit [Amanase](/de-de/blog/amanase), unserem Partner in Sachen [fairer Schokolade](/de-de/collections/suesse-snacks). Warum wir soooooooo begeistert sind?',
     ctaLabel: 'default label',
-    href: '/de-de/blog/amanase',
+    href: '/de-de/blog/vegane-pistazienschnecken',
   },
   'purple-black': {
     titleLines: ['Wir achten', 'auf Verpackung'],
     body: 'Wir nutzen **Pfandeimer**, **Pfandgläser**, **Großgebinde**, und **Papiertüten** als Verpackungsarten und optimieren unsere Verpackungen stetig: Nachhaltigkeit war und bleibt unser wichtigstes Anliegen',
     ctaLabel: 'default label',
-    href: '/de-de/nachhaltigkeit/verpackung',
+    href: '/de-de/verpackungen',
   },
   'blue-green': {
     titleLines: ['Wir achten', 'auf Verpackung'],
     body: 'Wir nutzen **Pfandeimer**, **Pfandgläser**, **Großgebinde**, und **Papiertüten** als Verpackungsarten und optimieren unsere Verpackungen stetig: Nachhaltigkeit war und bleibt unser wichtigstes Anliegen',
     ctaLabel: 'default label',
-    href: '/de-de/nachhaltigkeit/verpackung',
+    href: '/de-de/verpackungen',
   },
   'happy-yellow': {
     titleLines: ['Der Charme', 'selbstgemachter', 'Geschenke'],
     body: 'Jetzt wird’s lecker! Unsere Geschenkidee sind **Cookie-Zutaten in der Flasche**: Die perfekte Lösung für alle, die ihren Liebsten eine süße Überraschung bereiten möchten, ohne dabei selbst stundenlang in der Küche zu stehen. Du verschenkst dabei **alle benötigten “trockenen” Zutaten** für ein saftiges Cookie-Rezept.',
     ctaLabel: 'default label',
-    href: '/de-de/geschenke',
+    href: '/de-de/store',
   },
 }
 
@@ -108,7 +109,7 @@ export const MEGA_CARD: MegaCardModel = MEGA_CARDS['orange-black']
 export const BLOG_POST: TeaserModel = {
   id: 'blog_wandern',
   title: 'Reaction: Perfekter Snack fürs Wandern',
-  href: '/de-de/blog/wandern',
+  href: '/de-de/blog/vegane-pistazienschnecken',
 }
 
 /** Figma Cards / ReviewCard: Reactions?=False */
@@ -153,7 +154,7 @@ export const DISCOVERY: TeaserModel = {
   id: 'disc_1',
   title: 'Interessanter Name',
   subtitle: 'Feature, Titel oder Benefit',
-  href: '/de-de/entdecken',
+  href: '/de-de/unser-team',
   facts: [
     {
       question: 'Was verbindet Dich mit Tarabao?',
@@ -206,7 +207,7 @@ export const PURCHASE_ARRIVED: PurchaseModel = {
 
 const cat = (slug: string) => `/de-de/categories/${slug}`
 const links = (base: string, labels: string[]): NavLinkModel[] =>
-  labels.map((label, i) => ({ label, href: i === 0 ? cat(base) : `${cat(base)}#${i}` }))
+  labels.map((label, i) => ({ label, href: i === 0 ? cat(base) : `${cat(base)}/${slugify(label)}` }))
 
 /** Reihenfolge wie im Figma-Raster (Navigation / Nav, Zeile für Zeile) */
 export const NAV_GROUPS: NavGroupModel[] = [
@@ -291,8 +292,8 @@ export const FOOTER: FooterModel = {
     id: 'about',
     title: 'Wer wir sind und was wir verkaufen',
     links: [
-      { label: 'Unser Team', href: page('team') },
-      { label: 'Unser Team', href: page('team') },
+      { label: 'Über uns', href: page('ueber-uns') },
+      { label: 'Unser Team', href: page('unser-team') },
       { label: 'Unsre Partnerschaften', href: page('partnerschaften') },
       { label: 'Item', href: '#' },
       { label: 'Item', href: '#' },
@@ -307,8 +308,8 @@ export const FOOTER: FooterModel = {
     id: 'service',
     title: 'Kundenservice',
     links: [
-      { label: 'Versandrichtlinien', href: page('versand') },
-      { label: 'Hilfebereich', href: page('hilfe') },
+      { label: 'Versandrichtlinien', href: page('versandrichtlinien') },
+      { label: 'Barrierefreiheit', href: page('barrierefreiheit') },
       { label: 'B2B Bereich', href: page('b2b') },
     ],
   },
@@ -316,23 +317,23 @@ export const FOOTER: FooterModel = {
     id: 'contact',
     title: 'Kontakt',
     links: [
-      { label: 'Kontakt', href: page('kontakt') },
+      { label: 'Kontakt', href: page('teams') + '#kontakt' },
       { label: 'Instagram', href: 'https://www.instagram.com/' },
       { label: 'B2B Bereich', href: page('b2b') },
-      { label: 'Hilfebereich', href: page('hilfe') },
+      { label: 'Barrierefreiheit', href: page('barrierefreiheit') },
     ],
   },
   legal: {
     id: 'legal',
     title: 'Rechtlich relevante Informationen',
     links: [
-      { label: 'Versandrichtlinien', href: page('versand') },
-      { label: 'Hilfebereich', href: page('hilfe') },
+      { label: 'Versandrichtlinien', href: page('versandrichtlinien') },
+      { label: 'Barrierefreiheit', href: page('barrierefreiheit') },
       { label: 'B2B Bereich', href: page('b2b') },
       { label: 'Impressum', href: page('impressum') },
-      { label: 'Widerrufsrecht', href: page('widerruf') },
+      { label: 'Widerrufsrecht', href: page('widerrufsrecht') },
       { label: 'Allgemeine Geschäftsbedingungen', href: page('agb') },
-      { label: 'Datenschutzerklärung', href: page('datenschutz') },
+      { label: 'Datenschutzerklärung', href: page('datenschutzerklaerung') },
     ],
   },
 }

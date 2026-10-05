@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { LIBRARY } from '@/library/registry'
 import { CategoryEntries } from '@/library/category-view'
 import { CATEGORIES, type CategoryKey } from '@/library/types'
+import { routes } from '@/lib/shop/routes'
 
 type Params = { countryCode: string; category: string }
 
@@ -27,7 +28,8 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   return (
     <main className="mx-auto flex w-full max-w-content flex-col gap-xl px-md-l py-xl">
       <nav className="type-navigation-route text-content-weak">
-        <Link href={`/${countryCode}`}>Bibliothek</Link> / {cat.title}
+        <Link href={routes(countryCode).home}>Shop</Link> / <Link href={routes(countryCode).library}>Bibliothek</Link> /{' '}
+        {cat.title}
       </nav>
       <header className="flex flex-col gap-sm">
         <h1 className="hyphens-auto break-words type-h1 text-content-loud-headline">{cat.title}</h1>

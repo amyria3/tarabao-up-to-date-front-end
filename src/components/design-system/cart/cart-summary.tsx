@@ -32,11 +32,6 @@ export interface CartSummaryProps {
 const SUBSCRIPTION_NOTE =
   'Der Betrag wird am Stichtag von Deiner gewählten Zahlungsmethode abgebucht. Bis zum Stichtag kannst Du das Abo jederzeit ohne Angabe von Gründen kündigen oder pausieren. Dein Widerrufsrecht bleibt vom Abo unberührt.'
 
-/** Summe der Mengen im Warenkorb (Figma: Warenkorb-Symbol zeigt 1–9, ab 10 „9+“). */
-export function cartQuantity(cart: Pick<CartModel, 'items'>): number {
-  return cart.items.reduce((sum, item) => sum + item.quantity, 0)
-}
-
 /**
  * Figma: Components / Cart / Summary (3307:5882) · Cart is empty?, Logging In?.
  * Titel ShoppingCart & Checkout/MainHeadline, dann eine Wrap-Reihe (gap-md-l) aus zwei Blöcken

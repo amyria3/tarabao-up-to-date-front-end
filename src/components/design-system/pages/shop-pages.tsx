@@ -1,6 +1,6 @@
 import type * as React from 'react'
 
-import { CategoryCardSm } from '@/components/design-system/cards/category-card'
+import { CategoryCardMd, CategoryCardSm } from '@/components/design-system/cards/category-card'
 import { FeaturedCard } from '@/components/design-system/cards/content-cards'
 import { ProductCard } from '@/components/design-system/cards/product-card'
 import { CartLogIn, type CartLogInProps } from '@/components/design-system/cart/cart-login'
@@ -8,7 +8,7 @@ import { CheckoutCartOverview } from '@/components/design-system/cart/cart-page'
 import { CheckoutContact } from '@/components/design-system/checkout/checkout-contact'
 import { CheckoutIdentification } from '@/components/design-system/checkout/checkout-identification'
 import { OrderConfirmation } from '@/components/design-system/checkout/order-confirmation'
-import { ContentBasic } from '@/components/design-system/content-modules/content-modules'
+import { ContactForm, ContentBasic, Editorial } from '@/components/design-system/content-modules/content-modules'
 import { Nutmixer, type NutmixerProps } from '@/components/design-system/nutmixer/nutmixer'
 import { ProductHeader } from '@/components/design-system/product/product-header'
 import { DefaultParagraph, HeadlineH1, HeadlineH2 } from '@/components/design-system/primitives/typography'
@@ -282,6 +282,79 @@ export function AccountPage({
       <CollapsibleSection title="Deine Bestellungen" defaultOpen>
         {orders}
       </CollapsibleSection>
+    </PageTemplate>
+  )
+}
+
+/**
+ * Figma: Alle Kategorien (Templates / Page 9250:35515): Templates / Section mit H1 und Templates / Cards Order
+ * (Tiles) aus Cards / CategoryCard / MD (Hauptkategorien) und SM (Unterkategorien, Sammlungen).
+ * Logo und „Zur Startseite“ führen hierher, solange es keine Startseite gibt (offene Punkte 34).
+ */
+export function AllCategoriesPage({
+  chrome,
+  title = 'Alle Kategorien',
+  categories,
+  subcategories = [],
+}: {
+  chrome: Chrome
+  title?: string
+  categories: CategoryCardModel[]
+  subcategories?: CategoryCardModel[]
+}) {
+  return (
+    <PageTemplate {...chrome}>
+      <Section aria-label={title}>
+        <HeadlineH1>{title}</HeadlineH1>
+        <CardsOrder variant="tiles" className="gap-md">
+          {categories.map((c) => (
+            <li key={c.id} className="w-80">
+              <CategoryCardMd category={c} actionLabel="Zur Kategorie" />
+            </li>
+          ))}
+        </CardsOrder>
+        {subcategories.length ? (
+          <CardsOrder variant="tiles" className="gap-md">
+            {subcategories.map((c) => (
+              <li key={c.id} className="w-64">
+                <CategoryCardSm category={c} />
+              </li>
+            ))}
+          </CardsOrder>
+        ) : null}
+      </Section>
+    </PageTemplate>
+  )
+}
+
+/**
+ * Figma: Unternehmensseiten (B2B, Tarabao für Dein Team, Über uns, Unser Team, Unser Ansatz, Partnerschaften,
+ * Nachhaltigkeit, Verpackungen, Karriere): Templates / Page mit ContentModules (Editorial, MediaText,
+ * CustomContentWithText, CTA, ContactForm) in Sections / CMS(CustomSection).
+ */
+export function CompanyPage({
+  chrome,
+  title,
+  intro,
+  sections,
+  contact = false,
+}: {
+  chrome: Chrome
+  title: string
+  intro: string
+  sections: { headline: string; text: string }[]
+  contact?: boolean
+}) {
+  return (
+    <PageTemplate {...chrome}>
+      <Section aria-label={title}>
+        <HeadlineH1>{title}</HeadlineH1>
+        <DefaultParagraph size="lg">{intro}</DefaultParagraph>
+        {sections.map((s) => (
+          <Editorial key={s.headline} headline={s.headline} headlineType="h2" columns={[s.text]} />
+        ))}
+        {contact ? <ContactForm /> : null}
+      </Section>
     </PageTemplate>
   )
 }
