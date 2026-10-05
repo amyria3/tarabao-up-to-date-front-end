@@ -6,8 +6,10 @@ import path from 'node:path'
 
 const root = path.resolve(import.meta.dirname, '..')
 const entriesDir = path.join(root, 'src/library/entries')
-const componentsDir = path.join(root, 'src/components')
+const componentsDirs = [path.join(root, 'src/components'), path.join(root, 'src/modules')]
 const FILE_KEY = 'rLwATluwV4CSS5rXceLptH'
+// Gegenstücke in apps/medusa-storefront je Datei (gleicher Pfad = gleiche Komponente)
+const counterparts = JSON.parse(readFileSync(path.join(root, 'scripts/storefront-counterparts.json'), 'utf8'))
 
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
@@ -20,7 +22,7 @@ function walk(dir, out = []) {
 }
 
 const exportsIndex = new Map()
-for (const file of walk(componentsDir)) {
+for (const file of componentsDirs.flatMap((d) => walk(d))) {
   const text = readFileSync(file, 'utf8')
   const names = [...text.matchAll(/export (?:function|const) ([A-Z][A-Za-z0-9]*)/g)].map((m) => m[1])
   for (const m of text.matchAll(/export \{([^}]+)\}/g)) {
@@ -76,17 +78,20 @@ const esc = (s) => s.replace(/\|/g, '\\|')
 let md = `# Zuordnung Figma → Code
 
 Diese Tabelle erzeugt \`pnpm gen:mapping\` aus den Einträgen der Bibliothek (\`src/library/entries\`).
-Jede Zeile nennt die Figma-Komponente, ihren Knoten in „B2C und CI“, die React-Komponente, die Datei
-und den Anker in der Bibliothek (\`/de-de/library/<kategorie>#<anker>\`).
+Jede Zeile nennt die Figma-Komponente, ihren Knoten in „B2C und CI“, die React-Komponente, die Datei,
+ihr Gegenstück in \`apps/medusa-storefront\` (aus \`scripts/storefront-counterparts.json\`; „gleich“ = derselbe Pfad)
+und den Anker in der Bibliothek (\`/de-de/page/komponenten-<kategorie>#<anker>\`).
 
-| Kategorie | Figma | Knoten | Komponente | Datei | Bibliothek |
-| --- | --- | --- | --- | --- | --- |
+| Kategorie | Figma | Knoten | Komponente | Datei | Storefront | Bibliothek |
+| --- | --- | --- | --- | --- | --- | --- |
 `
 for (const r of rows) {
   const node = r.nodeId
     ? `[${r.nodeId}](https://www.figma.com/design/${FILE_KEY}/B2C-und-CI?node-id=${r.nodeId.replace(':', '-')})`
     : '–'
-  md += `| ${r.cat} | ${esc(r.figma)} | ${node} | ${r.comp ? '`' + r.comp + '`' : '–'} | ${r.file ? '`' + r.file + '`' : '–'} | \`${r.cat}#${r.id}\` |\n`
+  const twin = r.file ? counterparts[r.file] : undefined
+  const sf = twin ? (twin === r.file ? 'gleich' : '`' + twin + '`') : '–'
+  md += `| ${r.cat} | ${esc(r.figma)} | ${node} | ${r.comp ? '`' + r.comp + '`' : '–'} | ${r.file ? '`' + r.file + '`' : '–'} | ${sf} | \`${r.cat}#${r.id}\` |\n`
 }
 writeFileSync(path.join(root, 'docs/MAPPING.md'), md)
 console.log(`docs/MAPPING.md — ${rows.length} Einträge`)

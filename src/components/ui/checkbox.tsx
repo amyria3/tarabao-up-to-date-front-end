@@ -3,7 +3,7 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import * as React from 'react'
 
-import { IconCheck30 } from '@/components/design-system/icons/figma-icons'
+import { IconCheck30 } from '@/components/icons/figma-icons'
 import type { GlobalTheme } from '@/lib/design-system/themes'
 import { cn } from '@/lib/utils'
 

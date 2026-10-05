@@ -2,7 +2,7 @@ import { LIBRARY } from '@/library/registry'
 import { Entry, EntryHeader } from '@/library/showcase'
 import type { CategoryKey } from '@/library/types'
 
-/** Alle Einträge einer Kategorie. Genutzt von der Bibliotheksseite und von Storybook. */
+/** Alle Einträge einer Kategorie. Genutzt von der Komponenten-Bibliothek unter /page/komponenten-<kategorie>. */
 export function CategoryEntries({ category, only }: { category: CategoryKey; only?: string }) {
   const entries = LIBRARY[category].filter((e) => !only || e.id === only)
   return (

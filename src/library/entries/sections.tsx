@@ -1,18 +1,17 @@
-import { AccountDataBlock, AccountSummaryItem } from '@/components/design-system/account/account-data-block'
-import { PromotionPostCard, PurchaseCard } from '@/components/design-system/cards/content-cards'
-import { VoucherCard } from '@/components/design-system/cards/voucher-card'
-import { OrderOverview } from '@/components/design-system/checkout/order-overview'
-import {
-  ContactForm,
-  ContentBasic,
-  ContentCta,
-  Editorial,
-  MediaText,
-} from '@/components/design-system/content-modules/content-modules'
-import { Ingredients, NutritionTable } from '@/components/design-system/product/product-info'
-import { ProductHeader } from '@/components/design-system/product/product-header'
-import { BulletedList, DefaultParagraph } from '@/components/design-system/primitives/typography'
-import { CollapsibleSection, NussAboSection } from '@/components/design-system/sections/account-sections'
+import { AccountDataBlock, AccountSummaryItem } from '@modules/account/components/account-data-block'
+import { PromotionPostCard } from '@/components/ui/promotion-post-card'
+import { PurchaseCard } from '@modules/account/components/purchase-card'
+import { VoucherCard } from '@modules/account/components/voucher-card'
+import { OrderOverview } from '@modules/checkout/components/order-overview'
+import { ContactForm } from '@/components/LexicalRenderers/ContactForm'
+import { ContentBasic } from '@/components/LexicalRenderers/ContentBasic'
+import { ContentCta } from '@/components/LexicalRenderers/ContentCta'
+import { Editorial } from '@/components/LexicalRenderers/Editorial'
+import { MediaText } from '@/components/LexicalRenderers/MediaText'
+import { Ingredients, NutritionTable } from '@modules/products/components/product-info'
+import { ProductHeader } from '@modules/products/components/product-header'
+import { BulletedList, DefaultParagraph } from '@/components/ui/typography'
+import { CollapsibleSection, NussAboSection } from '@modules/account/components/account-sections'
 import {
   BlogCardsSection,
   CustomerReviewedProductsSection,
@@ -21,21 +20,21 @@ import {
   FeaturedCardRow,
   ProductCardRow,
   ReviewCardsColumn,
-} from '@/components/design-system/sections/card-rows'
-import { CmsSection, SustainabilitySection } from '@/components/design-system/sections/cms-sections'
-import { ImageCarouselSection } from '@/components/design-system/sections/image-carousel'
-import { MegaCardsSection } from '@/components/design-system/sections/mega-cards'
-import { CategoryPreview } from '@/components/design-system/sections/category-preview'
+} from '@/components/LexicalRenderers/CardRow'
+import { CmsSection, SustainabilitySection } from '@/components/LexicalRenderers/CmsSection'
+import { ImageCarouselSection } from '@/components/LexicalRenderers/ImageCarousel'
+import { MegaCardsSection } from '@/components/LexicalRenderers/MegaCards'
+import { CategoryPreview } from '@modules/categories/components/category-preview'
 import {
   AccordionSection,
   ProductTabsSection,
   SectionTabsAsAccordion,
   ShiftBetweenContent,
-} from '@/components/design-system/sections/product-sections'
-import { ProductCard } from '@/components/design-system/cards/product-card'
-import { CategoryCardSm } from '@/components/design-system/cards/category-card'
-import { SearchAndFilter } from '@/components/design-system/sections/search-and-filter'
-import { ProductImage } from '@/components/design-system/visuals/product-image'
+} from '@modules/products/components/product-tabs'
+import { ProductCard } from '@modules/products/components/product-card'
+import { CategoryCardSm } from '@modules/categories/components/category-card'
+import { SearchAndFilter } from '@modules/search/components/search-and-filter'
+import { ProductImage } from '@modules/products/components/product-image'
 import { addressLines } from '@/lib/checkout/address'
 import {
   ADDRESS,

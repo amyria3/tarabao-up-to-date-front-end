@@ -88,13 +88,13 @@ export const MEGA_CARDS: Record<'orange-black' | 'blue-green' | 'happy-yellow' |
     titleLines: ['Wir achten', 'auf Verpackung'],
     body: 'Wir nutzen **Pfandeimer**, **Pfandgläser**, **Großgebinde**, und **Papiertüten** als Verpackungsarten und optimieren unsere Verpackungen stetig: Nachhaltigkeit war und bleibt unser wichtigstes Anliegen',
     ctaLabel: 'default label',
-    href: '/de-de/verpackungen',
+    href: '/de-de/page/verpackungen',
   },
   'blue-green': {
     titleLines: ['Wir achten', 'auf Verpackung'],
     body: 'Wir nutzen **Pfandeimer**, **Pfandgläser**, **Großgebinde**, und **Papiertüten** als Verpackungsarten und optimieren unsere Verpackungen stetig: Nachhaltigkeit war und bleibt unser wichtigstes Anliegen',
     ctaLabel: 'default label',
-    href: '/de-de/verpackungen',
+    href: '/de-de/page/verpackungen',
   },
   'happy-yellow': {
     titleLines: ['Der Charme', 'selbstgemachter', 'Geschenke'],
@@ -139,7 +139,7 @@ export const FEATURED: TeaserModel = {
   id: 'feat_unverpackt',
   title: 'Für Bio- und Unverpackt Läden',
   body: 'Verkauf von Nüssen, Trockenfrüchten, Snacks und vielem mehr – unverpackt oder verpackt.',
-  href: '/de-de/b2b',
+  href: '/de-de/page/b2b',
   linkLabel: 'Mehr erfahren',
 }
 
@@ -154,7 +154,7 @@ export const DISCOVERY: TeaserModel = {
   id: 'disc_1',
   title: 'Interessanter Name',
   subtitle: 'Feature, Titel oder Benefit',
-  href: '/de-de/unser-team',
+  href: '/de-de/page/unser-team',
   facts: [
     {
       question: 'Was verbindet Dich mit Tarabao?',
@@ -207,7 +207,7 @@ export const PURCHASE_ARRIVED: PurchaseModel = {
 
 const cat = (slug: string) => `/de-de/categories/${slug}`
 const links = (base: string, labels: string[]): NavLinkModel[] =>
-  labels.map((label, i) => ({ label, href: i === 0 ? cat(base) : `${cat(base)}/${slugify(label)}` }))
+  labels.map((label, i) => ({ label, href: cat(i === 0 ? base : slugify(label)) }))
 
 /** Reihenfolge wie im Figma-Raster (Navigation / Nav, Zeile für Zeile) */
 export const NAV_GROUPS: NavGroupModel[] = [
@@ -224,11 +224,15 @@ export const NAV_GROUPS: NavGroupModel[] = [
       'Würzige Snacks',
     ]),
   },
-  { id: 'nussmus', title: 'Nussmus & Nusscremes', links: links('nussmus', ['Alle', 'Nussmus', 'Nusscreme']) },
+  {
+    id: 'nussmus',
+    title: 'Nussmus & Nusscremes',
+    links: links('nussmus-und-nusscremes', ['Alle', 'Nussmus', 'Nusscreme']),
+  },
   {
     id: 'schokolade',
     title: 'Schokolade & Süße Kreationen',
-    links: links('schokolade', [
+    links: links('schokolade-und-suesse-kreationen', [
       'Alle',
       'Tafelschokolade',
       'Schokodrops',
@@ -252,26 +256,32 @@ export const NAV_GROUPS: NavGroupModel[] = [
   {
     id: 'getreide',
     title: 'Getreide, Saaten & Müsli',
-    links: links('getreide', ['Alle', 'Saaten', 'Hülsenfrüchte', 'Getreide & Pseudo-Getreide', 'Müsli & Granola']),
+    links: links('getreide-saaten-und-muesli', [
+      'Alle',
+      'Saaten',
+      'Hülsenfrüchte',
+      'Getreide & Pseudo-Getreide',
+      'Müsli & Granola',
+    ]),
   },
   {
     id: 'feinkost',
     title: 'Feinkost von silver leaf',
-    links: links('feinkost', ['Alle', 'Olivenöl', 'Oliven & Tomaten', 'Pasten', 'Meersalz']),
+    links: links('feinkost-von-silver-leaf', ['Alle', 'Olivenöl', 'Oliven & Tomaten', 'Pasten', 'Meersalz']),
   },
   { id: 'aufbewahrung', title: 'Aufbewahrung', links: links('aufbewahrung', ['Alle']) },
   {
     id: 'pulver',
     title: 'Pulver & Süßungsmittel',
-    links: links('pulver', ['Alle', 'Pflanzendrink-Pulver', 'Proteinpulver', 'Süßungsmittel']),
+    links: links('pulver-und-suessungsmittel', ['Alle', 'Pflanzendrink-Pulver', 'Proteinpulver', 'Süßungsmittel']),
   },
   {
     id: 'andere',
     links: [
-      { label: 'B2B Shop', href: '/de-de/b2b' },
-      { label: 'Teams & Büros', href: '/de-de/teams' },
+      { label: 'B2B Shop', href: '/de-de/page/b2b' },
+      { label: 'Teams & Büros', href: '/de-de/page/teams' },
       { label: 'Tarabao Blog', href: '/de-de/blog' },
-      { label: 'Über uns', href: '/de-de/ueber-uns' },
+      { label: 'Über uns', href: '/de-de/page/ueber-uns' },
     ],
   },
   // Figma Navigation / NavBlocks: eine Variante je Hauptkategorie, dazu Andere, Nussmixer und Alle Produkte
@@ -284,7 +294,7 @@ export const PROMO: PromoModel = {
   shortText: 'Versand 2,90 € · ab 49 € gratis',
 }
 
-const page = (slug: string) => `/de-de/${slug}`
+const page = (slug: string) => `/de-de/page/${slug}`
 export const FOOTER: FooterModel = {
   slogan: 'Die besten Snacks - für Dich!',
   sloganCompact: 'Hier kommt die\nSnackrevolution',

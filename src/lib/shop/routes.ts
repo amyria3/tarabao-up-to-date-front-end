@@ -7,24 +7,43 @@ export const DEFAULT_COUNTRY_CODE = 'de-de'
 
 export const COUNTRY_CODES = ['de-de', 'en-de'] as const
 
+/** Slug der Komponenten-Bibliothek unter `/page/…` (nur in Front-End Complete). */
+export const LIBRARY_SLUG = 'komponenten'
+
+/** Schritte der Kasse wie in der Storefront (`/checkout?step=…`). */
+export const CHECKOUT_STEPS = ['email', 'delivery', 'payment', 'review'] as const
+export type CheckoutStep = (typeof CHECKOUT_STEPS)[number]
+
+/** Bestellnummer der Beispielbestellung (Bestellbestätigung, Konto). */
+export const SAMPLE_ORDER_ID = '12493954'
+
 export function routes(countryCode: string = DEFAULT_COUNTRY_CODE) {
   const base = `/${countryCode}`
   return {
     home: base,
+    /** Shop: Übersicht aller Kategorien wie `/categories` in der Storefront */
+    categories: `${base}/categories`,
+    /** Kategorie oder Unterkategorie über ihren flachen Handle wie in Medusa */
+    category: (handle: string) => `${base}/categories/${handle}`,
+    /** Figma {Alle Produkte}; die Storefront hat dafür keine eigene Seite */
     store: `${base}/store`,
-    category: (...slugs: string[]) => `${base}/categories/${slugs.join('/')}`,
     product: (handle: string) => `${base}/products/${handle}`,
+    /** Figma Nuss-Mixer; die Storefront hat dafür keine eigene Seite */
     nutmixer: `${base}/nussmixer`,
     cart: `${base}/cart`,
-    checkout: (step?: string) => (step ? `${base}/checkout?step=${step}` : `${base}/checkout`),
-    orderConfirmation: `${base}/checkout/confirmation`,
+    checkout: (step?: CheckoutStep) => (step ? `${base}/checkout?step=${step}` : `${base}/checkout`),
+    orderConfirmed: (id: string = SAMPLE_ORDER_ID) => `${base}/order/confirmed/${id}`,
     account: `${base}/account`,
+    /** Figma {Dein Account / Nicht angemeldet}; die Storefront zeigt die Anmeldung unter `/account` */
     login: `${base}/account/login`,
+    withdrawal: `${base}/withdrawal`,
+    /** Figma {Unser Blog}; die Storefront hat keinen Blog */
     blog: `${base}/blog`,
     post: (slug: string) => `${base}/blog/${slug}`,
-    page: (slug: string) => `${base}/${slug}`,
-    library: `${base}/library`,
-    libraryCategory: (key: string) => `${base}/library/${key}`,
+    /** Statische Seiten wie die CMS-Seiten der Storefront */
+    page: (slug: string) => `${base}/page/${slug}`,
+    library: `${base}/page/${LIBRARY_SLUG}`,
+    libraryCategory: (key: string) => `${base}/page/${LIBRARY_SLUG}-${key}`,
   }
 }
 
@@ -53,7 +72,10 @@ export function localize<T>(value: T, countryCode: string): T {
   return value
 }
 
-/** URL-Slug aus einem Label, z. B. „Würzige Snacks“ → „wuerzige-snacks“. */
+/**
+ * URL-Slug aus einem Label wie die Handles in Medusa, z. B. „Würzige Snacks“ → „wuerzige-snacks“,
+ * „Gehackt & gemahlen“ → „gehackt-und-gemahlen“.
+ */
 export function slugify(label: string): string {
   return label
     .toLowerCase()

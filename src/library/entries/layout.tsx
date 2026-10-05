@@ -1,4 +1,4 @@
-import { PromoBar } from '@/components/design-system/navigation/promo-bar'
+import { PromoBar } from '@modules/layout/components/promo-bar'
 import { PROMO } from '@/lib/fixtures'
 import type { LibraryEntry } from '@/library/types'
 

@@ -1,8 +1,8 @@
-import type { LegalBlock } from '@/components/design-system/pages/shop-pages'
+import type { LegalBlock } from '@modules/pages/templates/legal-page'
 
 /**
  * Inhalte der statischen Seiten und des Blogs (Beispieltexte). Im Shop liefert sie das CMS.
- * Die Slugs sind die Routen `/[countryCode]/<slug>` bzw. `/[countryCode]/blog/<slug>`.
+ * Die Slugs sind die Routen `/[countryCode]/page/<slug>` bzw. `/[countryCode]/blog/<slug>`.
  */
 
 export const LOREM =
@@ -13,7 +13,6 @@ const blocks = (...headlines: string[]): LegalBlock[] => headlines.map((headline
 export type StaticPage =
   | { kind: 'legal'; title: string; align?: 'left' | 'center'; blocks: LegalBlock[] }
   | { kind: 'company'; title: string; intro: string; sections: { headline: string; text: string }[]; contact?: boolean }
-  | { kind: 'cancellation' }
 
 /** Seiten aus 2.2 (Unternehmen, Rechtliches); Figma zeigt alle als Templates / Page mit ContentModules. */
 export const STATIC_PAGES: Record<string, StaticPage> = {
@@ -37,7 +36,6 @@ export const STATIC_PAGES: Record<string, StaticPage> = {
     title: 'Widerrufsrecht',
     blocks: blocks('Widerrufsbelehrung', 'Folgen des Widerrufs', 'Ausnahmen vom Widerrufsrecht'),
   },
-  widerrufsformular: { kind: 'cancellation' },
   versandrichtlinien: {
     kind: 'legal',
     title: 'Versandrichtlinien',

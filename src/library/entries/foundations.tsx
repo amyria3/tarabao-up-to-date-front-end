@@ -1,4 +1,4 @@
-import { ICON_REGISTRY } from '@/components/design-system/icons/figma-icons'
+import { ICON_REGISTRY } from '@/components/icons/figma-icons'
 import { ButtonShape, type ButtonShapeKind } from '@/components/ui/button-shape'
 import { ThemeScope } from '@/components/ui/theme-scope'
 import { GLOBAL_THEMES, LIVELY_THEMES, SPECIAL_THEMES } from '@/lib/design-system/themes'
@@ -365,7 +365,7 @@ export const foundationEntries: LibraryEntry[] = [
   {
     id: 'foundations-icons',
     figma: 'Icons',
-    code: "import { IconCartEmpty } from '@/components/design-system/icons'",
+    code: "import { IconCartEmpty } from '@/components/icons'",
     note: `${ICON_REGISTRY.length} Icons als React-Komponenten, Farbe über currentColor (text-*).`,
     render: () => (
       <ul className="grid grid-cols-2 gap-sm md:grid-cols-4 lg:grid-cols-6">

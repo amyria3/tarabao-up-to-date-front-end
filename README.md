@@ -5,14 +5,15 @@ React-Komponenten um. Es nutzt Next.js 16, Tailwind CSS v4 mit dem Tarabao-Desig
 und shadcn/ui als Basis. Die Komponenten passen zu `apps/medusa-storefront`: Sie bekommen View-Modelle,
 und ein Mapper übersetzt die Daten aus Medusa.
 
-Unter `/de-de` läuft der Shop mit Routen wie in der Storefront: Startseite ({Alle Kategorien}) →
-Kategorie → Unterkategorie → Produktseite, dazu Warenkorb, Kasse, Account, Blog, Nuss-Mixer und die
-statischen Seiten. Alle Seiten sind über Nav, Karten, Breadcrumb und Footer verbunden; die Daten kommen
-aus `src/lib/shop` (Katalog, Inhalte, Routen) mit Beispieldaten.
+Unter `/de-de` läuft der Shop mit denselben Routen und Ordnern wie `apps/medusa-storefront`:
+Startseite → Shop (`/categories`) → Kategorie → Produktseite, dazu Warenkorb, Kasse, Account,
+Widerruf und die statischen Seiten unter `/page/…`. Alle Seiten sind über Nav, Karten, Breadcrumb und
+Footer verbunden. Die Daten kommen als Beispieldaten aus `src/lib/shop` (Katalog, Inhalte, Routen).
 
-Die Bibliothek unter `/de-de/library` (Footer → „Komponenten-Bibliothek“) zeigt jede Figma-Komponente
-mit allen Varianten und Farbmodi, geordnet nach Kategorien. Jeder Eintrag verlinkt den Figma-Knoten und
-nennt den Code-Namen; die Kategorie „Pages“ verlinkt die Routen des Shops.
+Die Komponenten-Bibliothek unter `/de-de/page/komponenten` (Footer → „Komponenten-Bibliothek“) zeigt
+jede Figma-Komponente mit allen Varianten und Farbmodi, geordnet nach Kategorien. Sie liegt wie
+„Über uns“ unter `/page/…`, jede Kategorie unter `/de-de/page/komponenten-<kategorie>`. Jeder Eintrag
+verlinkt den Figma-Knoten und nennt den Code-Namen. Die Kategorie „Pages“ verlinkt die Routen des Shops.
 
 ## So startest Du das Projekt
 
@@ -36,8 +37,9 @@ pnpm dev
 ```
 
 So läuft der Shop unter `http://localhost:8000/de-de` und die Bibliothek unter
-`http://localhost:8000/de-de/library`. Storybook zeigt dieselben Einträge je Kategorie unter
-`http://localhost:6006`:
+`http://localhost:8000/de-de/page/komponenten`. Storybook zeigt jede Komponente einzeln wie in der
+Storefront unter `http://localhost:6006`, die Grundlagen (Farben, Textstile, Abstände) unter
+„Design System/Foundations“:
 
 ```bash
 pnpm storybook
@@ -68,31 +70,77 @@ So erreichst Du die Storefront unter `http://localhost:8000/de-de` und dieses Pr
 
 ## So ist das Projekt aufgebaut
 
+Das Projekt spiegelt die Ordner und Routen von `apps/medusa-storefront`. So liegt jede Komponente schon
+an dem Pfad, an dem sie in der Storefront liegt oder liegen würde, und ein PR übernimmt sie ohne Umbau.
+
 ```
 src/
-├─ app/[countryCode]/            Shop-Routen (store, categories, products, cart, checkout, account, blog, [slug]) und library/
+├─ app/[countryCode]/
+│  ├─ (main)/                    Shop-Seiten, Header und Footer kommen aus layout.tsx
+│  │  ├─ page.tsx                Startseite
+│  │  ├─ categories/             Shop (Übersicht) und categories/[category] mit flachen Handles
+│  │  ├─ products/[handle]/      Produktseite
+│  │  ├─ cart/ account/ withdrawal/ order/confirmed/[id]/
+│  │  ├─ page/[slug]/            statische Seiten und Komponenten-Bibliothek
+│  │  └─ store/ nussmixer/ blog/ Seiten aus Figma ohne Gegenstück in der Storefront
+│  └─ (checkout)/checkout/       Kasse, Schritt über ?step=email|delivery|payment|review
 ├─ components/
-│  ├─ ui/                        shadcn/ui-Basis im Tarabao-Vokabular (Button, Checkbox, Tabs …)
-│  └─ design-system/             Figma-Komponenten nach Kategorie
-│     ├─ primitives/ buttons/ inputs/ switches/ cards/ icons/ visuals/
-│     ├─ navigation/ (Header, NavBar, Footer) · search/ filter/
-│     ├─ product/ nutmixer/ cart/ checkout/ cancellation/ account/ recipe/
-│     ├─ content-modules/        ContentModules und CMS-Module
-│     ├─ sections/ templates/    Sections, Templates / Section, Page, Cards Order
-│     └─ pages/                  Seiten als Kompositionen (Produkt, Nussmixer, Konto, Blog, Rezept, Kategorie, Rechtstexte, Kasse)
+│  ├─ ui/                        gemeinsame Bausteine, flach (Button, MegaSwitch, InputField, Karten …)
+│  ├─ LexicalRenderers/          CMS-Inhaltsmodule (CardRow, MegaCards, ContactForm, Editorial …)
+│  └─ icons/                     Figma-Icons (nur in diesem Projekt)
+├─ modules/<ablauf>/
+│  ├─ components/<name>/         Bausteine eines Ablaufs (cart, checkout, products, account …)
+│  └─ templates/                 Seitenvorlagen ohne Header und Footer
 ├─ lib/
 │  ├─ view-models/               Typen, die die Komponenten kennen
 │  ├─ medusa/mapper.ts           Medusa (@medusajs/types) → View-Modelle
 │  ├─ fixtures/                  Beispieldaten mit den Texten aus Figma
-│  ├─ shop/                      Routen (wie die Storefront), Katalog, statische Inhalte, Header/Footer je Seite
+│  ├─ shop/                      Routen, Katalog, statische Inhalte, Header und Footer der Layouts
 │  └─ design-system/             Themes, Nachhaltigkeitskategorien, Tabs, Nussmixer-Kategorien
-├─ library/                      Einträge der Bibliothek je Kategorie, Stories
+├─ library/                      Komponenten-Bibliothek: Einträge, Seiten, Stories (nur in diesem Projekt)
 └─ styles/design-system/app.css  app.tcss unverändert
 docs/
 ├─ ABWEICHUNGEN.md               bewusste Abweichungen, offene Punkte, Barrierefreiheit
-├─ MAPPING.md                    Figma → Code (erzeugt)
+├─ MAPPING.md                    Figma → Code → Gegenstück in der Storefront (erzeugt)
 └─ adr/0002-view-models.md       Warum Komponenten nur View-Modelle kennen
 ```
+
+### So entscheidest Du, wo eine Komponente liegt
+
+1. Hat die Storefront dieselbe Komponente, liegt sie am selben Pfad. Beispiele sind
+   `components/ui/mega-switch.tsx` und `modules/products/components/choice/index.tsx`.
+2. Nutzen mehrere Abläufe einen Baustein (Buttons, Switches, Inputs, Karten, Typografie), liegt er flach
+   in `components/ui`.
+3. Gehört ein Baustein zu einem Ablauf, liegt er in `modules/<ablauf>/components/<name>/index.tsx`.
+4. Ist ein Baustein ein CMS-Inhaltsmodul, liegt er in `components/LexicalRenderers`.
+5. Ist es eine ganze Seite, liegt die Vorlage in `modules/<ablauf>/templates`. Die Route in `app/` lädt
+   nur die Daten und ruft die Vorlage auf. So kommen Header und Footer aus dem Layout der Routengruppe.
+
+Die Dateinamen folgen den Figma-Namen. Heißt das Gegenstück in der Storefront anders, nennt
+`docs/MAPPING.md` es in der Spalte „Storefront“. Die Zuordnung steht in
+`scripts/storefront-counterparts.json`.
+
+### So bekommt jede Komponente ihre Story
+
+Jede Komponenten-Datei hat genau eine Story-Datei direkt daneben, aufgebaut wie in der Storefront:
+
+| Komponente                                       | Story-Datei                                                    | Titel in Storybook                    |
+| ------------------------------------------------ | -------------------------------------------------------------- | ------------------------------------- |
+| `components/ui/mega-switch.tsx`                  | `components/ui/mega-switch.stories.tsx`                        | `Components/UI/MegaSwitch`            |
+| `components/LexicalRenderers/CardRow.tsx`        | `components/LexicalRenderers/CardRow.stories.tsx`              | `Components/LexicalRenderers/CardRow` |
+| `modules/cart/components/cart-summary/index.tsx` | `modules/cart/components/cart-summary/CartSummary.stories.tsx` | `Components/CartSummary`              |
+
+Die Story nennt in der Beschreibung zuerst den Figma-Namen und den Knoten. Jede Figma-Variante, die die
+Komponente über eine Prop abbildet, bekommt eine eigene Story (`Default`, `Hover`, `Selected` …). Weitere
+Komponenten derselben Datei erscheinen als eigene Stories. Story-Namen und Beschreibungen sind englisch wie
+in der Storefront, die Texte in der Oberfläche bleiben deutsch. Die Daten kommen aus `src/lib/fixtures`.
+Den Farbmodus wählst Du in der Werkzeugleiste von Storybook.
+
+### So zeigt die Breadcrumb den Pfad
+
+Die Breadcrumb folgt der Storefront: Startseite → Shop → Oberkategorie → Kategorie, auf der Produktseite
+zusätzlich → Produkt. Die Dots aus Figma stehen für die Startseite und verlinken sie. Statische Seiten,
+Warenkorb, Kasse, Konto und Widerruf zeigen wie in der Storefront keine Breadcrumb.
 
 ## So arbeitet die Designerin mit dem Projekt
 
@@ -137,6 +185,9 @@ vorhandene Komponenten, Stile und Variablen, statt neue zu bauen.
 - Er misst Interaktionen im Browser nach (Playwright), z. B. das Ausweichen in der Discovery-Reihe:
   Ist die Karte ganz rechts, rückt der Inhalt nach links. Ist sie ganz links, rückt der Nachbar nach
   rechts. Sonst rücken die Nachbarn zu beiden Seiten.
+- Er schreibt zu jeder neuen Komponente eine Story nach „So bekommt jede Komponente ihre Story“.
+- Er legt jede neue Komponente nach den Regeln in „So entscheidest Du, wo eine Komponente liegt“ ab
+  und trägt ein Gegenstück in der Storefront in `scripts/storefront-counterparts.json` ein.
 - Er beendet eine Aufgabe erst, wenn `pnpm check` ohne Fehler durchläuft.
 
 ## So startest Du die Storefront
@@ -181,8 +232,8 @@ Für jeden PR gelten die Regeln aus `apps/medusa-storefront/DESIGN-SYSTEM.md`:
 
 - Eine Komponente kommt nur hinein, wenn sie UI in einem bestehenden Ablauf ersetzt. Den ganzen
   Figma-Katalog nachzubauen, schließt die Datei aus.
-- Die Storefront ordnet nach Funktion (`src/modules/cart`, `src/modules/products` …). Eine Komponente
-  wandert deshalb in das Modul, das sie nutzt.
+- Die Storefront ordnet nach Funktion (`src/modules/cart`, `src/modules/products` …). Dieses Projekt
+  ordnet genauso. So übernimmt ein PR den Pfad unverändert, und `docs/MAPPING.md` nennt das Gegenstück.
 - Die Komponente bekommt ihre Daten über die Mapper der Storefront (`src/lib/data/…/mapper.ts`).
   Medusa-Typen (`@medusajs/*`) stehen nur in `mapper.ts`- und `medusa*.ts`-Dateien.
 - Neue Tokens trägt der PR bewusst in `src/styles/design-system/app.css` und `DESIGN-SYSTEM.md` ein.
@@ -197,6 +248,7 @@ Zwischen beiden Projekten bestehen diese Unterschiede (Stand 05.10.2026):
 | Abstände mit Zahlen (`h-5`, `w-20`) | erzeugen keine Klasse (`--spacing-*: initial`)                | erzeugen Klassen                                      |
 | Tokens                              | 382 Namen                                                     | 393 Namen, davon 370 gleich                           |
 | `Button`                            | `intent` × `size` (`lg`, `md`, `sm`)                          | zusätzlich `card`, `xxs`, `xxxs` und `width`          |
+| Links                               | `LocalizedClientLink` setzt das Länderkürzel                  | `routes(countryCode)` mit `next/link`                 |
 
 Die Breakpoints betreffen jede Seite. Darüber entscheidet das Team, bevor ein PR sie ändert.
 

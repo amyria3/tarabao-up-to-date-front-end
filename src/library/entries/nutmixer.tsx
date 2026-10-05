@@ -1,5 +1,5 @@
-import { Nutmixer } from '@/components/design-system/nutmixer/nutmixer'
-import { NutmixerItem } from '@/components/design-system/nutmixer/nutmixer-item'
+import { Nutmixer } from '@modules/nutmixer/components/nutmixer'
+import { NutmixerItem } from '@modules/nutmixer/components/nutmixer-item'
 import { NUTMIXER_CATEGORIES_DEMO, NUTMIXER_PRODUCTS } from '@/lib/fixtures'
 import { Specimen } from '@/library/showcase'
 import type { LibraryEntry } from '@/library/types'

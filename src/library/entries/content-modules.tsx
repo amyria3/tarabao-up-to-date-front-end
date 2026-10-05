@@ -1,24 +1,17 @@
-import {
-  BasicWithDisclosure,
-  ContactForm,
-  ContentBasic,
-  ContentCta,
-  CustomContentWithImg,
-  CustomContentWithText,
-  Editorial,
-  MediaText,
-} from '@/components/design-system/content-modules/content-modules'
-import type { ModuleHeadlineType } from '@/components/design-system/content-modules/module-headline'
-import { SustainabilityTabs } from '@/components/design-system/content-modules/sustainability-tabs'
-import {
-  EditorialValues,
-  ImpactScale,
-  VALUES,
-  ValueIllustration,
-} from '@/components/design-system/content-modules/values'
-import { Ingredients } from '@/components/design-system/product/product-info'
-import { BulletedList, DefaultParagraph } from '@/components/design-system/primitives/typography'
-import { RecipeStep } from '@/components/design-system/recipe/recipe'
+import { BasicWithDisclosure } from '@/components/LexicalRenderers/BasicWithDisclosure'
+import { ContactForm } from '@/components/LexicalRenderers/ContactForm'
+import { ContentBasic } from '@/components/LexicalRenderers/ContentBasic'
+import { ContentCta } from '@/components/LexicalRenderers/ContentCta'
+import { CustomContentWithImg } from '@/components/LexicalRenderers/CustomContentWithImg'
+import { CustomContentWithText } from '@/components/LexicalRenderers/CustomContentWithText'
+import { Editorial } from '@/components/LexicalRenderers/Editorial'
+import { MediaText } from '@/components/LexicalRenderers/MediaText'
+import type { ModuleHeadlineType } from '@/components/LexicalRenderers/ModuleHeadline'
+import { SustainabilityTabs } from '@/components/LexicalRenderers/SustainabilityTabs'
+import { EditorialValues, ImpactScale, VALUES, ValueIllustration } from '@modules/home/components/values'
+import { Ingredients } from '@modules/products/components/product-info'
+import { BulletedList, DefaultParagraph } from '@/components/ui/typography'
+import { RecipeStep } from '@modules/blog/components/recipe'
 import { PRODUCT_DETAIL, RECIPE_STEPS } from '@/lib/fixtures'
 import { Specimen } from '@/library/showcase'
 import type { LibraryEntry } from '@/library/types'

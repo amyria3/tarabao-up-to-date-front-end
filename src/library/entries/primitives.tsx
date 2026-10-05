@@ -1,13 +1,10 @@
-import { ArrowUpOrDown, type ArrowUpOrDownSize } from '@/components/design-system/primitives/arrow-up-or-down'
-import {
-  SustainabilityCategoryTag,
-  SustainabilityCategoryTags,
-} from '@/components/design-system/primitives/sustainability-category-tag'
-import { Breadcrumb } from '@/components/design-system/primitives/breadcrumb'
-import { InlineFeedbackElement } from '@/components/design-system/primitives/inline-feedback-element'
-import { ReviewStars } from '@/components/design-system/primitives/review-stars'
-import { SearchInput } from '@/components/design-system/primitives/search-input'
-import { TableElement } from '@/components/design-system/primitives/table-element'
+import { ArrowUpOrDown, type ArrowUpOrDownSize } from '@/components/ui/arrow-up-or-down'
+import { SustainabilityCategoryTag, SustainabilityCategoryTags } from '@/components/ui/sustainability-category-tag'
+import { Breadcrumb } from '@modules/common/components/breadcrumbs'
+import { InlineFeedbackElement } from '@/components/ui/inline-feedback-element'
+import { ReviewStars } from '@/components/ui/review-stars'
+import { SearchInput } from '@/components/ui/search-input'
+import { TableElement } from '@/components/ui/table-element'
 import {
   BulletedList,
   DefaultParagraph,
@@ -17,13 +14,13 @@ import {
   HeadlineH3,
   InlineQuestion,
   UserMessageExplanation,
-} from '@/components/design-system/primitives/typography'
-import { ValidationSign } from '@/components/design-system/primitives/validation-sign'
+} from '@/components/ui/typography'
+import { ValidationSign } from '@/components/ui/validation-sign'
 import { SUSTAINABILITY_CATEGORIES } from '@/lib/design-system/sustainability'
 import { Specimen, ThemeMatrix } from '@/library/showcase'
 import type { LibraryEntry } from '@/library/types'
-import { CarouselPagination, PaginationDot } from '@/components/design-system/primitives/carousel-pagination'
-import { IngredientRow, IngredientTable } from '@/components/design-system/primitives/ingredient-row'
+import { CarouselPagination, PaginationDot } from '@/components/ui/carousel-pagination'
+import { IngredientRow, IngredientTable } from '@/components/ui/ingredient-row'
 
 const PARAGRAPH =
   'Dieser Absatz charakterisiert den Snack, erzählt etwas über seine Geschichte, wie es in unser Sortiment kommt, erwähnt soziale / ökologische Benefits und lobt die geschmacklichen Qualitäten des Snacks.'
@@ -188,16 +185,18 @@ const textEntries: LibraryEntry[] = [
     id: 'primitives-breadcrumb',
     figma: 'Primitives / Breadcrumb',
     nodeId: '3155:5202',
-    code: '<Breadcrumb items={[…]} current="…" />',
+    code: "<Breadcrumb items={[{ label: 'Startseite', href }, …, { label: 'Aktuelle Seite' }]} />",
+    note: 'Pfad wie in der Storefront: Der erste Eintrag (Startseite) erscheint als Dots mit Link, der letzte ist die aktuelle Seite.',
     render: () => (
       <ThemeMatrix columns={1}>
         {() => (
           <Breadcrumb
             items={[
+              { label: 'Startseite', href: '#' },
               { label: 'Bereich der Webseite', href: '#' },
               { label: 'Überkategorie', href: '#' },
+              { label: 'Your current destination' },
             ]}
-            current="Your current destination"
           />
         )}
       </ThemeMatrix>

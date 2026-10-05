@@ -1,3 +1,4 @@
+import type { BreadcrumbItem, BreadcrumbProps } from '@modules/common/components/breadcrumbs'
 import { NAV_GROUPS, PRODUCT_DETAIL, PRODUCTS } from '@/lib/fixtures'
 import { routes, slugify } from '@/lib/shop/routes'
 import type { CategoryCardModel, ProductCardModel, ProductDetailModel } from '@/lib/view-models'
@@ -9,6 +10,7 @@ import type { CategoryCardModel, ProductCardModel, ProductDetailModel } from '@/
  */
 
 export type ShopCategory = {
+  /** Handle wie in Medusa: aus dem Namen gebildet, flach und eindeutig */
   slug: string
   title: string
   /** Unterkategorien; die erste Nav-Zeile „Alle“ ist die Kategorie selbst */
@@ -16,29 +18,59 @@ export type ShopCategory = {
 }
 
 export const CATEGORY_TREE: ShopCategory[] = NAV_GROUPS.filter((g) => g.title).map((g) => ({
-  slug: g.id,
+  slug: slugify(g.title!),
   title: g.title!,
   children: g.links
     .filter((l) => l.label !== 'Alle')
     .map((l) => ({ slug: slugify(l.label), title: l.label, children: [] })),
 }))
 
-export function findCategory(slugs: string[]): { category: ShopCategory; parent?: ShopCategory } | undefined {
-  const [main, sub] = slugs
-  const category = CATEGORY_TREE.find((c) => c.slug === main)
-  if (!category) return undefined
-  if (!sub) return { category }
-  const child = category.children.find((c) => c.slug === sub)
-  return child ? { category: child, parent: category } : undefined
+const handles = CATEGORY_TREE.flatMap((c) => [c.slug, ...c.children.map((s) => s.slug)])
+const duplicate = handles.find((h, i) => handles.indexOf(h) !== i)
+if (duplicate) throw new Error(`Kategorie-Handle doppelt: ${duplicate}`)
+
+/** Sucht eine Kategorie oder Unterkategorie über ihren Handle. */
+export function findCategory(handle: string): { category: ShopCategory; parent?: ShopCategory } | undefined {
+  for (const category of CATEGORY_TREE) {
+    if (category.slug === handle) return { category }
+    const child = category.children.find((c) => c.slug === handle)
+    if (child) return { category: child, parent: category }
+  }
+  return undefined
 }
 
 export function categoryCard(category: ShopCategory, countryCode: string, parent?: ShopCategory): CategoryCardModel {
-  const r = routes(countryCode)
   return {
     id: `cat_${parent ? `${parent.slug}_` : ''}${category.slug}`,
     title: category.title,
-    href: parent ? r.category(parent.slug, category.slug) : r.category(category.slug),
+    href: routes(countryCode).category(category.slug),
   }
+}
+
+/* ---- Breadcrumb wie in der Storefront: Startseite → Shop → Oberkategorie → Kategorie (→ Produkt) ---- */
+
+export function shopTrail(countryCode: string): BreadcrumbItem[] {
+  const r = routes(countryCode)
+  return [
+    { label: 'Startseite', href: r.home },
+    { label: 'Shop', href: r.categories },
+  ]
+}
+
+function categoryTrail(found: { category: ShopCategory; parent?: ShopCategory }, countryCode: string) {
+  const r = routes(countryCode)
+  return [...(found.parent ? [found.parent] : []), found.category].map((c) => ({
+    label: c.title,
+    href: r.category(c.slug),
+  }))
+}
+
+export function categoryBreadcrumb(
+  found: { category: ShopCategory; parent?: ShopCategory },
+  countryCode: string,
+): BreadcrumbProps {
+  const trail = categoryTrail(found, countryCode)
+  return { items: [...shopTrail(countryCode), ...trail.slice(0, -1), { label: found.category.title }] }
 }
 
 /* ---- Produkte ---- */
@@ -47,8 +79,15 @@ type CatalogProduct = {
   handle: string
   card: Omit<ProductCardModel, 'href' | 'id'>
   detail?: Partial<ProductDetailModel>
-  /** [Kategorie, Unterkategorie] */
+  /** [Kategorie, Unterkategorie] als Handles */
   category: [string, string]
+}
+
+/** Ober- und Unterkategorie zum Handle einer Unterkategorie. */
+function inCategory(handle: string): [string, string] {
+  const found = findCategory(handle)
+  if (!found?.parent) throw new Error(`Unterkategorie fehlt: ${handle}`)
+  return [found.parent.slug, found.category.slug]
 }
 
 /** Die vier Doypacks aus __Products / Doypacks (2.9) und Beispielprodukte je Unterkategorie. */
@@ -56,22 +95,22 @@ const DOYPACKS: CatalogProduct[] = [
   {
     handle: 'jancys-curry-cashews',
     card: { title: 'Jancys Curry-Cashews', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 42,23 €/kg)', rating: 5 },
-    category: ['nuesse', 'wuerzige-snacks'],
+    category: inCategory('wuerzige-snacks'),
   },
   {
     handle: 'tamari-sesam-cashews',
     card: { title: 'Tamari-Sesam-Cashews', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 42,23 €/kg)', rating: 5 },
-    category: ['nuesse', 'wuerzige-snacks'],
+    category: inCategory('wuerzige-snacks'),
   },
   {
     handle: 'macadamia-suess-salzig',
     card: { title: 'Macadamia süß-salzig', priceLabel: 'ab 7,49 €', unitPriceLabel: '(ab 57,62 €/kg)', rating: 4 },
-    category: ['schokolade', 'gezuckerte-nuesse'],
+    category: inCategory('gezuckerte-nuesse'),
   },
   {
     handle: 'ananasstuecke-schokoliert',
     card: { title: 'Ananasstücke schokoliert', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 54,90 €/kg)', rating: 5 },
-    category: ['schokolade', 'schokolierte-fruechte-und-nuesse'],
+    category: inCategory('schokolierte-fruechte-und-nuesse'),
   },
 ]
 
@@ -122,11 +161,14 @@ export function relatedProducts(product: CatalogProduct, countryCode: string): P
   return pool.filter((p) => p.handle !== product.handle).map((p) => productCard(p, countryCode))
 }
 
-export function productBreadcrumb(product: CatalogProduct, countryCode: string) {
-  const r = routes(countryCode)
-  const found = findCategory(product.category)
-  const items = [{ label: 'Shop', href: r.store }]
-  if (found?.parent) items.push({ label: found.parent.title, href: r.category(found.parent.slug) })
-  if (found) items.push({ label: found.category.title, href: r.category(...product.category) })
-  return { items, current: product.card.title }
+/** Wie die Produktseite der Storefront: Startseite → Shop → Oberkategorie → Kategorie → Produkt. */
+export function productBreadcrumb(product: CatalogProduct, countryCode: string): BreadcrumbProps {
+  const found = findCategory(product.category[1])
+  return {
+    items: [
+      ...shopTrail(countryCode),
+      ...(found ? categoryTrail(found, countryCode) : []),
+      { label: product.card.title },
+    ],
+  }
 }

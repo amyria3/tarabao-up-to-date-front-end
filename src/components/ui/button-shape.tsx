@@ -3,7 +3,7 @@ import {
   ButtonShapeOval,
   ButtonShapeVeryOval,
   ButtonShapeVeryOvalTurned,
-} from '@/components/design-system/icons/figma-icons'
+} from '@/components/icons/figma-icons'
 import { cn } from '@/lib/utils'
 
 /** Figma: Button-Shape (7932:33229), Achsen Shape × Turned over? */

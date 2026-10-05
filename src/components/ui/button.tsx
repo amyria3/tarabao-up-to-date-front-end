@@ -290,7 +290,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
     'disabled:cursor-not-allowed disabled:opacity-60 aria-disabled:cursor-not-allowed aria-disabled:opacity-60',
     resolvedWidth === 'fill' ? 'flex w-full min-w-btn-min max-w-btn-max' : 'inline-flex w-fit max-w-full',
+    // Hover hebt den Button an und senkt ihn beim Verlassen wieder ab (Smart Animate, --smart-animate-duration-short).
     f.lift,
+    'motion-hover',
     f.root,
     className,
   )
@@ -300,12 +302,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
       {restShape ? (
         <ButtonShape
           shape={restShape}
-          className={cn(f.shapeColor, hoverShape && 'group-hovered:opacity-0')}
-          outlineClassName={f.outline}
+          className={cn(f.shapeColor, hoverShape && 'motion-hover group-hovered:opacity-0')}
+          outlineClassName={f.outline && cn(f.outline, 'motion-hover')}
         />
       ) : null}
       {hoverShape ? (
-        <ButtonShape shape={hoverShape} className={cn(f.shapeColor, 'opacity-0 group-hovered:opacity-100')} />
+        <ButtonShape
+          shape={hoverShape}
+          className={cn(f.shapeColor, 'motion-hover opacity-0 group-hovered:opacity-100')}
+        />
       ) : null}
       <span
         className={cn(

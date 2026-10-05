@@ -1,18 +1,16 @@
-import { CategoryCardMd, CategoryCardSm } from '@/components/design-system/cards/category-card'
-import {
-  BlogCard,
-  DiscoveryCard,
-  FeaturedCard,
-  PromotionPostCard,
-  PurchaseCard,
-  ReviewCard,
-} from '@/components/design-system/cards/content-cards'
-import { DiscoveryCardRow } from '@/components/design-system/cards/discovery-card-row'
-import { MegaCard, type MegaCardVariant } from '@/components/design-system/cards/mega-card'
-import { ProductCard, ProductCardWithReviews } from '@/components/design-system/cards/product-card'
-import { VoucherCard } from '@/components/design-system/cards/voucher-card'
-import { ImageCard } from '@/components/design-system/sections/image-carousel'
-import { ProductImage } from '@/components/design-system/visuals/product-image'
+import { CategoryCardMd, CategoryCardSm } from '@modules/categories/components/category-card'
+import { BlogCard } from '@/components/ui/blog-card'
+import { DiscoveryCard } from '@/components/ui/discovery-card'
+import { FeaturedCard } from '@/components/ui/featured-card'
+import { PromotionPostCard } from '@/components/ui/promotion-post-card'
+import { PurchaseCard } from '@modules/account/components/purchase-card'
+import { ReviewCard } from '@/components/ui/review-card'
+import { DiscoveryCardRow } from '@/components/ui/discovery-card-row'
+import { MegaCard, type MegaCardVariant } from '@/components/LexicalRenderers/MegaCard'
+import { ProductCard, ProductCardWithReviews } from '@modules/products/components/product-card'
+import { VoucherCard } from '@modules/account/components/voucher-card'
+import { ImageCard } from '@/components/LexicalRenderers/ImageCarousel'
+import { ProductImage } from '@modules/products/components/product-image'
 import {
   BLOG_POST,
   CATEGORIES_SAMPLE,

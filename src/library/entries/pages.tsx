@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { ContentBasic } from '@/components/design-system/content-modules/content-modules'
-import { PageTemplate } from '@/components/design-system/templates/page'
-import { Section } from '@/components/design-system/templates/section'
+import { ContentBasic } from '@/components/LexicalRenderers/ContentBasic'
+import { PageTemplate } from '@modules/layout/templates/page-template'
+import { Section } from '@/components/ui/section'
 import { FOOTER, NAV_GROUPS, PROMO } from '@/lib/fixtures'
 import { CATEGORY_TREE } from '@/lib/shop/catalog'
 import { LOREM, STATIC_PAGES } from '@/lib/shop/content'
@@ -25,10 +25,11 @@ export const pageTemplateEntry: LibraryEntry = {
         {...chrome}
         breadcrumb={{
           items: [
+            { label: 'Startseite', href: '#' },
             { label: 'Bereich der Webseite', href: '#' },
             { label: 'Überkategorie', href: '#' },
+            { label: 'Your current destination' },
           ],
-          current: 'Your current destination',
         }}
       >
         <Section aria-label="Section-Slot">
@@ -65,21 +66,20 @@ export const pageEntries: LibraryEntry[] = [
     id: 'pages-shop',
     figma: 'Alle Kategorien · Alle Produkte · Kategorieseite Nüsse · Unterkategorie Würzige Snacks · Nuss-Mixer',
     nodeId: '9250:35515',
-    code: 'app/[countryCode]/page.tsx · store · categories/[...category] · nussmixer',
+    code: 'app/[countryCode]/(main)/page.tsx · categories · categories/[category] · store · nussmixer',
     note: 'Startseite = {Alle Kategorien}, solange Figma keine Startseite hat (offene Punkte 34). Logo und „Zur Startseite“ führen hierher. Kategorie → Unterkategorie → Produkt sind über Nav, Karten und Breadcrumb verbunden.',
     render: () => (
       <RouteLinks
         links={[
           { label: 'Alle Kategorien (Startseite)', href: r.home },
+          { label: 'Shop (Alle Kategorien)', href: r.categories },
           { label: 'Alle Produkte', href: r.store },
           {
             label: 'Kategorieseite Nüsse',
             href: r.category('nuesse'),
             note: 'Sections / CategoryPreview je Unterkategorie',
           },
-          ...nuesse.children
-            .slice(0, 2)
-            .map((s) => ({ label: `Unterkategorie ${s.title}`, href: r.category('nuesse', s.slug) })),
+          ...nuesse.children.slice(0, 2).map((s) => ({ label: `Unterkategorie ${s.title}`, href: r.category(s.slug) })),
           { label: 'Nuss-Mixer', href: r.nutmixer },
         ]}
       />
@@ -89,7 +89,7 @@ export const pageEntries: LibraryEntry[] = [
     id: 'pages-product',
     figma: 'Produktseite Jancys Curry-Cashews · Tamari-Sesam-Cashews · Macadamia süß-salzig · Ananasstücke schokoliert',
     nodeId: '8232:25333',
-    code: 'app/[countryCode]/products/[handle]/page.tsx → <ProductPage product={…} />',
+    code: 'app/[countryCode]/(main)/products/[handle]/page.tsx → <ProductPage product={…} />',
     note: 'Dieselbe Seite je Handle; in Figma wählt der Modus-Pin __Products / Doypacks die Sorte. „Das könnte Dich auch interessieren“ zeigt die drei anderen Sorten.',
     render: () => (
       <RouteLinks
@@ -106,18 +106,18 @@ export const pageEntries: LibraryEntry[] = [
     id: 'pages-cart-checkout',
     figma: 'Warenkorb · Check-Out Workflow 06-01 … 06-17',
     nodeId: '9291:37238',
-    code: 'app/[countryCode]/cart · checkout · checkout/[step] · checkout/confirmation',
+    code: 'app/[countryCode]/(main)/cart · (checkout)/checkout?step=… · (main)/order/confirmed/[id]',
     note: 'Die Schritte sind Momentaufnahmen mit Beispieldaten; im Shop steuern Medusa-Aufrufe den Wechsel.',
     render: () => (
       <RouteLinks
         links={[
           { label: 'Warenkorb', href: r.cart },
           { label: 'Kasse: Wer gibt die Bestellung auf?', href: r.checkout() },
-          { label: 'Kasse: Anmeldung (ReturningCustomer)', href: `${r.checkout()}/identification` },
-          { label: 'Kasse: Lieferung', href: `${r.checkout()}/delivery` },
-          { label: 'Kasse: Zahlung', href: `${r.checkout()}/payment` },
-          { label: 'Kasse: Prüfen & kaufen', href: `${r.checkout()}/final` },
-          { label: 'Bestellbestätigung', href: r.orderConfirmation },
+          { label: 'Kasse: Anmeldung (ReturningCustomer)', href: r.checkout('email') },
+          { label: 'Kasse: Lieferung', href: r.checkout('delivery') },
+          { label: 'Kasse: Zahlung', href: r.checkout('payment') },
+          { label: 'Kasse: Prüfen & kaufen', href: r.checkout('review') },
+          { label: 'Bestellbestätigung', href: r.orderConfirmed() },
         ]}
       />
     ),
@@ -126,7 +126,7 @@ export const pageEntries: LibraryEntry[] = [
     id: 'pages-account',
     figma: 'Dein Account · Dein Account / Nicht angemeldet',
     nodeId: '8975:27217',
-    code: 'app/[countryCode]/account · account/login',
+    code: 'app/[countryCode]/(main)/account · account/login',
     render: () => (
       <RouteLinks
         links={[
@@ -140,7 +140,7 @@ export const pageEntries: LibraryEntry[] = [
     id: 'pages-blog',
     figma: 'Unser Blog · Rezeptseite Blog / Recipe',
     nodeId: '8927:28029',
-    code: 'app/[countryCode]/blog · blog/[slug]',
+    code: 'app/[countryCode]/(main)/blog · blog/[slug]',
     note: 'Die erste Kachel auf „Unser Blog“ führt zur Rezeptseite, die übrigen sind Platzhalter.',
     render: () => (
       <RouteLinks
@@ -156,14 +156,15 @@ export const pageEntries: LibraryEntry[] = [
     figma:
       'Unternehmen und Rechtliches: B2B · Tarabao für Dein Team · Über uns · … · Impressum · AGB · Widerrufsformular …',
     nodeId: '9242:32057',
-    code: 'app/[countryCode]/[slug]/page.tsx → <LegalPage /> · <CompanyPage /> · OrderCancellation',
+    code: 'app/[countryCode]/(main)/page/[slug]/page.tsx → <LegalPage /> · <CompanyPage /> · (main)/withdrawal → <OrderCancellation />',
     note: 'Rechtstexte als ContentModules / Basic, Unternehmensseiten als CMS-Kompositionen, das Widerrufsformular mit Components / OrderCancellation.',
     render: () => (
       <RouteLinks
-        links={Object.entries(STATIC_PAGES).map(([slug, page]) => ({
-          label: page.kind === 'cancellation' ? 'Widerrufsformular' : page.title,
-          href: r.page(slug),
-        }))}
+        links={[
+          ...Object.entries(STATIC_PAGES).map(([slug, page]) => ({ label: page.title, href: r.page(slug) })),
+          { label: 'Widerrufsformular', href: r.withdrawal },
+          { label: 'Komponenten-Bibliothek', href: r.library },
+        ]}
       />
     ),
   },

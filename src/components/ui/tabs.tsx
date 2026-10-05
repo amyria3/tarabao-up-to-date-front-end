@@ -3,7 +3,7 @@
 import * as TabsPrimitive from '@radix-ui/react-tabs'
 import * as React from 'react'
 
-import { SegmentControlButton } from '@/components/design-system/buttons/segment-control-button'
+import { SegmentControlButton } from '@/components/ui/segment-control-button'
 import { cn } from '@/lib/utils'
 
 /**

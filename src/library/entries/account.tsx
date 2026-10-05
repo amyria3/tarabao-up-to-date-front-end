@@ -1,14 +1,11 @@
-import { AccountDataBlock, AccountSummaryItem } from '@/components/design-system/account/account-data-block'
-import { PurchaseSummary } from '@/components/design-system/account/purchase-summary'
-import {
-  NussAboCancellationStatus,
-  SubscriptionManagement,
-} from '@/components/design-system/account/subscription-management'
-import { OrderCancellation } from '@/components/design-system/cancellation/order-cancellation'
-import { SearchPurchase } from '@/components/design-system/cancellation/search-purchase'
-import { SelectOrder } from '@/components/design-system/cancellation/select-order'
-import { SelectProducts } from '@/components/design-system/cancellation/select-products'
-import { AddressFieldset } from '@/components/design-system/checkout/address-fieldset'
+import { AccountDataBlock, AccountSummaryItem } from '@modules/account/components/account-data-block'
+import { PurchaseSummary } from '@modules/account/components/purchase-summary'
+import { NussAboCancellationStatus, SubscriptionManagement } from '@modules/account/components/subscription-management'
+import { OrderCancellation } from '@modules/legal/components/withdrawal-form'
+import { SearchPurchase } from '@modules/legal/components/withdrawal-form/search-purchase'
+import { SelectOrder } from '@modules/legal/components/withdrawal-form/select-order'
+import { SelectProducts } from '@modules/legal/components/withdrawal-form/select-products'
+import { AddressFieldset } from '@modules/checkout/components/address-fieldset'
 import { addressLines } from '@/lib/checkout/address'
 import {
   ADDRESS,

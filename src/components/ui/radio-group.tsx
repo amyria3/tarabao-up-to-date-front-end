@@ -3,7 +3,7 @@
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import * as React from 'react'
 
-import { IconRadioOff, IconRadioOn } from '@/components/design-system/icons/figma-icons'
+import { IconRadioOff, IconRadioOn } from '@/components/icons/figma-icons'
 import { cn } from '@/lib/utils'
 
 /**

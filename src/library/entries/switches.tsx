@@ -3,13 +3,13 @@ import {
   NutmixerTab,
   SustainabilityCategoryButton,
   SustainabilityCategoryNavigation,
-} from '@/components/design-system/switches/category-navigation'
-import { Choice } from '@/components/design-system/switches/choice'
-import { InformationBubble } from '@/components/design-system/switches/information-bubble'
-import { MegaSwitch } from '@/components/design-system/switches/mega-switch'
-import { OptionSelection, PACKAGING_OPTIONS } from '@/components/design-system/switches/option-selection'
-import { RadioField, RadioOption } from '@/components/design-system/switches/radio'
-import { SwitchToggleGroup } from '@/components/design-system/switches/toggle-group'
+} from '@/components/ui/category-navigation'
+import { Choice } from '@modules/products/components/choice'
+import { InformationBubble } from '@/components/ui/information-bubble'
+import { MegaSwitch } from '@/components/ui/mega-switch'
+import { OptionSelection, PACKAGING_OPTIONS } from '@/components/ui/option-selection'
+import { RadioField, RadioOption } from '@/components/ui/radio-field'
+import { SwitchToggleGroup } from '@/components/ui/switch-toggle-group'
 import { RadioGroup } from '@/components/ui/radio-group'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { SUSTAINABILITY_CATEGORIES } from '@/lib/design-system/sustainability'
