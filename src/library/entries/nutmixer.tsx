@@ -1,5 +1,6 @@
 import { Nutmixer } from '@modules/nutmixer/components/nutmixer'
 import { NutmixerItem } from '@modules/nutmixer/components/nutmixer-item'
+import { MixBar } from '@modules/nutmixer/components/mix-bar'
 import { NUTMIXER_CATEGORIES_DEMO, NUTMIXER_PRODUCTS } from '@/lib/fixtures'
 import { Specimen } from '@/library/showcase'
 import type { LibraryEntry } from '@/library/types'
@@ -33,6 +34,22 @@ export const nutmixerEntries: LibraryEntry[] = [
             stepGrams={75}
             quantity={1}
           />
+        </div>
+      </Specimen>
+    ),
+  },
+  {
+    id: 'components-nutmixer-mixbar',
+    figma: 'Components / Nutmixer / MixBar',
+    nodeId: '10039:83453',
+    code: '<MixBar fillPercent={60} className="sticky bottom-zero md:hidden">{mischung}</MixBar>',
+    note: 'Nur auf dem Handy: Der Nussmixer setzt die Leiste an sein Ende, dort klebt sie unten. „Ansehen“ öffnet die Mischung als Bottom Sheet (Open?=True); Kreuz, Escape, Tippen auf den Hintergrund oder Wischen nach unten schließen es.',
+    render: () => (
+      <Specimen label="Open?=False">
+        <div className="w-full max-w-block-max">
+          <MixBar fillPercent={60}>
+            <p className="type-label-default">Hier steht im Nussmixer die Mischung.</p>
+          </MixBar>
         </div>
       </Specimen>
     ),
