@@ -38,6 +38,7 @@ describe('PageBreadcrumb', () => {
     expect(layer?.className).toContain('sticky')
     expect(layer?.className).toContain('top-(--header-height)')
     expect(layer?.className).toContain('scroll-down:-translate-y-full')
+    expect(layer?.className).toContain('pb-sm')
   })
 
   it('setzt ohne CSS-Scroll-State die Scrollrichtung am <html>', () => {

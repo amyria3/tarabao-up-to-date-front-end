@@ -186,7 +186,7 @@ const textEntries: LibraryEntry[] = [
     figma: 'Primitives / Breadcrumb',
     nodeId: '3155:5202',
     code: "<Breadcrumb items={[{ label: 'Startseite', href }, …, { label: 'Aktuelle Seite' }]} />",
-    note: 'Pfad wie in der Storefront: Der erste Eintrag (Startseite) erscheint als Dots mit Link, der letzte ist die aktuelle Seite.',
+    note: 'Pfad wie in der Storefront: Der erste Eintrag ist die Startseite, der letzte die aktuelle Seite. Reicht die Breite nicht, ersetzen Dots die vorderen Stationen und verlinken die letzte verdeckte.',
     render: () => (
       <ThemeMatrix columns={1}>
         {() => (

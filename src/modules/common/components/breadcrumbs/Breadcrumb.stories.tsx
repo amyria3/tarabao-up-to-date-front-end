@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: Primitives / Breadcrumb (3155:5202). Path as in the storefront: the first item (home page) appears as dots with a link, the last item is the current page without a link.',
+          'Figma: Primitives / Breadcrumb (3155:5202). Path as in the storefront: the first item is the home page, the last item is the current page without a link. Dots appear only when the row is too narrow for all items: they replace the leading items (home page first) and link to the last hidden one.',
       },
     },
   },
@@ -27,4 +27,16 @@ export const Default: Story = {}
 /** Product page: Startseite → Shop → category → subcategory → product */
 export const ProductPage: Story = {
   args: productBreadcrumb(findProduct('jancys-curry-cashews')!, 'de-de'),
+}
+
+/** Narrow row (base): dots replace the leading items until the path fits. */
+export const Narrow: Story = {
+  args: productBreadcrumb(findProduct('jancys-curry-cashews')!, 'de-de'),
+  decorators: [
+    (Story) => (
+      <div className="w-[22.5rem]">
+        <Story />
+      </div>
+    ),
+  ],
 }

@@ -68,6 +68,7 @@ export type PageBreadcrumbProps = BreadcrumbProps
  * Beim Laden sichtbar. Scrollt der Nutzer nach unten, gleitet sie unter den Sticky-Header.
  * Scrollt er nach oben, erscheint sie wieder direkt unter dem Header.
  * Bekommt ein Link den Fokus, bleibt sie sichtbar. Figma bildet das Verhalten nicht ab.
+ * Unten hält die Zeile box-spacing sm (pb-sm) Abstand zum Inhalt darunter (Daria, 05.10.).
  *
  * Voraussetzung: Der Header ist sticky mit z-50 und deckender Fläche, die Breadcrumb
  * liegt als erstes Kind in <main>.
@@ -80,7 +81,7 @@ export function PageBreadcrumb({ className, ...props }: PageBreadcrumbProps) {
     <div
       data-slot="page-breadcrumb"
       className={cn(
-        'sticky top-(--header-height) z-40 w-full bg-surface',
+        'sticky top-(--header-height) z-40 w-full bg-surface pb-sm',
         'transition-[translate] duration-200 ease-out motion-reduce:transition-none',
         'scroll-down:-translate-y-full focus-within:translate-y-0',
         className,
