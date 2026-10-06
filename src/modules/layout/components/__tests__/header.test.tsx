@@ -1,10 +1,47 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Header } from '@modules/layout/components/header'
 import { NAV_GROUPS, PROMO } from '@/lib/fixtures'
 
+const nav = vi.hoisted(() => ({ pathname: '/de-de' }))
+vi.mock('next/navigation', () => ({ usePathname: () => nav.pathname }))
+
 describe('Header', () => {
+  beforeEach(() => {
+    nav.pathname = '/de-de'
+  })
+
+  it('schließt das Mega-Menü beim Klick auf einen Link, aber nicht bei Klick mit Zusatztaste', () => {
+    render(<Header navGroups={NAV_GROUPS} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Navigation öffnen' }))
+    const link = screen.getByRole('link', { name: 'Naturbelassen' })
+    // jsdom kann nicht navigieren; next/link verhindert die Standardaktion ebenfalls.
+    link.addEventListener('click', (e) => e.preventDefault())
+
+    fireEvent.click(link, { metaKey: true })
+    expect(screen.getByRole('link', { name: 'Naturbelassen' })).toBeTruthy()
+
+    fireEvent.click(link)
+    expect(screen.queryByRole('link', { name: 'Naturbelassen' })).toBeNull()
+  })
+
+  it('schließt Menü und Suche nach einem Seitenwechsel', () => {
+    const { rerender } = render(<Header navGroups={NAV_GROUPS} search={<p>Suchbereich</p>} />)
+    fireEvent.click(screen.getByRole('button', { name: 'Navigation öffnen' }))
+    expect(screen.getByRole('link', { name: 'Naturbelassen' })).toBeTruthy()
+
+    nav.pathname = '/de-de/categories/nuesse'
+    rerender(<Header navGroups={NAV_GROUPS} search={<p>Suchbereich</p>} />)
+    expect(screen.queryByRole('link', { name: 'Naturbelassen' })).toBeNull()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Suche öffnen' }))
+    expect(screen.getByText('Suchbereich')).toBeTruthy()
+    nav.pathname = '/de-de/products/curry-cashews'
+    rerender(<Header navGroups={NAV_GROUPS} search={<p>Suchbereich</p>} />)
+    expect(screen.queryByText('Suchbereich')).toBeNull()
+  })
+
   it('öffnet das Mega-Menü in der <nav> und schließt es mit Escape', () => {
     render(<Header navGroups={NAV_GROUPS} promo={PROMO} />)
     const nav = screen.getByRole('navigation', { name: 'Hauptnavigation' })

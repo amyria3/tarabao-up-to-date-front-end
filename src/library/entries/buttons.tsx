@@ -15,6 +15,7 @@ import {
   buttonFamilyProps,
   type ButtonFamily,
 } from '@/components/ui/button'
+import { ButtonCardRound } from '@/components/ui/button-card-round'
 import { ButtonShape, type ButtonShapeKind } from '@/components/ui/button-shape'
 import { Checkbox } from '@/components/ui/checkbox'
 import { TabsContent } from '@/components/ui/tabs'
@@ -339,6 +340,23 @@ export const buttonEntries: LibraryEntry[] = [
             </Specimen>
           ))
         }
+      </ThemeMatrix>
+    ),
+  },
+  {
+    id: 'buttons-card-round',
+    figma: 'Buttons / LG / Button-Card-Round',
+    nodeId: '10250:54012',
+    code: '<ButtonCardRound aria-label="In den Warenkorb: Curry-Cashews" className="md:hidden" />',
+    note: 'Runder Schnell-Button der Produktkarten in Mobil (viewport-range=base). Die Karte setzt ihn mit dem Zentrum auf die untere rechte Bildecke und blendet ihn ab md aus.',
+    render: () => (
+      <ThemeMatrix>
+        {() => (
+          <Specimen label="Hover?=False · True">
+            <ButtonCardRound aria-label="In den Warenkorb" />
+            <ButtonCardRound aria-label="In den Warenkorb" forceHover />
+          </Specimen>
+        )}
       </ThemeMatrix>
     ),
   },

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import * as React from 'react'
 
 import { IconCartEmpty } from '@/components/icons/figma-icons'
+import { ButtonCardRound } from '@/components/ui/button-card-round'
 import { ReviewStars } from '@/components/ui/review-stars'
 import { ProductImage } from '@modules/products/components/product-image'
 import { Button } from '@/components/ui/button'
@@ -18,7 +19,7 @@ const DEFAULT_ROOT =
   'h-card-default min-w-card-default-min max-w-card-default-max gap-card-default-frame px-card-default-frame pt-card-default-frame'
 const COMPACT_ROOT =
   'h-card-compact min-w-card-compact-min max-w-card-compact-max gap-card-compact-frame p-card-compact-frame'
-/** Figma flex-col im Ruhezustand: DefaultSize gap 12 · unten 8, CompactSize unten bündig, gap und oben/unten 8. */
+/** Figma flex-col im Ruhezustand: DefaultSize gap 12 · unten 8, CompactSize unten bündig, gap und oben/unten 6. */
 const DEFAULT_INFO = 'gap-card-default-content-gap pb-card-default-content'
 const COMPACT_INFO = 'justify-end gap-card-compact-content py-card-compact-content'
 
@@ -50,11 +51,14 @@ export interface ProductCardProps {
  * eine Karte ohne Produkt und ohne Interaktion. „Rein in den Korb“ (CompactSize) bzw. „In den Warenkorb“
  * legt die Sorte der Karte einmalig in den Warenkorb (Produkt-ID an den Warenkorb).
  * Karte mit Rahmen card-btn-hover-click und Schatten „Cards default“. Der Bildrand ist das Padding der
- * Karte (Cards/ProductCard/…/frame, DefaultSize 6 px ohne Rand unten, CompactSize 8 px rundum) und hat
+ * Karte (Cards/ProductCard/…/frame, DefaultSize 6 px ohne Rand unten, CompactSize 6 px rundum) und hat
  * damit immer die Farbe der Karte. Beim Hover wird die Fläche card-surface-hover, der Infobereich
  * schrumpft auf Buttons / MD / Button-Card, und das Bild wächst nach (Smart Animate).
  * Titel und Bild verlinken auf das Produkt; die Warenkorb-Aktion ist ein
  * eigener Button (Tastatur: nach dem Titel erreichbar, blendet sich bei Fokus ein).
+ * Unter md (viewport-range=base) hat die Karte keinen Hover. Dort sitzt der runde Schnell-Button
+ * Buttons / LG / Button-Card-Round mit seinem Zentrum auf der unteren rechten Bildecke (md:hidden),
+ * der Hover-Button erscheint erst ab md (hidden md:flex). Alle Hover-Klassen tragen deshalb md:.
  */
 export function ProductCard({
   product,
@@ -82,8 +86,13 @@ export function ProductCard({
           className,
         )}
       >
-        <div className="min-h-zero w-full flex-1">
+        <div className="relative min-h-zero w-full flex-1">
           <ProductImage image={undefined} />
+          <ButtonCardRound
+            aria-label="Produkt"
+            tabIndex={-1}
+            className="pointer-events-none absolute right-zero bottom-zero translate-x-1/2 translate-y-1/2 md:hidden"
+          />
         </div>
         <div
           className={cn(
@@ -115,37 +124,51 @@ export function ProductCard({
       data-product={context === 'nutmixer' ? 'lose-ware' : 'doypack'}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card relative flex w-full flex-col border border-card-btn-hover-click bg-card-surface shadow-card hover:shadow-card-hover data-hovered:shadow-card-hover motion-hover',
-        'hover:bg-card-surface-hover data-hovered:bg-card-surface-hover',
+        'group/card relative flex w-full flex-col border border-card-btn-hover-click bg-card-surface shadow-card motion-hover',
+        'md:hover:bg-card-surface-hover md:hover:shadow-card-hover md:data-hovered:bg-card-surface-hover md:data-hovered:shadow-card-hover',
         compact ? COMPACT_ROOT : DEFAULT_ROOT,
         className,
       )}
     >
-      <Link href={product.href} tabIndex={-1} aria-hidden className="min-h-zero w-full flex-1">
-        <ProductImage image={product.image} sizes="(min-width: 64rem) 18rem, 50vw" />
-      </Link>
+      {/* Der runde Button sitzt im relative-Wrapper um das Bild, nicht im overflow-hidden des Bildes. So schneidet das Bild ihn nicht ab. */}
+      <div className="relative min-h-zero w-full flex-1">
+        <Link href={product.href} tabIndex={-1} aria-hidden className="block size-full">
+          <ProductImage image={product.image} sizes="(min-width: 64rem) 18rem, 50vw" />
+        </Link>
+        <ButtonCardRound
+          aria-label={`${label}: ${product.title}`}
+          onClick={() => onAddToCart?.(product.id)}
+          className="absolute right-zero bottom-zero z-10 translate-x-1/2 translate-y-1/2 md:hidden"
+        />
+      </div>
       <div
         className={cn(
           // Figma: Infobereich HUG. Die Höhen stehen hier fest, damit der Wechsel animiert (motion-hover):
           // DefaultSize 4.625rem (Titel 2rem + Abstand 0.75rem + Preis 1.375rem + unten 0.5rem), beim Hover
-          // 2.875rem (Button 2.5rem + unten 0.375rem); CompactSize 3.75rem, beim Hover 2.5rem (nur der Button).
+          // 2.875rem (Button 2.5rem + unten 0.375rem); CompactSize 3.3125rem (oben 0.375rem + Titel 0.8125rem
+          // + Abstand 0.375rem + Preis 1.375rem + unten 0.375rem), beim Hover 2.5rem (nur der Button).
           'relative w-full overflow-hidden motion-hover',
           compact
-            ? 'h-[3.75rem] group-hover/card:h-10 group-data-hovered/card:h-10 group-has-[[data-slot=card-action]:focus-within]/card:h-10'
-            : 'h-[4.625rem] group-hover/card:h-[2.875rem] group-data-hovered/card:h-[2.875rem] group-has-[[data-slot=card-action]:focus-within]/card:h-[2.875rem]',
+            ? 'h-[3.3125rem] md:group-hover/card:h-10 md:group-data-hovered/card:h-10 md:group-has-[[data-slot=card-action]:focus-within]/card:h-10'
+            : 'h-[4.625rem] md:group-hover/card:h-[2.875rem] md:group-data-hovered/card:h-[2.875rem] md:group-has-[[data-slot=card-action]:focus-within]/card:h-[2.875rem]',
         )}
       >
         <div
           className={cn(
             'flex h-full w-full flex-col items-center text-center text-card-content-text motion-hover',
-            'group-hover/card:opacity-0 group-data-hovered/card:opacity-0 group-has-[[data-slot=card-action]:focus-within]/card:opacity-0',
+            'md:group-hover/card:opacity-0 md:group-data-hovered/card:opacity-0 md:group-has-[[data-slot=card-action]:focus-within]/card:opacity-0',
             compact ? COMPACT_INFO : DEFAULT_INFO,
           )}
         >
           <Heading className={cn('flex w-full items-end justify-center', !compact && 'h-card-default-title')}>
             <Link
               href={product.href}
-              className="line-clamp-2 type-cards-product-title focus-visible:outline-2 focus-visible:outline-btn-primary-bg"
+              // DefaultSize: zwei Zeilen (Title/fix-h 2rem). CompactSize hat keine Titelhöhe; der Infobereich
+              // hat für die Animation eine feste Höhe. Deshalb kürzt die CompactSize den Titel auf eine Zeile.
+              className={cn(
+                'type-cards-product-title focus-visible:outline-2 focus-visible:outline-btn-primary-bg',
+                compact ? 'line-clamp-1' : 'line-clamp-2',
+              )}
             >
               {product.title}
             </Link>
@@ -158,8 +181,8 @@ export function ProductCard({
         <div
           data-slot="card-action"
           className={cn(
-            'absolute inset-0 flex items-end justify-center bg-card-surface-hover opacity-0 motion-hover',
-            'group-hover/card:opacity-100 group-data-hovered/card:opacity-100 focus-within:opacity-100',
+            'absolute inset-0 hidden items-end justify-center bg-card-surface-hover opacity-0 motion-hover md:flex',
+            'md:group-hover/card:opacity-100 md:group-data-hovered/card:opacity-100 md:focus-within:opacity-100',
             // Figma flex-col beim Hover: DefaultSize unten 6 px (frame), CompactSize ohne Abstand (unten wirkt der Rand der Karte).
             !compact && 'pb-card-default-frame',
           )}

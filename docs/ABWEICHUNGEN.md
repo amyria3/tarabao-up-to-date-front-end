@@ -126,7 +126,12 @@ Figma-Tokens kommen. Das Projekt übernimmt die Tokens unverändert; die Designe
 | Disclosure | Zeile 12 px oben und unten, Pfeil nach rechts 9 × 22 px | `py-md-sm`; Overlay-Pfeil in einem Rahmen mit den Figma-Maßen |
 | Switches / MegaSwitch | Pillen so hoch wie das Label (Btns/MD bzw. XX-SM), Track = Wurzel | `h-btn-md` bzw. `h-btn-xx-sm`, min/max wie Buttons |
 | Cards / ReviewCard | Sterne 14 px im Abstand 4 px | `ReviewStars size="sm"` |
-| Sections / BlogCards | Enthält in Figma Cards / FeaturedCard | Bleibt bei `BlogCard`, bis Daria entscheidet |
+| Sections / BlogCards | Enthält in Figma Cards / FeaturedCard | Bleibt bei `BlogCard` (Daria 06.10.: Code ist korrekt) |
+| Cards / ProductCard / CompactSize | 180–248 px breit, 192 px hoch, Rand und Abstände 6 px; Preis als „5,49 € / 130 g“ | Tokens aus app.tcss; der Preis kommt fertig aus den Produktdaten (`priceLabel`) |
+| Cards / ProductCard · viewport-range=base | Keine Hover-Variante in Mobil. Buttons / LG / Button-Card-Round sitzt mit dem Zentrum auf der unteren rechten Bildecke | `ButtonCardRound` mit `md:hidden`, Hover-Button `hidden md:flex`, alle Hover-Klassen mit `md:` |
+| CompactSize · Titel | Textstil Cards/ProductTitle, Schriftgröße an der Ebene auf 11 px überschrieben; der Titel bricht um, das Bild wird kürzer | Textstil ohne Überschreibung (12 px), eine Zeile mit Auslassungspunkten, da der Infobereich für die Animation eine feste Höhe hat |
+| CompactSize · Product=Doypack, Context=Nutmixer | Button „Rein in den Mix!“ in Mobil schon ohne Hover, kein runder Button | Nicht umgesetzt: Im Code zeigt der Nussmixer nur lose Ware (Product=Lose Ware) |
+| Navigation / Header | – | Menü und Suche schließen beim Klick auf einen Link darin und bei jedem Seitenwechsel (auch Zurück/Vor) |
 
 ## Figma-Änderungen 29./30.09. (Stand 30.09.)
 

@@ -2678,13 +2678,13 @@ export const FOUNDATIONS = {
     },
     {
       name: 'card-compact-frame',
-      value: 'var(--spacing-sm)',
-      comment: 'Cards/ProductCard/CompactSize/frame  8px',
+      value: 'var(--spacing-xs)',
+      comment: 'Cards/ProductCard/CompactSize/frame  6px',
     },
     {
       name: 'card-compact-content',
-      value: 'var(--spacing-sm)',
-      comment: 'Cards/ProductCard/CompactSize/content  8px',
+      value: 'var(--spacing-xs)',
+      comment: 'Cards/ProductCard/CompactSize/content  6px',
     },
     {
       name: 'card-with-reviews-frame-top',
@@ -2925,13 +2925,13 @@ export const FOUNDATIONS = {
     },
     {
       name: 'card-compact-min',
-      value: '15rem',
-      comment: 'Cards/ProductCard/CompactSize/min-w  240px',
+      value: '11.25rem',
+      comment: 'Cards/ProductCard/CompactSize/min-w  180px',
     },
     {
       name: 'card-compact-max',
-      value: '24rem',
-      comment: 'Cards/ProductCard/CompactSize/max-w  384px',
+      value: '15.5rem',
+      comment: 'Cards/ProductCard/CompactSize/max-w  248px',
     },
     {
       name: 'card-category-sm-max',
@@ -3242,8 +3242,8 @@ export const FOUNDATIONS = {
     },
     {
       name: 'card-compact',
-      value: '16rem',
-      comment: 'Cards/ProductCard/CompactSize/fix-h  256px',
+      value: '12rem',
+      comment: 'Cards/ProductCard/CompactSize/fix-h  192px',
     },
     {
       name: 'card-category-sm',

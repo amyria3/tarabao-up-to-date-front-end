@@ -40,7 +40,7 @@ export const cardEntries: LibraryEntry[] = [
     figma: 'Cards / ProductCard / DefaultSize',
     nodeId: '2356:2667',
     code: '<ProductCard product={product} />',
-    note: 'Hover?=True zeigt Buttons / MD / Button-Card. Bilder sind Platzhalter (surface-placeholder).',
+    note: 'Hover?=True zeigt ab md Buttons / MD / Button-Card. Unter md (viewport-range=base) gibt es keinen Hover; dort sitzt Buttons / LG / Button-Card-Round auf der unteren rechten Bildecke. Bilder sind Platzhalter (surface-placeholder).',
     render: () => (
       <ThemeMatrix>
         {() => (
@@ -64,6 +64,7 @@ export const cardEntries: LibraryEntry[] = [
     figma: 'Cards / ProductCard / CompactSize',
     nodeId: '8555:27280',
     code: '<ProductCard size="compact" product={product} context="nutmixer" />',
+    note: '180–248 px breit, 192 px hoch. Hover?=True zeigt ab md „Rein in den Korb“ bzw. im Nussmixer „Zur Mischung“; unter md sitzt Buttons / LG / Button-Card-Round auf der Bildecke.',
     render: () => (
       <ThemeMatrix>
         {() => (

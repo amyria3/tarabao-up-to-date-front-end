@@ -779,7 +779,7 @@
   /* ---- Cards ---- */
   --height-card-default: 18rem;             /* Cards/ProductCard/DefaultSize/fix-h  288px */
   --height-card-default-title: 2rem;        /* Cards/ProductCard/DefaultSize/Title/fix-h  32px */
-  --height-card-compact: 16rem;             /* Cards/ProductCard/CompactSize/fix-h  256px */
+  --height-card-compact: 12rem;             /* Cards/ProductCard/CompactSize/fix-h  192px */
   --height-card-category-sm: 15rem;         /* Cards/CategoryCard/SM/fix-h  240px */
   --height-card-category-md: 15.5rem;       /* Cards/CategoryCard/MD/fix-h  248px */
   --height-card-featured-min: 18rem;        /* Cards/FeaturedCard/min-h  288px */
@@ -1085,8 +1085,8 @@
   --spacing-card-default-frame: var(--spacing-xs);          /* Cards/ProductCard/DefaultSize/frame  6px */
   --spacing-card-default-content: var(--spacing-sm);        /* Cards/ProductCard/DefaultSize/content  8px */
   --spacing-card-default-content-gap: var(--spacing-md-sm); /* Cards/ProductCard/DefaultSize/content-gap  12px */
-  --spacing-card-compact-frame: var(--spacing-sm);          /* Cards/ProductCard/CompactSize/frame  8px */
-  --spacing-card-compact-content: var(--spacing-sm);        /* Cards/ProductCard/CompactSize/content  8px */
+  --spacing-card-compact-frame: var(--spacing-xs);          /* Cards/ProductCard/CompactSize/frame  6px */
+  --spacing-card-compact-content: var(--spacing-xs);        /* Cards/ProductCard/CompactSize/content  6px */
   --spacing-card-with-reviews-frame-top: var(--spacing-md-sm); /* Cards/ProductCardWithReviews/frame-top  12px */
   --spacing-card-with-reviews-gap: var(--spacing-md-l);     /* Cards/ProductCardWithReviews/gap  20px */
   --spacing-card-category-sm-frame: var(--spacing-md-sm);   /* Cards/CategoryCard/SM/frame  12px */
@@ -1146,8 +1146,8 @@
   /* Karten */
   --container-card-default-min: 11.25rem;           /* Cards/ProductCard/DefaultSize/min-w  180px */
   --container-card-default-max: 18rem;              /* Cards/ProductCard/DefaultSize/max-w  288px */
-  --container-card-compact-min: 15rem;              /* Cards/ProductCard/CompactSize/min-w  240px */
-  --container-card-compact-max: 24rem;              /* Cards/ProductCard/CompactSize/max-w  384px */
+  --container-card-compact-min: 11.25rem;           /* Cards/ProductCard/CompactSize/min-w  180px */
+  --container-card-compact-max: 15.5rem;            /* Cards/ProductCard/CompactSize/max-w  248px */
   --container-card-category-sm-max: 16rem;          /* Cards/CategoryCard/SM/max-w  256px */
   --container-card-blog-min: 11.25rem;              /* Cards/BlogCard/min-w  180px */
   --container-card-blog-max: 18rem;                 /* Cards/BlogCard/max-w  288px */

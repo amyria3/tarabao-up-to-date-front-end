@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import * as React from 'react'
 
 import { IconButton } from '@/components/ui/icon-button'
@@ -35,6 +36,8 @@ export interface HeaderProps extends Pick<
  * Full: IconButton „Navigation schließen“ und Navigation / Nav (Mega-Menü) — beides bleibt
  * Teil der <nav>. Search: IconButton „Suche schließen“ und Sections / Search & Filter —
  * außerhalb der <nav>, da es ein Inhalts-Overlay ist. Escape schließt beides.
+ * Ein Klick auf einen Link im Menü oder in der Suche schließt beides sofort. Jeder Seitenwechsel
+ * schließt beides ebenfalls, auch Zurück und Vor im Browser.
  */
 export function Header({
   navGroups,
@@ -51,6 +54,28 @@ export function Header({
   const menuToggleRef = React.useRef<HTMLDivElement>(null)
 
   const close = React.useCallback(() => setState('default'), [])
+
+  // Seitenwechsel: Der Header bleibt im Layout stehen, deshalb setzt der neue Pfad den Zustand zurück
+  // (State beim Rendern anpassen statt in einem Effekt).
+  const pathname = usePathname()
+  const [lastPathname, setLastPathname] = React.useState(pathname)
+  if (pathname !== lastPathname) {
+    setLastPathname(pathname)
+    setState('default')
+  }
+
+  // Link im Menü oder in der Suche: sofort schließen, auch wenn er zur aktuellen Seite führt.
+  // Klicks mit Zusatztaste öffnen einen neuen Tab, dann bleibt das Menü offen.
+  const closeOnLinkClick = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const link = (e.target as HTMLElement).closest('a[href]')
+      if (!link || link.getAttribute('target') === '_blank') return
+      close()
+    },
+    [close],
+  )
+
   React.useEffect(() => {
     if (state === 'default') return
     const onKey = (e: KeyboardEvent) => {
@@ -88,6 +113,7 @@ export function Header({
           {menuOpen ? (
             <div
               id={menuId}
+              onClick={closeOnLinkClick}
               className={cn(
                 'flex flex-col bg-surface',
                 overlay && 'absolute inset-x-0 top-full z-40 items-center px-5 pb-md-l',
@@ -103,7 +129,11 @@ export function Header({
         {searchOpen ? (
           // Der Header klebt oben. Damit lange Trefferlisten erreichbar bleiben, scrollt der offene
           // Suchbereich in sich, sobald er höher als drei Viertel des Bildschirms wird.
-          <div id={searchId} className="flex max-h-[75dvh] flex-col gap-md overflow-y-auto overscroll-contain pb-md-l">
+          <div
+            id={searchId}
+            onClick={closeOnLinkClick}
+            className="flex max-h-[75dvh] flex-col gap-md overflow-y-auto overscroll-contain pb-md-l"
+          >
             <IconButton label="Suche schließen" className="self-start" onClick={close} />
             {search}
           </div>

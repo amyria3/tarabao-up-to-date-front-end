@@ -56,7 +56,12 @@ describe('Nutmixer', () => {
     render(<Nutmixer categories={NUTMIXER_CATEGORIES_DEMO} products={NUTMIXER_PRODUCTS} capacityGrams={150} />)
     const order = screen.getByRole('button', { name: 'Nussmix bestellen' }) as HTMLButtonElement
     expect(order.disabled).toBe(true)
-    const add = screen.getAllByRole('button', { name: /Zur Mischung: Nussname/ })
+    // Jede Karte hat zwei Buttons mit diesem Namen: den runden Schnell-Button (unter md) und den
+    // Hover-Button (ab md). Das CSS blendet je einen aus, jsdom kennt kein CSS. Deshalb zählt hier
+    // nur der Hover-Button, ein Button je Karte.
+    const add = screen
+      .getAllByRole('button', { name: /Zur Mischung: Nussname/ })
+      .filter((b) => b.dataset.slot !== 'button-card-round')
     fireEvent.click(add[0]!)
     expect(order.disabled).toBe(true)
     fireEvent.click(add[1]!)
