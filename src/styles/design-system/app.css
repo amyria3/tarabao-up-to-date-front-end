@@ -47,7 +47,6 @@
  *  Clrs / Special                    §2e          --special-*         Cards/VoucherCard, Layout/PromoBar
  *    switched via [data-special-theme]
  *  Lyt scl / Heights                 §2d          --height-*          → @utility h-* / min-h-* / max-h-*, §5
- *  Lyt scl / Heights › …/label-size  §4           --text-btn-*        → text-btn-* (button label sizes)
  *  Lyt scl / Breakpoints (md, lg)    §4           --breakpoint-*      variants md: / lg:
  *  Text Styles (families)            §4           --font-*            all type
  *  Typografy                         §4           --text-*            all type
@@ -764,13 +763,8 @@
 
   /* ---- Icons (Seitenverhältnis bleibt, Breite folgt) ---- */
   --height-icon-btn: 1.25rem;               /* Icons/Buttons/fix-h  20px */
-  --height-icon-btn-secondary: 1.625rem;    /* Icons/Buttons/Secondary/fix-h  26px */
-  --height-icon-btn-lg: 2.25rem;            /* Icons/Buttons/LG/fix-h  36px */
-  --height-icon-option-selection: 1rem;     /* Icons/OptionSelection/fix-h  16px */
-  --height-icon-segment-flag: 1.625rem;     /* Icons/SegmentControl/Flag/fix-h  26px */
   --height-icon-radio: 1.875rem;            /* Icons/Radio/fix-h  30px */
   --height-icon-arrow: 0.5rem;              /* Icons/ArrowUpOrDown/fix-h  8px */
-  --height-icon-sustainability-nav: 0.75rem; /* Icons/SustainabilityNavigation/fix-h  12px */
   --height-icon-carousel-huge: 1.5rem;      /* Icons/CarouselNav/Huge/fix-h  24px */
   --height-icon-carousel-sm: 1rem;          /* Icons/CarouselNav/SM/fix-h  16px */
   --height-icon-reaction: 0.875rem;         /* Icons/ReactionCounter/fix-h  14px */
@@ -1030,14 +1024,6 @@
   --text-48: 3rem;
   --text-60: 3.75rem;
 
-  /* ---- Button label sizes — "Lyt scl / Heights" › Btns/…/label-size ----
-     Usage: text-btn-lg, text-btn-md … */
-  --text-btn-lg: var(--text-30);        /* Btns/L/label-size  30px */
-  --text-btn-md: var(--text-22);        /* Btns/MD/label-size  22px */
-  --text-btn-sm: var(--text-20);        /* Btns/SM/label-size  20px */
-  --text-btn-xx-sm: var(--text-14);     /* Btns/XX-SM/label-size  14px */
-  --text-btn-xxxx-sm: var(--text-11);   /* Btns/XXXX-SM/label-size  11px */
-
   /* ---- Motion — "Motion / Smart Animate" ----
      Figma-Übergang „Smart animate“, Kurve „Ease in and out“ = CSS ease-in-out.
      Usage: duration-(--smart-animate-duration-short) ease-(--smart-animate-easing) */
@@ -1173,7 +1159,6 @@
   /* Wert je Modus (base) */
   --container-block-max: var(--content-max);        /* Block Element/max-w */
   --container-btn-max: var(--content-max);          /* Buttons/max-w */
-  --container-btn-payment-max: var(--content-max);  /* Buttons/Payment/max-w */
   --container-subscription-management-max: var(--content-max);/* Subscription Management/max-w */
   --container-nuss-abo-cancellation-status-max: var(--content-max);/* Nuss-AboCancellationStatus/max-w */
   --container-block-min: 20rem;                     /* Block Element/min-w  320px */
@@ -1196,7 +1181,6 @@
   @variant md {
     --container-block-max: 32rem;                       /* 512px */
     --container-btn-max: 32rem;                         /* 512px */
-    --container-btn-payment-max: 28rem;                 /* 448px */
     --container-subscription-management-max: 40rem;     /* 640px */
     --container-nuss-abo-cancellation-status-max: 24rem;/* 384px */
     --container-block-min: 20rem;                       /* 320px */
@@ -1214,7 +1198,6 @@
   @variant lg {
     --container-block-max: 32rem;                       /* 512px */
     --container-btn-max: 32rem;                         /* 512px */
-    --container-btn-payment-max: 28rem;                 /* 448px */
     --container-subscription-management-max: 40rem;     /* 640px */
     --container-nuss-abo-cancellation-status-max: 24rem;/* 384px */
     --container-block-min: 24rem;                       /* 384px */
@@ -1265,13 +1248,8 @@
 @utility h-icon-nav                     { height: var(--height-icon-nav); }
 
 @utility h-icon-btn                     { height: var(--height-icon-btn); }
-@utility h-icon-btn-secondary           { height: var(--height-icon-btn-secondary); }
-@utility h-icon-btn-lg                  { height: var(--height-icon-btn-lg); }
-@utility h-icon-option-selection        { height: var(--height-icon-option-selection); }
-@utility h-icon-segment-flag            { height: var(--height-icon-segment-flag); }
 @utility h-icon-radio                   { height: var(--height-icon-radio); }
 @utility h-icon-arrow                   { height: var(--height-icon-arrow); }
-@utility h-icon-sustainability-nav      { height: var(--height-icon-sustainability-nav); }
 @utility h-icon-carousel-huge           { height: var(--height-icon-carousel-huge); }
 @utility h-icon-carousel-sm             { height: var(--height-icon-carousel-sm); }
 @utility h-icon-reaction                { height: var(--height-icon-reaction); }

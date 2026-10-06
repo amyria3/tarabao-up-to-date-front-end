@@ -91,7 +91,6 @@ const twMerge = extendTailwindMerge({
         'block-min',
         'btn-max',
         'btn-min',
-        'btn-payment-max',
         'card-blog-max',
         'card-blog-min',
         'card-category-md-max',

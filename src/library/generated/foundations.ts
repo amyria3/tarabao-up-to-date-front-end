@@ -2530,31 +2530,6 @@ export const FOUNDATIONS = {
       value: '3.75rem',
       comment: '',
     },
-    {
-      name: 'btn-lg',
-      value: 'var(--text-30)',
-      comment: 'Btns/L/label-size  30px',
-    },
-    {
-      name: 'btn-md',
-      value: 'var(--text-22)',
-      comment: 'Btns/MD/label-size  22px',
-    },
-    {
-      name: 'btn-sm',
-      value: 'var(--text-20)',
-      comment: 'Btns/SM/label-size  20px',
-    },
-    {
-      name: 'btn-xx-sm',
-      value: 'var(--text-14)',
-      comment: 'Btns/XX-SM/label-size  14px',
-    },
-    {
-      name: 'btn-xxxx-sm',
-      value: 'var(--text-11)',
-      comment: 'Btns/XXXX-SM/label-size  11px',
-    },
   ],
   leading: [
     {
@@ -3049,11 +3024,6 @@ export const FOUNDATIONS = {
       comment: 'Buttons/max-w',
     },
     {
-      name: 'btn-payment-max',
-      value: 'var(--content-max)',
-      comment: 'Buttons/Payment/max-w',
-    },
-    {
       name: 'subscription-management-max',
       value: 'var(--content-max)',
       comment: 'Subscription Management/max-w',
@@ -3201,26 +3171,6 @@ export const FOUNDATIONS = {
       comment: 'Icons/Buttons/fix-h  20px',
     },
     {
-      name: 'icon-btn-secondary',
-      value: '1.625rem',
-      comment: 'Icons/Buttons/Secondary/fix-h  26px',
-    },
-    {
-      name: 'icon-btn-lg',
-      value: '2.25rem',
-      comment: 'Icons/Buttons/LG/fix-h  36px',
-    },
-    {
-      name: 'icon-option-selection',
-      value: '1rem',
-      comment: 'Icons/OptionSelection/fix-h  16px',
-    },
-    {
-      name: 'icon-segment-flag',
-      value: '1.625rem',
-      comment: 'Icons/SegmentControl/Flag/fix-h  26px',
-    },
-    {
       name: 'icon-radio',
       value: '1.875rem',
       comment: 'Icons/Radio/fix-h  30px',
@@ -3229,11 +3179,6 @@ export const FOUNDATIONS = {
       name: 'icon-arrow',
       value: '0.5rem',
       comment: 'Icons/ArrowUpOrDown/fix-h  8px',
-    },
-    {
-      name: 'icon-sustainability-nav',
-      value: '0.75rem',
-      comment: 'Icons/SustainabilityNavigation/fix-h  12px',
     },
     {
       name: 'icon-carousel-huge',
