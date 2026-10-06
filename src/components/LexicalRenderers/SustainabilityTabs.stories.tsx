@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: ContentModules / SustainabilityTabs (8144:22842). Tab widget without <section>: SustainabilityCategoryNavigation as tablist and one tabpanel of BasicWithDisclosure modules per category. Only one module is open.',
+          'Figma: ContentModules / SustainabilityTabs (10020:52037). Tab widget without <section>: SustainabilityCategoryNavigation as tablist and one tabpanel of BasicWithDisclosure modules per category (Engagement 4, Umwelt 3, Fairness 3, No Plane 1). Only one module is open; a tab with a single module shows it without accordion.',
       },
     },
   },

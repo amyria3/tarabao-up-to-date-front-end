@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { IconCartEmpty } from '@/components/icons/figma-icons'
+import { IconEye } from '@/components/icons/figma-icons'
 import { ProductImage } from '@modules/products/components/product-image'
 import { Button } from '@/components/ui/button'
 import type { CategoryCardModel } from '@/lib/view-models'
@@ -17,13 +17,14 @@ export interface CategoryCardProps {
  * Figma: Cards / CategoryCard / SM (2628:2698) · State=Default|Hover, Variant=Default|Nüsse Pur.
  * 240 px hoch (Cards/CategoryCard/SM/fix-h), Breite 164 · 240 · 240 bis 256 px. Der Bildrand ist das
  * Padding der Karte (frame 12 px, unten 0) und hat die Farbe der Karte. Titel unten rechts
- * (Cards/ProductTitle). Hover: Der Titel weicht Buttons / SM / Button-Card, das Bild wird kürzer.
+ * (Cards/ProductTitle). Hover: Der Titel weicht Buttons / SM / Button-Card „Erkunden“ mit Icons / Eye
+ * (All Button Labels/Erkunden), das Bild wird kürzer.
  * Die ganze Karte ist ein Link, der Button deshalb nur Darstellung (span).
  */
 export function CategoryCardSm({
   category,
   forceHover,
-  actionLabel = 'Call to action',
+  actionLabel = 'Erkunden',
   className,
 }: CategoryCardProps & { actionLabel?: string }) {
   return (
@@ -52,7 +53,7 @@ export function CategoryCardSm({
             intent="card"
             size="sm"
             className="min-w-zero"
-            icon={<IconCartEmpty aria-hidden className="h-btn-sm-icon w-auto" />}
+            icon={<IconEye aria-hidden className="h-btn-sm-icon w-auto" />}
           >
             <span aria-hidden>{actionLabel}</span>
           </Button>
@@ -67,13 +68,13 @@ export function CategoryCardSm({
  * 248 px hoch (Cards/CategoryCard/MD/fix-h), Breite 208 · 240 · 240 bis 272 · 288 · 288 px. Der Bildrand
  * ist das Padding der Karte (frame 12 px) und hat die Farbe der Karte. Titel Cards/ProductTitle mit
  * 8 px oben und unten (content). Hover: Fläche card-surface-hover, unten kein Rand, Buttons / MD /
- * Button-Card mit 8 px darunter (Label in Figma „Call to action“), das Bild wird kürzer.
+ * Button-Card „Erkunden“ mit Icons / Eye (All Button Labels/Erkunden) und 8 px darunter, das Bild wird kürzer.
  * Bildgrund in Figma #ffffff ohne Token → bg-white.
  */
 export function CategoryCardMd({
   category,
   forceHover,
-  actionLabel = 'Call to action',
+  actionLabel = 'Erkunden',
   className,
 }: CategoryCardProps & { actionLabel?: string }) {
   return (
@@ -108,7 +109,7 @@ export function CategoryCardMd({
             intent="card"
             size="md"
             className="pointer-events-auto"
-            icon={<IconCartEmpty aria-hidden className="h-icon-btn w-auto" />}
+            icon={<IconEye aria-hidden className="h-icon-btn w-auto" />}
           >
             <Link href={category.href} tabIndex={-1} aria-hidden>
               {actionLabel}

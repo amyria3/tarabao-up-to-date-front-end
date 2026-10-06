@@ -27,6 +27,8 @@ import type {
   TeaserModel,
   VoucherModel,
 } from '@/lib/view-models'
+import type { SustainabilityModule } from '@/components/LexicalRenderers/SustainabilityTabs'
+import type { SustainabilityCategory } from '@/lib/design-system/sustainability'
 import { slugify } from '@/lib/shop/routes'
 
 export const PRODUCTS: ProductCardModel[] = [
@@ -545,9 +547,6 @@ export const PRODUCT_TABS_CONTENT = {
   },
 }
 
-const COOP =
-  'Dieses Unternehmen zeichnet sich durch besonderen Ehrgeiz aus: Es erfüllt nicht nur Kriterien zur ökologischen Landwirtschaft, sondern wirtschaftet als Kooperative. Das bedeutet, dass die Arbeiter*innen und ihre Kinder …'
-
 export const SUSTAINABILITY_CONTENT = {
   intro: {
     headline: 'Nachhaltigkeit für uns',
@@ -565,16 +564,103 @@ export const SUSTAINABILITY_CONTENT = {
       '[#7 Projekt] / [A.3 Herkunft des Produkts]',
     ],
   },
+  // Figma ContentModules / SustainabilityTabs (10020:52037), Stand 06.10.2026. Platzhalter in [ ] = Felder
+  // des Lieferantenfragebogens (Nummern wie in Figma).
   tabs: {
     'social-commitment': [
-      { title: 'Zertifizierungen & Standards', text: COOP, signets: 4 },
-      { title: 'Code of Conduct', text: COOP },
-      { title: 'Beitrag zur Chancengleichheit', text: COOP },
+      {
+        title: 'Zertifizierungen & Standards',
+        text: 'Unser Lieferant geht in mindestens einem Bereich (Ökologie, Soziales) freiwillig nachweislich über gesetzliche Standards hinaus. Alle ausgewiesenen Siegel werden durch unabhängige Stellen geprüft. Dieser Lieferant ist zertifiziert nach:',
+        signets: ['[A.1-a Fair for Life]', '[A.1-a GWÖ-Bilanz]', '[A.1-a Sonstiges]'],
+      },
+      {
+        title: 'Code of Conduct',
+        text: 'Unser Lieferant hat unseren Code of Conduct verbindlich unterzeichnet und verpflichtet sich damit zu fairen Arbeitsbedingungen, Schutz vor Diskriminierung und transparentem Handeln — entlang der gesamten Lieferkette. Dieser Lieferant:',
+        supplierData: ['Unterzeichnet am: [A.2-b Datum]'],
+      },
+      {
+        title: 'Herkunft & Produktionsform',
+        text: 'Dieses Produkt stammt aus [A.3-a Herkunftstyp]. Kleinstrukturierter Anbau stärkt lokale Gemeinschaften, erhält traditionelles Wissen und gibt Produzentinnen und Produzenten mehr Kontrolle über ihre eigene Arbeit. Dieser Lieferant:',
+        supplierData: [
+          'Name: [A.3-c Name]',
+          'Region: [A.3-b Region]',
+          'Gegründet: [A.3-e Gegründet]',
+          'Mitarbeiter*innen: [A.3-d Mitarbeitende]',
+        ],
+      },
+      {
+        title: 'Beitrag zur Chancengleichheit',
+        text: 'Unser Lieferant engagiert sich aktiv für gleichberechtigte Teilhabe — durch Frauenförderung, barrierefreien Zugang zu Bildung und Führungspositionen oder Gemeinschaftsprojekte vor Ort. Dieser Lieferant:',
+        supplierData: [
+          'Maßnahmen: [A.4-a Maßnahmen]',
+          'Frauenanteil: [A.4-b Frauenanteil]',
+          'Projekte: [A.4-c Ergänzungen]',
+        ],
+        supplierNote:
+          'Aus der Fair-for-Life-Prämie finanziert die Kooperative eine Krankenstation für die Dörfer ihrer Mitglieder.',
+      },
     ],
-    'cultivation-environment': [{ title: 'Anbau & Umwelt', text: COOP }],
-    'supply-chain-fairness': [{ title: 'Faire Lieferkette', text: COOP }],
-    transportation: [{ title: 'Transport ohne Flugzeug', text: COOP }],
-  },
+    'cultivation-environment': [
+      {
+        title: 'Anbaumethoden über Bio hinaus',
+        text: 'Bio ist für uns ein Mindeststandard, kein Ziel. Dieser Lieferant geht in mindestens einem Bereich darüber hinaus — etwa durch Agroforestry, Permakultur, aktiven Humusaufbau oder eine strengere Zertifizierung wie Demeter oder Bioland. Dieser Lieferant:',
+        supplierData: [
+          'Methode: [C.1-a Methode]',
+          'Zertifizierung: [C.1-b Zertifikat]',
+          'Zertifiziert seit: [C.1-c Zertifikatsjahr]',
+        ],
+        signets: ['[C.1-b EU-Bio]', '[C.1-b Sonstiges]'],
+      },
+      {
+        title: 'Energie & Ressourcen',
+        text: 'Der Betrieb erzeugt zumindest einen Teil seines Energiebedarfs selbst. Das senkt den CO₂-Fußabdruck der Verarbeitung direkt am Ursprung und reduziert die Abhängigkeit von fossilen Energiequellen. Dieser Lieferant:',
+        supplierData: [
+          'Energiequelle: [C.2-a Energiequelle]',
+          'In Betrieb seit: [C.2-c Energiejahr]',
+          'Anteil Eigenstrom: [C.2-b Eigenanteil]',
+        ],
+      },
+      {
+        title: 'Ernte & Verarbeitung',
+        text: 'Traditionelle Ernte per Hand ermöglicht sorgfältige Auslese direkt im Feld. Schonende Verarbeitungsmethoden erhalten Nährstoffe und Qualität. Bei Rohkostqualität erfolgt die gesamte Verarbeitung unter 42 °C. Dieser Lieferant:',
+        supplierData: ['Ernte & Verarbeitung: [C.3-a Ernte]'],
+        supplierNote:
+          'Die Schalen der Cashewnüsse heizen den Dampfkessel und den Trockenofen. So fällt beim Verarbeiten kaum Abfall an. Quelle: https://example.com/kusini/umwelt',
+      },
+    ],
+    'supply-chain-fairness': [
+      {
+        title: 'Existenzsichernde Preise',
+        text: 'Ein fairer Preis bedeutet für uns: Der Produzent kann davon leben — nicht nur überleben. Wir messen gezahlte Preise am Anker-Referenzwert für existenzsichernde Einkommen (Anker Research Institute, GRI 202). Dieser Lieferant:',
+        supplierData: [
+          'Preisaufschlag: [B.1-b Preisaufschlag]',
+          'Referenz: [B.1-c Referenz]',
+          'Offenlegung: [B.1-a FairePreise]',
+        ],
+      },
+      {
+        title: 'Wirtschaftliche Stärkung',
+        text: 'Langfristige Abnahmeverträge geben dem Produzenten Planungssicherheit für Investitionen in Ernte und Infrastruktur. Oder der Lieferant unterstützt den/die Produzenten zusätzlich durch Vorfinanzierung oder Bio-Umstellungs-Support. Dieser Lieferant:',
+        supplierData: ['Vertrag seit: [B.2-b Vertragsjahr]', 'Unterstützung: [B.2-a Unterstützung]'],
+      },
+      {
+        title: 'Rückverfolgbarkeit',
+        text: 'Wir kennen den vollständigen Weg dieses Produkts vom Feld bis zu unserem Lager — echte Lieferkettentransparenz. Dieser Lieferant:',
+        supplierData: [
+          'Bezug: [B.3-a Rolle]',
+          'Lieferkette: [B.3-b Lieferkette]',
+          'Rückverfolgbar bis: [B.3-c Rückverfolgbarkeit]',
+        ],
+      },
+    ],
+    transportation: [
+      {
+        title: 'Kein Lufttransport',
+        text: 'Luftfracht verursacht pro Tonne und Kilometer etwa 50-mal mehr CO₂ als Seefracht. Kein Lufttransport ist für uns ein festes Kriterium bei der Lieferantenauswahl. Dieses Produkt kommt ohne Flugzeug zu uns. Dieser Lieferant:',
+        supplierData: ['Transportweg: [D.1-a Transportweg]', 'Transportmittel: [D.1-b Transportmittel]'],
+      },
+    ],
+  } satisfies Record<SustainabilityCategory, SustainabilityModule[]>,
 }
 
 /* ---- Rezeptseite (Figma {Blog / Recipe} 9618:28958, Components / Recipe, Sections / ImageCarousel) ---- */

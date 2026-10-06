@@ -26,7 +26,7 @@ export function AllCategoriesPage({
           {categories.map((c) => (
             // Figma: 16 Instanzen Fill, lg vier je Reihe, Breite zwischen min-w und max-w der Karte.
             <li key={c.id} className="flex w-full min-w-card-category-md-min max-w-card-category-md-max flex-1">
-              <CategoryCardMd category={c} actionLabel="Zur Kategorie" />
+              <CategoryCardMd category={c} />
             </li>
           ))}
         </CardsOrder>

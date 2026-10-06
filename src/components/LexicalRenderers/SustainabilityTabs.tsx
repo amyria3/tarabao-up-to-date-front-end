@@ -8,7 +8,19 @@ import { SustainabilityCategoryNavigation } from '@/components/ui/category-navig
 import type { SustainabilityCategory } from '@/lib/design-system/sustainability'
 import { cn } from '@/lib/utils'
 
-export type SustainabilityModule = { title: string; text: string; signets?: number }
+/**
+ * Ein Baustein der Lieferanten-Selbstauskunft (Figma z. B. „[B.1 Preise]“).
+ * text = Absatz 1 (Festtext), supplierData = Absatz 2 (Antworten aus dem Lieferantenfragebogen, je Zeile
+ * „Bezeichnung: Wert“), supplierNote = Absatz 3 (Ergänzungen, CMS lieferantenspezifisch),
+ * signets = Siegel (Anzahl Platzhalter oder Namen).
+ */
+export type SustainabilityModule = {
+  title: string
+  text: string
+  supplierData?: string[]
+  supplierNote?: string
+  signets?: number | string[]
+}
 
 export interface SustainabilityTabsProps {
   content: Partial<Record<SustainabilityCategory, SustainabilityModule[]>>
@@ -17,9 +29,11 @@ export interface SustainabilityTabsProps {
 }
 
 /**
- * Figma: ContentModules / SustainabilityTabs (8144:22842). Kein <section>, sondern ein Tab-Widget:
- * Switches / SustainabilitCategoryNavigation (tablist) und je Kategorie ein tabpanel mit
- * ContentModules / BasicWithDisclosure (Umbruch, gap-md). Nur ein Modul ist offen.
+ * Figma: ContentModules / SustainabilityTabs (10020:52037) · Selected=Engagement|Umwelt|Fairness|No Plane.
+ * Kein <section>, sondern ein Tab-Widget: Switches / SustainabilityCategoryNavigation (tablist) und je
+ * Kategorie ein tabpanel mit ContentModules / BasicWithDisclosure (Umbruch, gap-md). Nur ein Baustein
+ * ist offen, beim Tabwechsel der erste. Ein Tab mit nur einem Baustein (No Plane) zeigt ihn ohne
+ * Accordion (Figma ContentModules / Basic).
  */
 export function SustainabilityTabs({
   content,
@@ -46,7 +60,10 @@ export function SustainabilityTabs({
               key={m.title}
               title={m.title}
               text={m.text}
+              supplierData={m.supplierData}
+              supplierNote={m.supplierNote}
               signets={m.signets}
+              collapsible={modules.length > 1}
               open={openIndex === i}
               onOpenChange={(open) => setOpenIndex(open ? i : -1)}
               className="flex-1"

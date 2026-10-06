@@ -140,15 +140,30 @@ export const contentModuleEntries: LibraryEntry[] = [
     id: 'content-basic-with-disclosure',
     figma: 'ContentModules / BasicWithDisclosure',
     nodeId: '8141:22208',
-    code: '<BasicWithDisclosure title="…" text="…" signets={4} />',
-    note: 'Zu: Absatz auf 3 Zeilen gekürzt. Offen: voller Absatz und Siegel als Platzhalter.',
+    code: '<BasicWithDisclosure title="…" text="…" supplierData={["Region: …"]} supplierNote="…" signets={["Siegel"]} />',
+    note: 'Zu: Absatz 1 auf 2 Zeilen gekürzt. Offen: Absatz 1, Absatz 2 (Lieferantendaten zeilenweise), Absatz 3 (Ergänzungen) und Siegel als Platzhalter. collapsible={false}: ohne Pfeil, immer offen (Figma ContentModules / Basic, Tab No Plane).',
     render: () => (
       <div className={grid}>
         <Specimen label="State=Default">
           <BasicWithDisclosure title={HEADLINE} text={COMPANY} signets={4} />
         </Specimen>
-        <Specimen label="State=Open">
-          <BasicWithDisclosure title={HEADLINE} text={COMPANY} signets={4} defaultOpen />
+        <Specimen label="State=Open, Show Absatz 2, Show Absatz 3">
+          <BasicWithDisclosure
+            title={HEADLINE}
+            text={COMPANY}
+            supplierData={['Name: [A.3-c Name]', 'Region: [A.3-b Region]']}
+            supplierNote="Absatz 3: Daten des Lieferanten oder Ergänzungen"
+            signets={4}
+            defaultOpen
+          />
+        </Specimen>
+        <Specimen label="collapsible={false}">
+          <BasicWithDisclosure
+            title={HEADLINE}
+            text={COMPANY}
+            supplierData={['Transportweg: [D.1-a Transportweg]', 'Transportmittel: [D.1-b Transportmittel]']}
+            collapsible={false}
+          />
         </Specimen>
       </div>
     ),
