@@ -3495,11 +3495,10 @@ export const FOUNDATIONS = {
       figma: 'Cards/ProductTitle',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-12)',
+        'font-size': 'var(--text-11)',
         'font-weight': '700',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-normal)',
-        'text-transform': 'uppercase',
       },
     },
     {
@@ -3564,7 +3563,7 @@ export const FOUNDATIONS = {
       figma: 'Cards/Featured/Title',
       props: {
         'font-family': 'var(--font-display)',
-        'font-size': 'var(--text-20)',
+        'font-size': 'var(--text-18)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3809,7 +3808,7 @@ export const FOUNDATIONS = {
       figma: 'UserMessage/LG',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-16)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',

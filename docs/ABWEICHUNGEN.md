@@ -129,8 +129,9 @@ Figma-Tokens kommen. Das Projekt übernimmt die Tokens unverändert; die Designe
 | Sections / BlogCards | Enthält in Figma Cards / FeaturedCard | Bleibt bei `BlogCard` (Daria 06.10.: Code ist korrekt) |
 | Cards / ProductCard / CompactSize | 180–248 px breit, 192 px hoch, Rand und Abstände 6 px; Preis als „5,49 € / 130 g“ | Tokens aus app.tcss; der Preis kommt fertig aus den Produktdaten (`priceLabel`) |
 | Cards / ProductCard · viewport-range=base | Keine Hover-Variante in Mobil. Buttons / LG / Button-Card-Round sitzt mit dem Zentrum auf der unteren rechten Bildecke | `ButtonCardRound` mit `md:hidden`, Hover-Button `hidden md:flex`, alle Hover-Klassen mit `md:` |
-| CompactSize · Titel | Textstil Cards/ProductTitle, Schriftgröße an der Ebene auf 11 px überschrieben; der Titel bricht um, das Bild wird kürzer | Textstil ohne Überschreibung (12 px), eine Zeile mit Auslassungspunkten, da der Infobereich für die Animation eine feste Höhe hat |
+| CompactSize · Titel | Textstil Cards/ProductTitle (11 px); der Titel bricht um, das Bild wird kürzer | Eine Zeile mit Auslassungspunkten, da der Infobereich für die Animation eine feste Höhe hat |
 | CompactSize · Product=Doypack, Context=Nutmixer | Button „Rein in den Mix!“ in Mobil schon ohne Hover, kein runder Button | Nicht umgesetzt: Im Code zeigt der Nussmixer nur lose Ware (Product=Lose Ware) |
+| Textstile | Cards/ProductTitle 11 px ohne Großschreibung, Cards/Featured/Title 18 px, UserMessage/LG 16 px | `type-*` aus app.tcss; Titelzeile der CategoryCard SM 1.3125rem, MD 1.8125rem |
 | Navigation / Header | – | Menü und Suche schließen beim Klick auf einen Link darin und bei jedem Seitenwechsel (auch Zurück/Vor) |
 
 ## Figma-Änderungen 29./30.09. (Stand 30.09.)

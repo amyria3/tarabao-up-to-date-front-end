@@ -41,8 +41,8 @@ export function CategoryCardSm({
       <span className="block min-h-zero w-full flex-1">
         <ProductImage image={category.image} />
       </span>
-      {/* Figma: Titelzeile 1.375rem (Titel + unten 0.5rem), beim Hover Button 2.25rem + unten 0.5rem. */}
-      <span className="relative block h-[1.375rem] w-full overflow-hidden motion-hover group-hover/card:h-11 group-data-hovered/card:h-11">
+      {/* Figma: Titelzeile 1.3125rem (Titel 0.8125rem + unten 0.5rem), beim Hover Button 2.25rem + unten 0.5rem. */}
+      <span className="relative block h-[1.3125rem] w-full overflow-hidden motion-hover group-hover/card:h-11 group-data-hovered/card:h-11">
         <span className="flex h-full items-start justify-end pb-card-category-sm-content type-cards-product-title text-content-text motion-hover group-hover/card:opacity-0 group-data-hovered/card:opacity-0">
           {category.title}
         </span>
@@ -90,8 +90,8 @@ export function CategoryCardMd({
       <span className="block min-h-zero w-full flex-1">
         <ProductImage image={category.image} className="bg-white" />
       </span>
-      {/* Figma flex-col: 1.875rem (Titel + 0.5rem oben und unten), beim Hover Button 2.5rem + unten 0.5rem. */}
-      <div className="relative h-[1.875rem] w-full overflow-hidden motion-hover group-hover/card:h-12 group-data-hovered/card:h-12">
+      {/* Figma flex-col: 1.8125rem (Titel 0.8125rem + 0.5rem oben und unten), beim Hover Button 2.5rem + unten 0.5rem. */}
+      <div className="relative h-[1.8125rem] w-full overflow-hidden motion-hover group-hover/card:h-12 group-data-hovered/card:h-12">
         <h3 className="flex items-end justify-center py-card-category-md-content text-center type-cards-product-title text-content-text motion-hover group-hover/card:opacity-0 group-data-hovered/card:opacity-0">
           <Link
             href={category.href}

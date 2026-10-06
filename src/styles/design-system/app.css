@@ -1440,11 +1440,10 @@
 }
 @utility type-cards-product-title { /* Cards/ProductTitle */
   font-family: var(--font-body);
-  font-size: var(--text-12);
+  font-size: var(--text-11);
   font-weight: 700;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-normal);
-  text-transform: uppercase;
 }
 @utility type-cards-md { /* Cards/MD */
   font-family: var(--font-accent-two);
@@ -1485,7 +1484,7 @@
 }
 @utility type-cards-featured-title { /* Cards/Featured/Title */
   font-family: var(--font-display);
-  font-size: var(--text-20);
+  font-size: var(--text-18);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1642,7 +1641,7 @@
 }
 @utility type-user-message-lg { /* UserMessage/LG */
   font-family: var(--font-accent-two);
-  font-size: var(--text-14);
+  font-size: var(--text-16);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
