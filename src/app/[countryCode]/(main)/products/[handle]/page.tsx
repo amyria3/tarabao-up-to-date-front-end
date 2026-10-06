@@ -50,6 +50,7 @@ export default async function ProductRoute({ params }: { params: Params }) {
       ),
     },
     tabs: SUSTAINABILITY_CONTENT.tabs,
+    highlights: SUSTAINABILITY_CONTENT.highlights,
   }
   return (
     <ProductPage

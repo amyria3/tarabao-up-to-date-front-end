@@ -5,6 +5,7 @@
  */
 import type {
   AddressModel,
+  CartItemModel,
   CartModel,
   CategoryCardModel,
   FooterModel,
@@ -449,6 +450,27 @@ export const RETURNABLE_ITEMS = [1, 2, 3, 4].map((n) => ({
 
 export const SUBSCRIPTION_ITEMS = [1, 2, 3].map((n) => ({ ...CART.items[0]!, id: `sub_${n}` }))
 
+/** Figma Components / Email / SubscriptionReminder (10353:58602): Beispielwerte aus __Products / Doypacks. */
+export const SUBSCRIPTION_REMINDER = {
+  deliveryDateLabel: '14. Oktober',
+  items: [
+    { id: 'rem_curry', title: 'Jancys Curry-Cashews', handle: 'jancys-curry-cashews', price: '5,49 €' },
+    { id: 'rem_tamari', title: 'Tamari-Sesam-Cashews', handle: 'tamari-sesam-cashews', price: '5,49 €' },
+    { id: 'rem_macadamia', title: 'Macadamia süß-salzig', handle: 'macadamia-suess-salzig', price: '7,49 €' },
+  ].map(({ id, title, handle, price }): CartItemModel => ({
+    id,
+    title,
+    href: `/de-de/products/${handle}`,
+    image: { src: '', alt: '' },
+    variantLabel: '130 g',
+    quantity: 1,
+    itemPriceLabel: price,
+    totalLabel: price,
+    subscription: true,
+  })),
+  subscriptionHref: '/de-de/account',
+}
+
 /* ---- Produktseite (Figma Components / Product / BuyBox, Disclosure, ContentModules) ---- */
 
 export const PRODUCT_DETAIL: ProductDetailModel = {
@@ -661,6 +683,9 @@ export const SUSTAINABILITY_CONTENT = {
       },
     ],
   } satisfies Record<SustainabilityCategory, SustainabilityModule[]>,
+  // Figma Components / HighlightedInformation (10325:56341): vier Angaben des Lieferanten, CMS-Text.
+  // Figma zeigt viermal denselben Platzhalter.
+  highlights: [1, 2, 3, 4].map(() => 'Dieses Unternehmen bezahlt seinen Mitarbeiter*innen eine Prämie von X Euro'),
 }
 
 /* ---- Rezeptseite (Figma {Blog / Recipe} 9618:28958, Components / Recipe, Sections / ImageCarousel) ---- */

@@ -178,18 +178,21 @@ export function InlineQuestion({
   question,
   action,
   onAction,
+  disabled,
   className,
 }: {
   question: React.ReactNode
   action: React.ReactNode
   onAction?: () => void
+  /** Sperrt den Button, z. B. kurz nach „Erneut senden“. */
+  disabled?: boolean
   className?: string
 }) {
   return (
     <div className={cn('flex w-full flex-wrap items-center justify-end gap-sm', className)}>
       <p className="type-default-text-md text-content-text">{question}</p>
       <div className="flex pb-[0.3125rem]">
-        <Button intent="inline" size="xxs" onClick={onAction}>
+        <Button intent="inline" size="xxs" onClick={onAction} disabled={disabled}>
           {action}
         </Button>
       </div>

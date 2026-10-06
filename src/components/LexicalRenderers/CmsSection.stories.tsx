@@ -84,6 +84,7 @@ export const SustainabilitySection: Story = {
         ),
       }}
       tabs={SUSTAINABILITY_CONTENT.tabs}
+      highlights={SUSTAINABILITY_CONTENT.highlights}
     />
   ),
   parameters: {

@@ -6,6 +6,7 @@ import { CheckoutPayment } from '@modules/checkout/components/checkout-payment'
 import { DeliveryMethodRadioGroup } from '@modules/checkout/components/delivery-method-radio-group'
 import { FinalCheckout } from '@modules/checkout/components/final-checkout'
 import { OrderConfirmation } from '@modules/order/components/order-confirmation'
+import { SetPassword } from '@modules/checkout/components/set-password'
 import { SummaryDataset } from '@modules/checkout/components/summary-dataset'
 import { addressLines } from '@/lib/checkout/address'
 import { VoucherList } from '@modules/checkout/components/voucher-list'
@@ -161,6 +162,41 @@ export const checkoutEntries: LibraryEntry[] = [
             <CheckoutContact />
           </Specimen>
         </div>
+      </div>
+    ),
+  },
+  {
+    id: 'components-checkout-set-password',
+    figma: 'Components / Checkout / SetPassword',
+    nodeId: '10302:51632',
+    code: '<SetPassword variant="reset" email={email} returnTo={returnTo} onSubmit={…} />',
+    note: 'State folgt der Eingabe: Häkchen ab 8 Zeichen, „Die Passwörter stimmen nicht überein“ nach dem Absenden. completed zeigt den gespeicherten Zustand; nur Reset mit returnTo zeigt den Button zum Check-out-Schritt.',
+    render: () => (
+      <div className={grid}>
+        <Specimen label="Variant=Reset, State=Initial">
+          <SetPassword email={CUSTOMER.email} />
+        </Specimen>
+        <Specimen label="Variant=Reset, State=Error">
+          <SetPassword email={CUSTOMER.email} defaultPassword="Cashew2026" defaultRepeat="Cashew2025" validateOnMount />
+        </Specimen>
+        <Specimen label="Variant=Reset, State=Completed, Checkout in progress?=True">
+          <SetPassword
+            email={CUSTOMER.email}
+            completed
+            returnTo={{ label: 'Weiter zum Versand', href: '/de-de/checkout?step=delivery' }}
+          />
+        </Specimen>
+        <Specimen label="Variant=NewAccount, State=Filled">
+          <SetPassword
+            variant="new-account"
+            email={CUSTOMER.email}
+            defaultPassword="Cashew2026"
+            defaultRepeat="Cashew2026"
+          />
+        </Specimen>
+        <Specimen label="Variant=NewAccount, State=Completed">
+          <SetPassword variant="new-account" email={CUSTOMER.email} completed />
+        </Specimen>
       </div>
     ),
   },

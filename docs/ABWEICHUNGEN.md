@@ -123,7 +123,6 @@ Offen in Sections / Sustainability (Stand Figma 06.10. abends, parallel in Arbei
 | --- | --- | --- |
 | Überschrift „Was unseren Lieferanten [#3 Firmenname] besonders macht“ | H2 mittig über beiden Spalten (CustomContentWithText) | steht in der linken Spalte |
 | Rechte Spalte | nur Primitives / BulletedList, kein Bild | BulletedList und Bildfläche |
-| Components / HighlightedInformation (10325:56341) | Reihe aus vier gestrichelten Ovalen (Label/default) unter den Tabs | fehlt |
 | Einleitung | Überschrift mit Marker „[#1 Einleitung] Nachhaltigkeit für uns – das ist ein kurzer Einleitungstext …“, Absätze mit Markern | Kurztexte ohne Marker |
 | Editorial · zwei Spalten | beide Absätze oben bündig | Der Textstil setzt zwischen aufeinanderfolgenden Absätzen `margin-top`; in der Zeile rutscht die rechte Spalte nach unten |
 | Primitives / DefaultParagraph | Blocksatz in allen Varianten | linksbündig (siehe Figma-Befunde) |
@@ -170,6 +169,11 @@ Figma-Tokens kommen. Das Projekt übernimmt die Tokens unverändert; die Designe
 | CompactSize · Product=Doypack, Context=Nutmixer | Button „Rein in den Mix!“ in Mobil schon ohne Hover, kein runder Button | Nicht umgesetzt: Im Code zeigt der Nussmixer nur lose Ware (Product=Lose Ware) |
 | Textstile | Cards/ProductTitle 11 px ohne Großschreibung, Cards/Featured/Title 18 px, UserMessage/LG 16 px | `type-*` aus app.tcss; Titelzeile der CategoryCard SM 1.3125rem, MD 1.8125rem |
 | Navigation / Header | – | Menü und Suche schließen beim Klick auf einen Link darin und bei jedem Seitenwechsel (auch Zurück/Vor) |
+| Cards / ReviewCard · DiscoveryCard · PurchaseCard · FeaturedCard | Neue Abstands-Variablen `content`, `content-gap` bzw. `frame-top`, `Cards/ReviewCard/gap` gelöscht; Maße unverändert | Klassen `gap-card-review-frame`, `gap-card-review-content-gap`, `py-card-review-content`, `pb-card-discovery-content`, `gap-card-discovery-content-gap`, `p-card-purchase-content`, `gap-card-purchase-content-gap`, `pt-card-featured-frame-top` |
+| Components / HighlightedInformation (10325:56341) | Reihe aus vier Formen „Very oval“ mit gestrichelter Kontur unter den Nachhaltigkeits-Tabs (Slot 5), ohne Umbruch | `HighlightedInformationRow` in `SustainabilitySection` (`highlights`); die Reihe bricht auf schmalen Bildschirmen um |
+| Components / Checkout / SetPassword (10302:51632) | Variant=Reset · NewAccount, State=Initial · Filled · Error · Completed, Checkout in progress? | `SetPassword`: State folgt der Eingabe (Häkchen ab 8 Zeichen, Meldung bei ungleichen Passwörtern nach dem Absenden), `completed`, `returnTo` für den Button zum Check-out-Schritt |
+| Components / Account / EmailLinkSent (10351:54980) | Variant=PasswordReset · MagicLink, „Erneut senden“ braucht eine Sperre | `EmailLinkSent`; „Erneut senden“ ist nach dem Klick 30 s gesperrt |
+| Components / Email / SubscriptionReminder (10353:58602) | Erinnerungs-E-Mail vor jeder Abo-Lieferung mit Magic Link | `SubscriptionReminder` zeigt Aufbau und Texte; den Versand übernimmt später das Notification-Modul von Medusa |
 
 ## Figma-Änderungen 29./30.09. (Stand 30.09.)
 

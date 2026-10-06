@@ -293,7 +293,7 @@ export const sectionEntries: LibraryEntry[] = [
     id: 'sections-sustainability',
     figma: 'Sections / Sustainability',
     nodeId: '8130:21717',
-    code: '<SustainabilitySection intro={…} supplier={…} tabs={…} />',
+    code: '<SustainabilitySection intro={…} supplier={…} tabs={…} highlights={…} />',
     render: () => (
       <SustainabilitySection
         intro={SUSTAINABILITY_CONTENT.intro}
@@ -316,6 +316,7 @@ export const sectionEntries: LibraryEntry[] = [
           ),
         }}
         tabs={SUSTAINABILITY_CONTENT.tabs}
+        highlights={SUSTAINABILITY_CONTENT.highlights}
       />
     ),
   },

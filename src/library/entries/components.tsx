@@ -1,11 +1,12 @@
 import { BlockElement } from '@/components/ui/block-element'
+import { HighlightedInformation, HighlightedInformationRow } from '@/components/ui/highlighted-information'
 import { FilterChip } from '@modules/search/components/filter-chip'
 import { FilterPanel } from '@modules/search/components/filter-panel'
 import { PriceChip, PriceRange } from '@modules/search/components/price-range'
 import { PortionCalculator, RecipeHeader } from '@modules/blog/components/recipe'
 import { QueryState } from '@modules/search/components/query-state'
 import { SearchField } from '@modules/search/components/search-field'
-import { FILTER_OPTIONS, RECIPE_FACTS, RECIPE_INGREDIENTS } from '@/lib/fixtures'
+import { FILTER_OPTIONS, RECIPE_FACTS, RECIPE_INGREDIENTS, SUSTAINABILITY_CONTENT } from '@/lib/fixtures'
 import { Specimen, ThemeMatrix } from '@/library/showcase'
 import type { LibraryEntry } from '@/library/types'
 
@@ -134,6 +135,27 @@ export const componentEntries: LibraryEntry[] = [
               <PortionCalculator facts={RECIPE_FACTS} ingredients={RECIPE_INGREDIENTS} />
             </Specimen>
           </div>
+        )}
+      </ThemeMatrix>
+    ),
+  },
+  {
+    id: 'components-highlighted-information',
+    figma: 'Components / HighlightedInformation',
+    nodeId: '10325:56341',
+    code: '<HighlightedInformationRow items={highlights} />',
+    note: 'Angaben des Lieferanten als CMS-Text. In Sections / Sustainability steht die Reihe unter den Tabs (Slot 5).',
+    render: () => (
+      <ThemeMatrix columns={2}>
+        {() => (
+          <>
+            <Specimen label="Einzeln">
+              <HighlightedInformation>{SUSTAINABILITY_CONTENT.highlights[0]}</HighlightedInformation>
+            </Specimen>
+            <Specimen label="Reihe">
+              <HighlightedInformationRow items={SUSTAINABILITY_CONTENT.highlights} />
+            </Specimen>
+          </>
         )}
       </ThemeMatrix>
     ),
