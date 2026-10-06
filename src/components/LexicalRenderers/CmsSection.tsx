@@ -29,7 +29,7 @@ export interface SustainabilitySectionProps {
 export function SustainabilitySection({ intro, supplier, tabs }: SustainabilitySectionProps) {
   return (
     <Section aria-label={intro.headline}>
-      <Editorial headline={intro.headline} headlineType="h1" columns={intro.columns} />
+      <Editorial headline={intro.headline} headlineType="h1" align="center" columns={intro.columns} />
       <CustomContentWithText left={supplier.left} right={supplier.right} />
       <SustainabilityTabs content={tabs} />
     </Section>

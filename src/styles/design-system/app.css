@@ -1096,6 +1096,7 @@
   --spacing-card-featured-frame: var(--spacing-md-l);       /* Cards/FeaturedCard/frame  20px */
   --spacing-card-featured-gap: var(--spacing-md);           /* Cards/FeaturedCard/gap  16px */
   --spacing-card-featured-content-gap: var(--spacing-xxs);  /* Cards/FeaturedCard/content-gap  4px */
+  --spacing-card-featured-frame-top: var(--spacing-md);     /* Cards/FeaturedCard/frame-top  16px */
   --spacing-card-blog-frame: var(--spacing-md);             /* Cards/BlogCard/frame  16px */
   --spacing-card-blog-gap: 1.5rem;                          /* Cards/BlogCard/gap  24px */
   --spacing-card-discovery-frame: var(--spacing-md-l);      /* Cards/DiscoveryCard/frame  20px */

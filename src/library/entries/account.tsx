@@ -5,7 +5,11 @@ import { OrderCancellation } from '@modules/legal/components/withdrawal-form'
 import { SearchPurchase } from '@modules/legal/components/withdrawal-form/search-purchase'
 import { SelectOrder } from '@modules/legal/components/withdrawal-form/select-order'
 import { SelectProducts } from '@modules/legal/components/withdrawal-form/select-products'
-import { AddressFieldset } from '@modules/checkout/components/address-fieldset'
+import {
+  AccountAddressEditor,
+  AccountAddressItem,
+  AccountPaymentItem,
+} from '@modules/account/components/account-editors'
 import { addressLines } from '@/lib/checkout/address'
 import {
   ADDRESS,
@@ -42,8 +46,8 @@ export const accountEntries: LibraryEntry[] = [
     id: 'components-account-data-block',
     figma: 'Components / Account / DataBlock · SummaryItem',
     nodeId: '3941:19858',
-    code: '<AccountDataBlock title="Dein Profil" actionLabel="Abmelden">…</AccountDataBlock> · <AccountSummaryItem editor={<AddressFieldset …/>} editing />',
-    note: 'SummaryItem Editing?=True zeigt statt Label und Buttons die passenden Eingabefelder (Adresse 1, Adresse 2 mit Land, Zahlungsmethode); „Korrigieren“ öffnet sie.',
+    code: '<AccountDataBlock title="Dein Profil" actionLabel="Abmelden">…</AccountDataBlock> · <AccountAddressItem label="Adresse 1:" address={address} /> · <AccountPaymentItem label="Zahlungsart 1:" payment={payment} />',
+    note: 'SummaryItem Editing?=True zeigt statt Label und Buttons die passenden Eingabefelder (Adresse 1, Adresse 2 mit Land, Zahlungsmethode) und darunter „Speichern“; „Korrigieren“ öffnet sie, „Speichern“ übernimmt die Eingaben, „Löschen“ blendet den Eintrag aus.',
     render: () => (
       <div className={grid}>
         <AccountDataBlock title="Dein Profil" actionLabel="Abmelden">
@@ -57,20 +61,19 @@ export const accountEntries: LibraryEntry[] = [
           actionLabel="Ganze Liste zeigen"
         />
         <AccountDataBlock title="Deine Adressen">
-          <AccountSummaryItem
-            label="Adresse 1:"
-            lines={addressLines(ADDRESS)}
-            editor={<AddressFieldset defaultValue={ADDRESS} defaultManual legend="Adresse 1" />}
-          />
+          <AccountAddressItem label="Adresse 1:" address={ADDRESS} />
           <AccountSummaryItem
             label="Adresse 2:"
-            lines={addressLines(ADDRESS)}
+            lines={addressLines(ADDRESS, true)}
             editing
-            editor={<AddressFieldset defaultValue={ADDRESS} defaultManual legend="Adresse 2" />}
+            editor={<AccountAddressEditor defaultValue={ADDRESS} withCountry legend="Adresse 2" />}
           />
         </AccountDataBlock>
         <AccountDataBlock title="Deine Zahlungsmethoden">
-          <AccountSummaryItem label="Zahlungsart 1:" lines={[['Visa ****1234']]} note="Expires 06/2024" />
+          <AccountPaymentItem
+            label="Zahlungsart 1:"
+            payment={{ brand: 'visa', number: '**** **** **** 1234', expiry: '06/2024' }}
+          />
         </AccountDataBlock>
       </div>
     ),

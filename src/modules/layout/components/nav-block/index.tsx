@@ -6,15 +6,19 @@ import { cn } from '@/lib/utils'
 const LINK =
   'hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg'
 
+/**
+ * Link und Text stehen als Block im <li>. Inline würde das <li> seine Zeile mit der
+ * Zeilenhöhe des Body bauen. So gilt die Zeilenhöhe des Textstils (Figma 100 %).
+ */
 function NavLinkItem({ link, className }: { link: NavLinkModel; className: string }) {
   return (
     <li>
       {link.href ? (
-        <Link href={link.href} className={cn(className, LINK)}>
+        <Link href={link.href} className={cn('block w-fit', className, LINK)}>
           {link.label}
         </Link>
       ) : (
-        <span className={className}>{link.label}</span>
+        <span className={cn('block w-fit', className)}>{link.label}</span>
       )}
     </li>
   )

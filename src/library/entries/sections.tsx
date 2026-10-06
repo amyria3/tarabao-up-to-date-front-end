@@ -302,6 +302,7 @@ export const sectionEntries: LibraryEntry[] = [
             <ContentBasic
               headline={SUSTAINABILITY_CONTENT.supplier.headline}
               headingLevel="h2"
+              align="center"
               paragraphs={[SUSTAINABILITY_CONTENT.supplier.text]}
             />
           ),

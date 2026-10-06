@@ -91,28 +91,89 @@ function inCategory(handle: string): [string, string] {
 }
 
 /** Die vier Doypacks aus __Products / Doypacks (2.9) und Beispielprodukte je Unterkategorie. */
-const DOYPACKS: CatalogProduct[] = [
+type DoypackData = {
+  handle: string
+  title: string
+  /** Item-Short-Name (CompactSize) */
+  shortTitle: string
+  rating: number
+  sub: string
+  /** Item-Product-Price, Item-Weight, Item-Price-kg */
+  pack: [price: string, weight: string, priceKg: string]
+  /** Item-Multipack-Label, Item-Multipack-Price, Item-Multipack-Price-kg */
+  multipack: [label: string, price: string, priceKg: string]
+  /** Item-Bulk-Label, Item-Bulk-Price, Item-Bulk-Price-kg */
+  bulk: [label: string, price: string, priceKg: string]
+}
+
+const DOYPACK_DATA: DoypackData[] = [
   {
     handle: 'jancys-curry-cashews',
-    card: { title: 'Jancys Curry-Cashews', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 42,23 €/kg)', rating: 5 },
-    category: inCategory('wuerzige-snacks'),
+    title: 'Jancys Curry-Cashews',
+    shortTitle: 'Curry-Cashews',
+    rating: 5,
+    sub: 'wuerzige-snacks',
+    pack: ['5,49', '130', '42,23'],
+    multipack: ['8 × 130 g', '41,75', '40,14'],
+    bulk: ['0,5 kg', '16,95', '33,90'],
   },
   {
     handle: 'tamari-sesam-cashews',
-    card: { title: 'Tamari-Sesam-Cashews', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 42,23 €/kg)', rating: 5 },
-    category: inCategory('wuerzige-snacks'),
+    title: 'Tamari-Sesam-Cashews',
+    shortTitle: 'Tamari-Cashews',
+    rating: 5,
+    sub: 'wuerzige-snacks',
+    pack: ['5,49', '130', '42,23'],
+    multipack: ['8 × 130 g', '41,75', '40,14'],
+    bulk: ['0,5 kg', '16,95', '33,90'],
   },
   {
     handle: 'macadamia-suess-salzig',
-    card: { title: 'Macadamia süß-salzig', priceLabel: 'ab 7,49 €', unitPriceLabel: '(ab 57,62 €/kg)', rating: 4 },
-    category: inCategory('gezuckerte-nuesse'),
+    title: 'Macadamia süß-salzig',
+    shortTitle: 'Macadamia süß-salzig',
+    rating: 4,
+    sub: 'gezuckerte-nuesse',
+    pack: ['7,49', '130', '57,62'],
+    multipack: ['7 × 130 g', '49,80', '54,73'],
+    bulk: ['0,5 kg', '24,95', '49,90'],
   },
   {
     handle: 'ananasstuecke-schokoliert',
-    card: { title: 'Ananasstücke schokoliert', priceLabel: 'ab 5,49 €', unitPriceLabel: '(ab 54,90 €/kg)', rating: 5 },
-    category: inCategory('schokolierte-fruechte-und-nuesse'),
+    title: 'Ananasstücke schokoliert',
+    shortTitle: 'Schoko-Ananas',
+    rating: 5,
+    sub: 'schokolierte-fruechte-und-nuesse',
+    pack: ['5,49', '100', '54,90'],
+    multipack: ['8 × 100 g', '36,50', '40,11'],
+    bulk: ['0,5 kg', '20,95', '41,90'],
   },
 ]
+
+const DOYPACKS: CatalogProduct[] = DOYPACK_DATA.map((d) => ({
+  handle: d.handle,
+  card: {
+    title: d.title,
+    shortTitle: d.shortTitle,
+    priceLabel: `ab ${d.pack[0]} €`,
+    unitPriceLabel: `(ab ${d.pack[2]} €/kg)`,
+    packPriceLabel: `${d.pack[0]} € / ${d.pack[1]} g`,
+    rating: d.rating,
+  },
+  category: inCategory(d.sub),
+  // Figma Components / Product / SizeAndPrice: Pack, Multipack, Bulk je Sorte (Modus-Pin __Products / Doypacks)
+  detail: {
+    variants: [
+      { id: 'pack', label: `${d.pack[1]} g`, priceLabel: `${d.pack[0]} €`, unitPriceLabel: `${d.pack[2]} €/ kg` },
+      {
+        id: 'multipack',
+        label: d.multipack[0],
+        priceLabel: `${d.multipack[1]} €`,
+        unitPriceLabel: `${d.multipack[2]} €/ kg`,
+      },
+      { id: 'bulk', label: d.bulk[0], priceLabel: `${d.bulk[1]} €`, unitPriceLabel: `${d.bulk[2]} €/ kg` },
+    ],
+  },
+}))
 
 /** Beispielprodukte für alle anderen Unterkategorien (Titel aus den Figma-Karten). */
 function sampleProducts(category: string, sub: string): CatalogProduct[] {

@@ -4,7 +4,7 @@ import { BlogCard } from '@/components/ui/blog-card'
 import { FeaturedCard } from '@/components/ui/featured-card'
 import { ReviewCard } from '@/components/ui/review-card'
 import { DiscoveryCardRow } from '@/components/ui/discovery-card-row'
-import { ProductCard, ProductCardWithReviews } from '@modules/products/components/product-card'
+import { ProductCard, ProductCardWithReviews, type ProductCardSize } from '@modules/products/components/product-card'
 import { HeadlineH2 } from '@/components/ui/typography'
 import { CardsOrder } from '@/components/ui/cards-order'
 import { Section } from '@/components/ui/section'
@@ -15,6 +15,11 @@ export interface CardRowProps {
   title: React.ReactNode
   /** Figma Horizontal Scroll?=True: eine Zeile, die waagerecht scrollt (Titel mittig) */
   scroll?: boolean
+  /**
+   * Figma Templates / Cards Order im Slot 01, wenn die Seite ihn tauscht (z. B. Produktseite: Titel
+   * links, Variant=CardsRow, links bündig). Standard folgt `scroll`.
+   */
+  cardsOrder?: 'row' | 'tiles'
   /** Kinder sind <li>-Elemente mit je einer Karte */
   children: React.ReactNode
   /** Zusätzliche Klassen für Templates / Cards Order, z. B. items-stretch für gleich hohe Karten */
@@ -27,13 +32,14 @@ export interface CardRowProps {
  * Type Of Card=Unspecific|Featured|Discovery. Templates / Section: Slot 00 H2 (mittig bei
  * Scroll, sonst links), Slot 01 Templates / Cards Order (Row: gap-4, verteilt; Tiles: gap-md).
  */
-export function CardRow({ title, scroll = false, children, listClassName, className }: CardRowProps) {
+export function CardRow({ title, scroll = false, cardsOrder, children, listClassName, className }: CardRowProps) {
+  const variant = cardsOrder ?? (scroll ? 'row' : 'tiles')
   return (
     <Section className={className} aria-label={typeof title === 'string' ? title : undefined}>
       <HeadlineH2 align={scroll ? 'center' : 'left'}>{title}</HeadlineH2>
       <CardsOrder
-        variant={scroll ? 'row' : 'tiles'}
-        className={cn(scroll ? 'justify-between gap-4' : 'gap-md', listClassName)}
+        variant={variant}
+        className={cn(scroll ? 'justify-between gap-4' : variant === 'tiles' && 'gap-md', listClassName)}
       >
         {children}
       </CardsOrder>
@@ -41,23 +47,30 @@ export function CardRow({ title, scroll = false, children, listClassName, classN
   )
 }
 
-/** CardRow · Unspecific mit Cards / ProductCard (z. B. „Für Dich ausgewählt“) */
+/**
+ * CardRow · Unspecific mit Cards / ProductCard (z. B. „Für Dich ausgewählt“). Auf der Produktseite
+ * („Das könnte Dich auch interessieren“): Titel links, Cards Order · CardsRow, Cards / ProductCard / CompactSize.
+ */
 export function ProductCardRow({
   title,
   products,
   scroll,
+  cardsOrder,
+  size = 'default',
   className,
 }: {
   title: React.ReactNode
   products: ProductCardModel[]
   scroll?: boolean
+  cardsOrder?: 'row' | 'tiles'
+  size?: ProductCardSize
   className?: string
 }) {
   return (
-    <CardRow title={title} scroll={scroll} className={className}>
+    <CardRow title={title} scroll={scroll} cardsOrder={cardsOrder} className={className}>
       {products.map((p) => (
-        <li key={p.id} className="w-card-default-max">
-          <ProductCard product={p} />
+        <li key={p.id} className={size === 'compact' ? 'flex w-card-compact-max' : 'w-card-default-max'}>
+          <ProductCard product={p} size={size} />
         </li>
       ))}
     </CardRow>

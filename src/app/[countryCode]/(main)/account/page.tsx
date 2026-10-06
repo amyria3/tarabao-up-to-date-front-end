@@ -1,9 +1,9 @@
 import { AccountDataBlock, AccountSummaryItem } from '@modules/account/components/account-data-block'
+import { AccountAddressItem, AccountPaymentItem } from '@modules/account/components/account-editors'
 import { PromotionPostCard } from '@/components/ui/promotion-post-card'
 import { PurchaseCard } from '@modules/account/components/purchase-card'
 import { VoucherCard } from '@modules/account/components/voucher-card'
 import { AccountPage } from '@modules/account/templates/account-page'
-import { addressLines } from '@/lib/checkout/address'
 import { ADDRESS, CUSTOMER, PROMOTION, PURCHASE, PURCHASE_ARRIVED, SUBSCRIPTION_ITEMS, VOUCHER } from '@/lib/fixtures'
 import { localize } from '@/lib/shop/routes'
 
@@ -23,10 +23,13 @@ export default async function AccountRoute({ params }: { params: Promise<{ count
             <AccountSummaryItem label="E-Mail:" lines={[[CUSTOMER.email]]} />
           </AccountDataBlock>
           <AccountDataBlock title="Deine Adressen">
-            <AccountSummaryItem label="Adresse 1:" lines={addressLines(ADDRESS)} />
+            <AccountAddressItem label="Adresse 1:" address={ADDRESS} />
           </AccountDataBlock>
           <AccountDataBlock title="Deine Zahlungsmethoden">
-            <AccountSummaryItem label="Zahlungsart 1:" lines={[['Visa ****1234']]} note="Expires 06/2027" />
+            <AccountPaymentItem
+              label="Zahlungsart 1:"
+              payment={{ brand: 'visa', number: '**** **** **** 1234', expiry: '06/2027' }}
+            />
           </AccountDataBlock>
         </div>
       }

@@ -56,6 +56,8 @@ export interface ProductCardProps {
  * schrumpft auf Buttons / MD / Button-Card, und das Bild wächst nach (Smart Animate).
  * Titel und Bild verlinken auf das Produkt; die Warenkorb-Aktion ist ein
  * eigener Button (Tastatur: nach dem Titel erreichbar, blendet sich bei Fokus ein).
+ * CompactSize zeigt den Kurznamen (`shortTitle`, Figma Item-Short-Name) und eine Preiszeile
+ * „5,49 € / 130 g“ (`packPriceLabel`) ohne Grundpreis.
  * Unter md (viewport-range=base) hat die Karte keinen Hover. Dort sitzt der runde Schnell-Button
  * Buttons / LG / Button-Card-Round mit seinem Zentrum auf der unteren rechten Bildecke (md:hidden),
  * der Hover-Button erscheint erst ab md (hidden md:flex). Alle Hover-Klassen tragen deshalb md:.
@@ -108,10 +110,15 @@ export function ProductCard({
           >
             Produktname
           </p>
-          <p className="flex flex-wrap items-center justify-center gap-x-md-sm">
-            <span className="type-cards-md">ab 0,00 €</span>
-            <span className="type-cards-light">(ab 0,00 €/kg)</span>
-          </p>
+          {compact ? (
+            // Figma CompactSize · Product=Placeholder: „0,00 € / 000 g“
+            <p className="type-cards-md">0,00 € / 000 g</p>
+          ) : (
+            <p className="flex flex-wrap items-center justify-center gap-x-md-sm">
+              <span className="type-cards-md">ab 0,00 €</span>
+              <span className="type-cards-light">(ab 0,00 €/kg)</span>
+            </p>
+          )}
         </div>
       </article>
     )
@@ -170,13 +177,18 @@ export function ProductCard({
                 compact ? 'line-clamp-1' : 'line-clamp-2',
               )}
             >
-              {product.title}
+              {compact ? (product.shortTitle ?? product.title) : product.title}
             </Link>
           </Heading>
-          <p className="flex flex-wrap items-center justify-center gap-x-md-sm">
-            <span className="type-cards-md">{product.priceLabel}</span>
-            {product.unitPriceLabel ? <span className="type-cards-light">{product.unitPriceLabel}</span> : null}
-          </p>
+          {compact ? (
+            // Figma CompactSize: eine Preiszeile „Preis € / Gewicht g“ (Item-Product-Price, Item-Weight), kein Grundpreis.
+            <p className="type-cards-md">{product.packPriceLabel ?? product.priceLabel}</p>
+          ) : (
+            <p className="flex flex-wrap items-center justify-center gap-x-md-sm">
+              <span className="type-cards-md">{product.priceLabel}</span>
+              {product.unitPriceLabel ? <span className="type-cards-light">{product.unitPriceLabel}</span> : null}
+            </p>
+          )}
         </div>
         <div
           data-slot="card-action"

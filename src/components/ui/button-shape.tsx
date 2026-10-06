@@ -31,16 +31,18 @@ export type ButtonShapeProps = {
 /**
  * Hintergrundform aller Buttons. Sie misst nie mit, sie folgt: absolut hinter
  * dem Label, streckt sich wie der Figma-Vektor auf Fill/Fill (2.4 Buttons).
+ * overflow-visible: Browser schneiden ein <svg> an der viewBox ab. Die Pfade reichen
+ * bis an den Rand, die Kontur liegt zur Hälfte außerhalb. So bleibt die Form ganz sichtbar.
  */
 export function ButtonShape({ shape = 'oblong', className, outlineClassName }: ButtonShapeProps) {
   const Shape = SHAPES[shape]
   return (
     <>
-      <Shape className={cn('pointer-events-none absolute inset-0 size-full', className)} />
+      <Shape className={cn('pointer-events-none absolute inset-0 size-full overflow-visible', className)} />
       {outlineClassName ? (
         <Shape
           className={cn(
-            'pointer-events-none absolute inset-0 size-full [&_path]:fill-none [&_path]:stroke-current [&_path]:stroke-1 [&_path]:[vector-effect:non-scaling-stroke]',
+            'pointer-events-none absolute inset-0 size-full overflow-visible [&_path]:fill-none [&_path]:stroke-current [&_path]:stroke-1 [&_path]:[vector-effect:non-scaling-stroke]',
             outlineClassName,
           )}
         />

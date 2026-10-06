@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { BlockElement } from '@/components/ui/block-element'
 import { LogoTarabao } from '@/components/icons/figma-icons'
 import type { FooterModel, NavGroupModel } from '@/lib/view-models'
+import { SHELL_SURFACE_THEME } from '@/lib/design-system/themes'
 import { cn } from '@/lib/utils'
 
 function FooterGroup({ group, className }: { group: NavGroupModel; className?: string }) {
@@ -44,7 +45,11 @@ const END = 'items-end text-right'
  */
 export function Footer({ footer, className }: { footer: FooterModel; className?: string }) {
   return (
-    <footer data-slot="footer" className={cn('w-full bg-surface py-md-l text-content-text', className)}>
+    <footer
+      data-slot="footer"
+      data-theme={SHELL_SURFACE_THEME}
+      className={cn('w-full bg-surface py-md-l text-content-text', className)}
+    >
       <div className="mx-auto flex w-full max-w-content flex-col px-md-l">
         <div className="grid w-full grid-cols-2 gap-x-sm gap-y-lg border-t border-content-text pt-xl md:grid-cols-3 md:gap-x-xl md:gap-y-md-l lg:grid-cols-4">
           <div className="col-span-2 flex flex-col gap-md-sm pb-md-l md:col-span-1 md:w-110 md:pb-zero lg:col-span-3 lg:w-auto">

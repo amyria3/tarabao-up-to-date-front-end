@@ -3,6 +3,7 @@
 import * as React from 'react'
 
 import { ProductCard } from '@modules/products/components/product-card'
+import { useCloseEmptySearchOnScroll } from '@modules/search/close-empty-search-on-scroll'
 import { FilterPanel, type FilterOption, type FilterState } from '@modules/search/components/filter-panel'
 import { QueryState } from '@modules/search/components/query-state'
 import { SearchField } from '@modules/search/components/search-field'
@@ -56,6 +57,8 @@ export function SearchAndFilter({
   const [filters, setFilters] = React.useState<FilterState>({ selected: [], price: {} })
   const run = React.useMemo(() => search ?? localSearch(products), [search, products])
   const results = run({ query, filters })
+  // Im Header: Ohne Suchbegriff und Filter schließt ein Scrollversuch die Suche (Repo 2.7).
+  useCloseEmptySearchOnScroll(isEmpty({ query, filters }))
   const state = results === null ? 'idle' : results.length === 0 ? 'empty' : 'results'
   return (
     <div data-slot="search-and-filter" className={className}>

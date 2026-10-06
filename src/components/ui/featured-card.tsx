@@ -28,7 +28,7 @@ export function FeaturedCard({
       data-variant={variant}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card relative flex w-full min-w-card-featured-min max-w-card-featured-max min-h-card-featured max-h-card-featured flex-col justify-between bg-card-surface px-card-featured-frame pt-card-featured-gap pb-card-featured-frame text-card-content-text',
+        'group/card relative flex w-full min-w-card-featured-min max-w-card-featured-max min-h-card-featured max-h-card-featured flex-col justify-between bg-card-surface px-card-featured-frame pt-card-featured-frame-top pb-card-featured-frame text-card-content-text',
         CARD_FRAME,
         CARD_HOVER,
         'hover:text-card-content-text-hover data-hovered:text-card-content-text-hover',

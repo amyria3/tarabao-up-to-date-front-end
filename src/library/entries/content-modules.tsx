@@ -214,13 +214,13 @@ export const contentModuleEntries: LibraryEntry[] = [
       <div className="flex w-full flex-col gap-xl">
         <Specimen label="Basic · Ingredients">
           <CustomContentWithText
-            left={<ContentBasic headline={HEADLINE} headingLevel="h3" paragraphs={[LOREM]} />}
+            left={<ContentBasic headline={HEADLINE} headingLevel="h3" align="center" paragraphs={[LOREM]} />}
             right={<Ingredients ingredients={PRODUCT_DETAIL.ingredients!} />}
           />
         </Specimen>
         <Specimen label="Basic · BulletList">
           <CustomContentWithText
-            left={<ContentBasic headline={HEADLINE} headingLevel="h3" paragraphs={[LOREM]} />}
+            left={<ContentBasic headline={HEADLINE} headingLevel="h3" align="center" paragraphs={[LOREM]} />}
             right={
               <BulletedList
                 items={[

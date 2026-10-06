@@ -64,8 +64,8 @@ export function BuyBox({
     >
       <div className="flex w-full flex-col gap-md-sm pb-md-l">
         {/* Figma visible-lg-up: Unter lg steht der Titel sichtbar über der Galerie (ProductGallery); die
-            Überschrift bleibt hier für Screenreader. */}
-        <h1 className="sr-only w-full type-product-page-product-title lg:not-sr-only">{product.title}</h1>
+            Überschrift bleibt hier für Screenreader. w-full erst ab lg, da sr-only sonst die Seite verbreitert. */}
+        <h1 className="sr-only type-product-page-product-title lg:not-sr-only lg:w-full">{product.title}</h1>
         {product.rating !== undefined ? (
           <div className="flex items-center gap-5">
             <ReviewStars rating={product.rating} className="w-auto" />

@@ -7,7 +7,9 @@ import { IconButton } from '@/components/ui/icon-button'
 import { NavMenu } from '@modules/layout/components/nav-block'
 import { NavBar, type NavBarProps } from '@modules/layout/components/nav-bar'
 import { PromoBar } from '@modules/layout/components/promo-bar'
+import { SearchPanelContext } from '@modules/search/close-empty-search-on-scroll'
 import type { NavGroupModel, PromoModel } from '@/lib/view-models'
+import { SHELL_SURFACE_THEME } from '@/lib/design-system/themes'
 import { cn } from '@/lib/utils'
 
 export type HeaderState = 'default' | 'menu' | 'search'
@@ -38,6 +40,9 @@ export interface HeaderProps extends Pick<
  * außerhalb der <nav>, da es ein Inhalts-Overlay ist. Escape schließt beides.
  * Ein Klick auf einen Link im Menü oder in der Suche schließt beides sofort. Jeder Seitenwechsel
  * schließt beides ebenfalls, auch Zurück und Vor im Browser.
+ * Ohne Suchbegriff und Filter schließt ein Scrollversuch die Suche (Repo 2.7, „So schließt sich die
+ * Suche beim Scrollen“). Dafür gibt der Header den Handler von „Suche schließen“ per
+ * SearchPanelContext an Sections / Search & Filter weiter.
  */
 export function Header({
   navGroups,
@@ -54,6 +59,19 @@ export function Header({
   const menuToggleRef = React.useRef<HTMLDivElement>(null)
 
   const close = React.useCallback(() => setState('default'), [])
+
+  // „Suche schließen“ und der Scrollversuch bei leerer Suche nutzen denselben Handler.
+  // Lag der Fokus in der Suche, springt er danach auf das Such-Symbol in der NavBar.
+  const closeSearch = React.useCallback(() => {
+    const hadFocus = document.getElementById(searchId)?.contains(document.activeElement) ?? false
+    setState('default')
+    if (!hadFocus) return
+    const toggles = menuToggleRef.current?.querySelectorAll<HTMLButtonElement>('button[aria-controls]')
+    Array.from(toggles ?? [])
+      .find((button) => button.getAttribute('aria-controls') === searchId)
+      ?.focus()
+  }, [searchId])
+  const searchPanel = React.useMemo(() => ({ closeSearch }), [closeSearch])
 
   // Seitenwechsel: Der Header bleibt im Layout stehen, deshalb setzt der neue Pfad den Zustand zurück
   // (State beim Rendern anpassen statt in einem Effekt).
@@ -93,6 +111,7 @@ export function Header({
   return (
     <header
       data-slot="header"
+      data-theme={SHELL_SURFACE_THEME}
       data-state={state}
       className={cn('relative w-full bg-surface text-content-text', className)}
     >
@@ -134,8 +153,8 @@ export function Header({
             onClick={closeOnLinkClick}
             className="flex max-h-[75dvh] flex-col gap-md overflow-y-auto overscroll-contain pb-md-l"
           >
-            <IconButton label="Suche schließen" className="self-start" onClick={close} />
-            {search}
+            <IconButton label="Suche schließen" className="self-start" onClick={closeSearch} />
+            <SearchPanelContext value={searchPanel}>{search}</SearchPanelContext>
           </div>
         ) : null}
       </div>

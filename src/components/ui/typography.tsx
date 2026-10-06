@@ -4,7 +4,12 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 type Align = 'left' | 'center'
-const ALIGN: Record<Align, string> = { left: 'text-left', center: 'text-center' }
+/**
+ * Figma: Center-Varianten der Headlines binden .Primitives / Headline / Text an die Variable
+ * headline-align (Lyt scl / Width). So steht eine zentrierte Überschrift unter md linksbündig
+ * und ab md zentriert.
+ */
+const ALIGN: Record<Align, string> = { left: 'text-left', center: 'text-left md:text-center' }
 
 type HeadingProps<S extends string> = Omit<React.HTMLAttributes<HTMLHeadingElement>, 'style'> & {
   /** Figma-Achse Style */

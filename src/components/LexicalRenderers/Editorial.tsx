@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 export function Editorial({
   headline,
   headlineType = 'h1',
+  align,
   columns,
   paragraphSize = 'lg',
   footnote,
@@ -20,6 +21,8 @@ export function Editorial({
 }: {
   headline?: React.ReactNode
   headlineType?: 'h1' | 'h2' | 'h3'
+  /** Figma-Achse Align der Headline; center = links bis md, ab md zentriert */
+  align?: 'left' | 'center'
   /** eine oder zwei Spalten */
   columns: React.ReactNode[]
   paragraphSize?: 'lg' | 'md'
@@ -28,7 +31,11 @@ export function Editorial({
 }) {
   return (
     <div data-slot="editorial" className={cn('flex w-full max-w-block-double-max flex-col gap-md-l', className)}>
-      {headline ? <ModuleHeadline type={headlineType}>{headline}</ModuleHeadline> : null}
+      {headline ? (
+        <ModuleHeadline type={headlineType} align={align}>
+          {headline}
+        </ModuleHeadline>
+      ) : null}
       <div className="flex w-full flex-wrap justify-center gap-lg">
         {columns.slice(0, 2).map((c, i) => (
           <DefaultParagraph key={i} size={paragraphSize} className="flex-1">

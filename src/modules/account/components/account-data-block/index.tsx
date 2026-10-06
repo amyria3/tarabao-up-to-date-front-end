@@ -15,13 +15,23 @@ export interface AccountSummaryItemProps {
   onEdit?: () => void
   onDelete?: () => void
   /**
+   * Zeigt „Löschen“ auch ohne `onDelete` (z. B. aus einer Server-Komponente) und blendet den
+   * Eintrag nach dem Klick aus.
+   */
+  deletable?: boolean
+  /**
    * Figma Editing?=True: statt Label und Buttons stehen die passenden Eingabefelder (Input / Field),
-   * z. B. das AddressFieldset für Adresse 1. Der Inhalt kommt vom Aufrufer.
+   * z. B. AccountAddressEditor für Adresse 1. Der Inhalt kommt vom Aufrufer.
    */
   editor?: React.ReactNode
   /** Figma Editing? kontrolliert; sonst öffnet „Korrigieren“ den Editor, wenn `editor` gesetzt ist. */
   editing?: boolean
   onEditingChange?: (editing: boolean) => void
+  /**
+   * „Speichern“ unter den Feldern: bekommt die Eingaben als FormData (Feldnamen = `name` der
+   * Felder). Danach schließt der Editor.
+   */
+  onSave?: (data: FormData) => void
   className?: string
 }
 
@@ -30,7 +40,9 @@ export interface AccountSummaryItemProps {
  * Addresse 1?, Adresse 2?, Zahlungsmethode 1?, Editing?. Titel DataBlocks/SummaryItemTitle in content-weak,
  * Inhalt DataBlocks/SummaryItemContent (Zeilen gap-1). Adressen und Zahlarten haben rechts
  * Buttons / XXS / Inline „Korrigieren“ und „Löschen“. Editing?=True zeigt statt Label und Buttons
- * die Eingabefelder (`editor`).
+ * die Eingabefelder (`editor`) und darunter Buttons / MD / PrimaryButton „Speichern“ (Fill, ohne Icon).
+ * Die Felder stehen in einem <form>; „Speichern“ sendet es ab, prüft die Pflichtfelder und schließt
+ * den Editor (Figma: Klick → Editing?=False).
  */
 export function AccountSummaryItem({
   label,
@@ -38,27 +50,41 @@ export function AccountSummaryItem({
   note,
   onEdit,
   onDelete,
+  deletable = false,
   editor,
   editing: controlled,
   onEditingChange,
+  onSave,
   className,
 }: AccountSummaryItemProps) {
   const [inner, setInner] = React.useState(false)
+  const [removed, setRemoved] = React.useState(false)
   const editing = controlled ?? inner
   const setEditing = (next: boolean) => {
     if (controlled === undefined) setInner(next)
     onEditingChange?.(next)
   }
-  const single = lines.length === 1 && !note && !onEdit && !onDelete && !editor
+  const canDelete = Boolean(onDelete) || deletable
+  const single = lines.length === 1 && !note && !onEdit && !canDelete && !editor
+  if (removed) return null
   if (editing && editor) {
     return (
-      <div
+      <form
         data-slot="account-summary-item"
         data-editing
+        aria-label={label.replace(/:$/, '')}
         className={cn('flex w-full flex-col gap-md-sm text-content-text', className)}
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSave?.(new FormData(e.currentTarget))
+          setEditing(false)
+        }}
       >
         {editor}
-      </div>
+        <Button type="submit" intent="primary" size="md">
+          Speichern
+        </Button>
+      </form>
     )
   }
   return (
@@ -82,7 +108,7 @@ export function AccountSummaryItem({
           ))}
           {note ? <p className="type-user-message-default text-content-weak">{note}</p> : null}
         </div>
-        {onEdit || onDelete || editor ? (
+        {onEdit || canDelete || editor ? (
           <div className="flex flex-col items-end gap-xxxs">
             {onEdit || editor ? (
               <Button
@@ -96,8 +122,15 @@ export function AccountSummaryItem({
                 Korrigieren
               </Button>
             ) : null}
-            {onDelete ? (
-              <Button intent="inline" size="xxs" onClick={onDelete}>
+            {canDelete ? (
+              <Button
+                intent="inline"
+                size="xxs"
+                onClick={() => {
+                  onDelete?.()
+                  if (deletable) setRemoved(true)
+                }}
+              >
                 Löschen
               </Button>
             ) : null}

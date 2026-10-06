@@ -7,6 +7,7 @@ import type { BreadcrumbProps } from '@modules/common/components/breadcrumbs'
 import { AddedToCartOverlay, type AddedToCartItem } from '@modules/common/components/added-to-cart-overlay'
 import { PageBreadcrumb } from '@modules/common/components/breadcrumbs/page-breadcrumb'
 import type { FooterModel } from '@/lib/view-models'
+import { PAGE_THEME, type GlobalTheme } from '@/lib/design-system/themes'
 import { cn } from '@/lib/utils'
 
 export interface PageTemplateProps {
@@ -22,6 +23,8 @@ export interface PageTemplateProps {
    */
   addedToCart?: AddedToCartItem | null
   onAddedToCartClose?: () => void
+  /** Figma: Modus-Pin „Clrs / Color Modes“ an Templates / Page (alle Seiten: cole-tint-surface-snow) */
+  theme?: GlobalTheme
   className?: string
 }
 
@@ -32,6 +35,8 @@ export interface PageTemplateProps {
  * ohne Element für den Section-Slot. main.flex-1 hält den Footer bei kurzem Inhalt unten.
  * Die Höhe kommt nicht aus Figma (min-h-dvh); nur der Bildschirm scrollt. Oberste Ebene ist
  * overlay/ADDED TO CARD als fixierter Dialog (AddedToCartOverlay).
+ * Farbmodus: Figma pinnt Templates / Page und alle Seiten auf cole-tint-surface-snow. So liegen
+ * Header, Sections und Footer auf der Snow-Fläche; einzelne Bausteine (z. B. Choice) pinnen warm.
  */
 export function PageTemplate({
   header,
@@ -40,11 +45,13 @@ export function PageTemplate({
   children,
   addedToCart = null,
   onAddedToCartClose,
+  theme = PAGE_THEME,
   className,
 }: PageTemplateProps) {
   return (
     <div
       data-slot="page"
+      data-theme={theme}
       className={cn(
         'flex min-h-dvh w-full min-w-content flex-col items-center bg-surface text-content-text',
         className,

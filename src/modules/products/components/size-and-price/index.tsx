@@ -17,9 +17,11 @@ export interface SizeAndPriceProps {
 
 /**
  * Figma: Components / Product / SizeAndPrice (9473:50567). Wrap-Reihe, unten bündig, gap-sm:
- * Switches / OptionSelection (Chips „130 g“, „8 × 130 g“, „0,5 kg“), Spacer und rechts der Preis
- * (Cards/MD) mit Grundpreis (DefaultText S in content-weak). Ein Klick auf einen Chip wechselt die
- * Größe, Preis und Kilopreis folgen. Im Code liefern die `variants` die Werte je Größe.
+ * Switches / OptionSelection (Chips „130 g“, „8 × 130 g“, „0,5 kg“), Spacer (Fill, px 0,625rem) und
+ * rechts der Preis: eine Zeile (Umbruch, gap-sm, Grundlinie) aus Preis (Cards/MD) und Grundpreis
+ * (DefaultText S in content-weak). Reicht die Breite nicht (base), bricht der Preis unter die Chips
+ * und steht links. Ein Klick auf einen Chip wechselt die Größe, Preis und Kilopreis folgen. Im Code
+ * liefern die `variants` die Werte je Größe.
  */
 export function SizeAndPrice({ variants, value, defaultValue, onValueChange, className }: SizeAndPriceProps) {
   const [inner, setInner] = React.useState(defaultValue ?? variants[0]?.id ?? '')
@@ -39,9 +41,9 @@ export function SizeAndPrice({ variants, value, defaultValue, onValueChange, cla
         onValueChange={set}
         className="w-auto gap-sm"
       />
-      <span aria-hidden className="h-11.5 min-w-zero flex-1" />
+      <span aria-hidden className="h-11.5 min-w-zero flex-1 px-2.5" />
       {variant ? (
-        <p className="flex flex-col text-right text-content-text" aria-live="polite">
+        <p className="flex flex-wrap items-baseline gap-x-sm text-content-text" aria-live="polite">
           <span className="type-cards-md">{variant.priceLabel}</span>
           {variant.unitPriceLabel ? (
             <span className="type-default-text-s text-content-weak">{variant.unitPriceLabel}</span>

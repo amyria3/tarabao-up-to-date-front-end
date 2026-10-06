@@ -52,7 +52,13 @@ function useProductTabPanels({ product, content, reviews }: ProductTabsProps): T
       content: (
         <div className="flex w-full justify-center pt-md-l">
           <CustomContentWithImg image={product.images[0]}>
-            <ContentBasic headline={content.about.headline} headingLevel="h2" paragraphs={[content.about.text]} />
+            {/* Figma: ContentModules / Basic · TypeOfHeadline=H1 (LUMOSKY 30), semantisch h2 unter dem Produkttitel */}
+            <ContentBasic
+              headline={content.about.headline}
+              headlineType="h1"
+              headingLevel="h2"
+              paragraphs={[content.about.text]}
+            />
           </CustomContentWithImg>
         </div>
       ),

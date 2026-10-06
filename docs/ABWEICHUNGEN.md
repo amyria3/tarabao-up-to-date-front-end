@@ -1,6 +1,6 @@
 # Abweichungen und offene Punkte
 
-Stand: 05.10.2026 (Ordner und Routen wie apps/medusa-storefront; Figma-Änderungen 29./30.09. eingearbeitet, 2-tarabao Commit 3ec19c7). Diese Liste sammelt alles, was bewusst vom Figma-Bestand
+Stand: 06.10.2026 abends (Ordner und Routen wie apps/medusa-storefront; Figma-Änderungen bis 06.10. eingearbeitet, Produktseite gegen Figma abgeglichen). Diese Liste sammelt alles, was bewusst vom Figma-Bestand
 oder von `apps/medusa-storefront` abweicht, und Stellen, an denen Figma selbst
 uneindeutig ist. Jede Zeile nennt die Quelle.
 
@@ -91,6 +91,43 @@ wie in Figma, und echte Bilder kommen später über `ImageModel.src` aus Medusa 
 | ContentModules / ContactForm (7988:22598)                | Button-Label „default label“                                                                                                                                                                                        | „Nachricht senden“                                                                                                                       |
 | Primitives / DefaultParagraph · Var=1/2                  | Blocksatz (JUSTIFIED)                                                                                                                                                                                               | Linksbündig, da Blocksatz im Web ohne Silbentrennung Lücken reißt                                                                        |
 
+## Produktseite: Abgleich 06.10. abends
+
+Figma-Produktseite Jancys Curry-Cashews (lg 8232:25333, base 9860:33065) gegen `/products/[handle]`, in 1100, 800 und 400 px nebeneinander geprüft.
+
+| Thema | Figma | Umsetzung |
+| --- | --- | --- |
+| Farbmodus der Seiten | Templates / Page, alle Seiten in {Single Pages}, Navigation / Header und Navigation / Footer pinnen cole-tint-surface-snow; Choice pinnt warm | `PageTemplate theme` (Standard `PAGE_THEME` = snow), Header und Footer mit `SHELL_SURFACE_THEME`. So liegt die Choice-Box sichtbar warm auf Snow. Gilt für alle Seiten mit `PageTemplate` |
+| Layout / PromoBar | „Versand innerhalb Deutschlands ab 3,90 € – versandkostenfrei ab 49 €“, base „Versand ab 3,90 € · ab 49 € gratis“ | Fixture `PROMO` |
+| Navigation / Footer · Slogan | Alle Varianten „Hier kommt die Snackrevolution“ | Fixture `FOOTER.slogan` |
+| BuyBox · Titel | Ab lg sichtbar, darunter nur für Screenreader | `sr-only lg:not-sr-only lg:w-full`. Vorher machte `w-full` am versteckten Titel die Seite in md und base breiter als den Bildschirm (horizontales Scrollen) |
+| SizeAndPrice · Preis | Eine Zeile (Umbruch, gap-sm, Grundlinie): Preis Cards/MD und Grundpreis DefaultText S; Spacer mit 0,625rem Innenabstand. In base bricht der Preis unter die Chips | `flex flex-wrap items-baseline`, Spacer `px-2.5` |
+| Switches / MegaSwitch (MD) | „einmal bestellen“ (Texts & Headlines/Abo/Order once) | Standard-Label „einmal bestellen“ |
+| Tab „Über dieses Produkt“ | ContentModules / Basic · TypeOfHeadline=H1 | `headlineType="h1"`, semantisch `h2` |
+| Sections / CustomerReviews | Nicht auf der Produktseite; Bewertungen stehen im Tab „Bewertungen“ | Section entfernt |
+| CardRow „Das könnte Dich auch interessieren“ | Titel links, Cards Order · CardsRow (scrollt, links bündig), Cards / ProductCard / CompactSize | `ProductCardRow cardsOrder="row" size="compact"`; `CardRow` hat dafür die Prop `cardsOrder` |
+| Doypack-Daten | __Products / Doypacks: Kurzname, Gewicht, Preise je Größe | `DOYPACK_DATA` in `lib/shop/catalog.ts`; jede Produktseite zeigt ihre eigenen Preise |
+
+Bewusst nicht geändert:
+
+| Thema | Figma | Code |
+| --- | --- | --- |
+| Breadcrumb | „Nüsse > Würzige Snacks > Produkt“, Dots immer | Startseite → Shop → … wie die Storefront, Dots nur bei verdeckten Stationen (Daria 05.10.) |
+| Sections / BlogCards | Cards / FeaturedCard · BlogPost, Titel links | BlogCard (Daria 06.10.: Code ist korrekt) |
+| Vorschaubilder | Zwei Vorschaubilder | So viele wie Bilder (Beispieldaten: drei) |
+| Section-Slot6 | Leerer Slot mit Fläche unter der Kartenreihe | Leere Slots bekommen kein Element (2.7) |
+
+Offen in Sections / Sustainability (Stand Figma 06.10. abends, parallel in Arbeit):
+
+| Thema | Figma | Code |
+| --- | --- | --- |
+| Überschrift „Was unseren Lieferanten [#3 Firmenname] besonders macht“ | H2 mittig über beiden Spalten (CustomContentWithText) | steht in der linken Spalte |
+| Rechte Spalte | nur Primitives / BulletedList, kein Bild | BulletedList und Bildfläche |
+| Components / HighlightedInformation (10325:56341) | Reihe aus vier gestrichelten Ovalen (Label/default) unter den Tabs | fehlt |
+| Einleitung | Überschrift mit Marker „[#1 Einleitung] Nachhaltigkeit für uns – das ist ein kurzer Einleitungstext …“, Absätze mit Markern | Kurztexte ohne Marker |
+| Editorial · zwei Spalten | beide Absätze oben bündig | Der Textstil setzt zwischen aufeinanderfolgenden Absätzen `margin-top`; in der Zeile rutscht die rechte Spalte nach unten |
+| Primitives / DefaultParagraph | Blocksatz in allen Varianten | linksbündig (siehe Figma-Befunde) |
+
 ## Offene Punkte zur Barrierefreiheit (axe-core 4, WCAG 2.1 AA, 29.09.2026)
 
 Die Bibliothek läuft ohne ARIA- und Strukturfehler durch axe-core. Übrig bleiben Kontraste, die aus den
@@ -127,7 +164,7 @@ Figma-Tokens kommen. Das Projekt übernimmt die Tokens unverändert; die Designe
 | Switches / MegaSwitch | Pillen so hoch wie das Label (Btns/MD bzw. XX-SM), Track = Wurzel | `h-btn-md` bzw. `h-btn-xx-sm`, min/max wie Buttons |
 | Cards / ReviewCard | Sterne 14 px im Abstand 4 px | `ReviewStars size="sm"` |
 | Sections / BlogCards | Enthält in Figma Cards / FeaturedCard | Bleibt bei `BlogCard` (Daria 06.10.: Code ist korrekt) |
-| Cards / ProductCard / CompactSize | 180–248 px breit, 192 px hoch, Rand und Abstände 6 px; Preis als „5,49 € / 130 g“ | Tokens aus app.tcss; der Preis kommt fertig aus den Produktdaten (`priceLabel`) |
+| Cards / ProductCard / CompactSize | 180–248 px breit, 192 px hoch, Rand und Abstände 6 px; Kurzname (Item-Short-Name); eine Preiszeile „5,49 € / 130 g“ ohne Grundpreis | Tokens aus app.tcss; Kurzname aus `shortTitle`, Preiszeile aus `packPriceLabel` (sonst `priceLabel`), kein Grundpreis |
 | Cards / ProductCard · viewport-range=base | Keine Hover-Variante in Mobil. Buttons / LG / Button-Card-Round sitzt mit dem Zentrum auf der unteren rechten Bildecke | `ButtonCardRound` mit `md:hidden`, Hover-Button `hidden md:flex`, alle Hover-Klassen mit `md:` |
 | CompactSize · Titel | Textstil Cards/ProductTitle (11 px); der Titel bricht um, das Bild wird kürzer | Eine Zeile mit Auslassungspunkten, da der Infobereich für die Animation eine feste Höhe hat |
 | CompactSize · Product=Doypack, Context=Nutmixer | Button „Rein in den Mix!“ in Mobil schon ohne Hover, kein runder Button | Nicht umgesetzt: Im Code zeigt der Nussmixer nur lose Ware (Product=Lose Ware) |

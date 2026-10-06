@@ -16,11 +16,18 @@ export type ImageModel = {
 export type ProductCardModel = {
   id: string
   title: string
+  /** Kurzname für Cards / ProductCard / CompactSize (Figma Item-Short-Name), z. B. „Tamari-Cashews“ */
+  shortTitle?: string
   href: string
   /** Formatierter Preis, z. B. „ab 19,99 €“ */
   priceLabel: string
   /** Grundpreis, z. B. „(ab 39,98 €/kg)“ */
   unitPriceLabel?: string
+  /**
+   * Preis je Packung für Cards / ProductCard / CompactSize (Figma Item-Product-Price und Item-Weight),
+   * z. B. „5,49 € / 130 g“
+   */
+  packPriceLabel?: string
   image?: ImageModel
   /** Durchschnittliche Bewertung 0–5 (Cards / ProductCardWithReviews) */
   rating?: number

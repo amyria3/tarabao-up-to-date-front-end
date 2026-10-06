@@ -35,7 +35,7 @@ export const MegaSwitch = React.forwardRef<HTMLButtonElement, MegaSwitchProps>(f
   ref,
 ) {
   const xxsm = size === 'xxsm'
-  const off = offLabel ?? (xxsm ? 'einmal bestellen' : '1-malig bestellen')
+  const off = offLabel ?? 'einmal bestellen'
   const on = onLabel ?? (xxsm ? 'im Abo' : 'im Abo bestellen')
   // Labelfarben wechseln im Takt des Schiebers (motion-long), damit das Label
   // erst hell wird, wenn die dunkle Pille darunter liegt.

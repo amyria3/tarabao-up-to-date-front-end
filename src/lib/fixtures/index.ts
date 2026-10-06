@@ -292,13 +292,13 @@ export const NAV_GROUPS: NavGroupModel[] = [
 ]
 
 export const PROMO: PromoModel = {
-  text: 'Versand innerhalb Deutschlands nur 2,90€ - Versandkostenfrei ab 49€',
-  shortText: 'Versand 2,90 € · ab 49 € gratis',
+  text: 'Versand innerhalb Deutschlands ab 3,90 € – versandkostenfrei ab 49 €',
+  shortText: 'Versand ab 3,90 € · ab 49 € gratis',
 }
 
 const page = (slug: string) => `/de-de/page/${slug}`
 export const FOOTER: FooterModel = {
-  slogan: 'Die besten Snacks - für Dich!',
+  slogan: 'Hier kommt die Snackrevolution',
   sloganCompact: 'Hier kommt die\nSnackrevolution',
   about: {
     id: 'about',

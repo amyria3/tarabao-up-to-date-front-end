@@ -9,6 +9,8 @@ export interface ContentBasicProps {
   headline?: React.ReactNode
   headlineType?: ModuleHeadlineType
   headingLevel?: 'h1' | 'h2' | 'h3' | 'h4'
+  /** Figma-Achse Align der Headline; center = links bis md, ab md zentriert */
+  align?: 'left' | 'center'
   /** höchstens 3 Absätze (Figma-Beschreibung) */
   paragraphs: React.ReactNode[]
   paragraphSize?: 'lg' | 'md'
@@ -25,6 +27,7 @@ export function ContentBasic({
   headline,
   headlineType = 'h2',
   headingLevel,
+  align,
   paragraphs,
   paragraphSize = 'lg',
   className,
@@ -35,7 +38,7 @@ export function ContentBasic({
       className={cn('flex w-full min-w-block-min max-w-block-max flex-col gap-md-l', className)}
     >
       {headline ? (
-        <ModuleHeadline type={headlineType} as={headingLevel}>
+        <ModuleHeadline type={headlineType} as={headingLevel} align={align}>
           {headline}
         </ModuleHeadline>
       ) : null}

@@ -6,7 +6,7 @@ import { IconButton } from '@/components/ui/icon-button'
 import { ProductCard } from '@modules/products/components/product-card'
 import { IconPerson } from '@/components/icons/figma-icons'
 import { NutmixerItem } from '@modules/nutmixer/components/nutmixer-item'
-import { DefaultParagraph, HeadlineH3 } from '@/components/ui/typography'
+import { DefaultParagraph, HeadlineH1, HeadlineH3 } from '@/components/ui/typography'
 import { NutmixerInfoTag, NutmixerTab } from '@/components/ui/category-navigation'
 import { CardsOrder } from '@/components/ui/cards-order'
 import { ProductImage } from '@modules/products/components/product-image'
@@ -149,7 +149,9 @@ export function Nutmixer({
   const details = (
     <>
       <div className="flex w-full max-w-block-max flex-col items-center gap-sm">
-        <h2 className="w-full text-center type-h1-subtitle text-content-text">Meine Nussmischung</h2>
+        <HeadlineH1 variant="subtitle" as="h2" align="center">
+          Meine Nussmischung
+        </HeadlineH1>
         <div className="flex">
           <IconButton label="Personalisieren" icon={<IconPerson aria-hidden className="size-3.5" />} />
           <IconButton label="löschen" onClick={() => setMix({})} disabled={total === 0} />

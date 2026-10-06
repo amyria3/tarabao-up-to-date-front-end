@@ -16,8 +16,11 @@ export type GlobalTheme = (typeof GLOBAL_THEMES)[number]
 /** Seiten und Sections starten in cole-tint-surface-warm (Default in app.css). */
 export const DEFAULT_GLOBAL_THEME: GlobalTheme = 'cole-tint-surface-warm'
 
-/** Navigation und Footer liegen auf der Snow-Fläche. */
+/** Navigation und Footer liegen auf der Snow-Fläche (Figma: Modus-Pin an Navigation / Header und Navigation / Footer). */
 export const SHELL_SURFACE_THEME: GlobalTheme = 'cole-tint-surface-snow'
+
+/** Seiten (Figma Templates / Page und alle Seiten in {Single Pages}) liegen auf der Snow-Fläche. */
+export const PAGE_THEME: GlobalTheme = 'cole-tint-surface-snow'
 
 /** Kampagnen-Achse — `data-lively-theme`, pro Komponente (MegaCard + LG-Buttons). */
 export const LIVELY_THEMES = ['blue-pistacio-green', 'orange-black', 'happy-christmas', 'purple-black'] as const
