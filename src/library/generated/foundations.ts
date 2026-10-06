@@ -2732,6 +2732,11 @@ export const FOUNDATIONS = {
       comment: 'Cards/FeaturedCard/content-gap  4px',
     },
     {
+      name: 'card-featured-frame-top',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/FeaturedCard/frame-top  16px',
+    },
+    {
       name: 'card-blog-frame',
       value: 'var(--spacing-md)',
       comment: 'Cards/BlogCard/frame  16px',
@@ -2757,6 +2762,16 @@ export const FOUNDATIONS = {
       comment: 'Cards/DiscoveryCard/gap  20px',
     },
     {
+      name: 'card-discovery-content',
+      value: 'var(--spacing-xs)',
+      comment: 'Cards/DiscoveryCard/content  6px',
+    },
+    {
+      name: 'card-discovery-content-gap',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/DiscoveryCard/content-gap  8px',
+    },
+    {
       name: 'card-review-frame',
       value: 'var(--spacing-md-sm)',
       comment: 'Cards/ReviewCard/frame  12px',
@@ -2767,9 +2782,14 @@ export const FOUNDATIONS = {
       comment: 'Cards/ReviewCard/frame-top  16px',
     },
     {
-      name: 'card-review-gap',
-      value: 'var(--spacing-md-l)',
-      comment: 'Cards/ReviewCard/gap  20px',
+      name: 'card-review-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/ReviewCard/content  8px',
+    },
+    {
+      name: 'card-review-content-gap',
+      value: 'var(--spacing-xs)',
+      comment: 'Cards/ReviewCard/content-gap  6px',
     },
     {
       name: 'card-purchase-frame',
@@ -2785,6 +2805,11 @@ export const FOUNDATIONS = {
       name: 'card-purchase-content',
       value: 'var(--spacing-xxs)',
       comment: 'Cards/PurchaseCard/content  4px',
+    },
+    {
+      name: 'card-purchase-content-gap',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/PurchaseCard/content-gap  8px',
     },
     {
       name: 'card-voucher-frame',

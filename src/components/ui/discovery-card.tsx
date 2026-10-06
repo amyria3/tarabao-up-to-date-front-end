@@ -23,7 +23,7 @@ export function DiscoveryCard({ teaser, forceHover, className }: { teaser: Tease
       data-expandable={expandable || undefined}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card relative flex h-card-discovery w-full min-w-card-discovery-min max-w-card-discovery-max gap-md-l bg-surface px-card-discovery-frame pt-card-discovery-frame-top pb-card-discovery-frame text-card-content-text motion-long',
+        'group/card relative flex h-card-discovery w-full min-w-card-discovery-min max-w-card-discovery-max gap-card-discovery-gap bg-surface px-card-discovery-frame pt-card-discovery-frame-top pb-card-discovery-frame text-card-content-text motion-long',
         CARD_FRAME,
         'hover:shadow-card-hover data-hovered:shadow-card-hover',
         expandable &&
@@ -47,7 +47,7 @@ export function DiscoveryCard({ teaser, forceHover, className }: { teaser: Tease
         >
           <ProductImage image={teaser.image} />
         </div>
-        <div className="flex flex-col gap-sm pb-xs">
+        <div className="flex flex-col gap-card-discovery-content-gap pb-card-discovery-content">
           <h3 className="type-cards-featured-title">
             {teaser.href ? (
               <Link

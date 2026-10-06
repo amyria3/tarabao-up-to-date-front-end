@@ -30,23 +30,23 @@ export function PurchaseCard({
       {...CARD_THEME}
       data-status={purchase.status}
       className={cn(
-        'flex w-full max-w-panel-max flex-col gap-md bg-surface p-md-sm text-content-text',
+        'flex w-full max-w-panel-max flex-col gap-card-purchase-gap bg-surface p-card-purchase-frame text-content-text',
         CARD_FRAME,
         className,
       )}
     >
       <p className={sent ? 'max-w-57 type-user-message-x-lg' : 'type-user-message-lg'}>{purchase.statusLabel}</p>
-      <ul className="flex w-full min-w-product-img-thumbnail-row-min max-w-panel-max flex-wrap gap-sm">
+      <ul className="flex w-full min-w-product-img-thumbnail-row-min max-w-panel-max flex-wrap gap-card-purchase-content-gap">
         {purchase.images.map((image, i) => (
           <li
             key={i}
-            className="h-[8.875rem] min-h-24 w-full min-w-block-inline-min max-w-product-img-thumbnail-max flex-1 bg-surface p-xxs"
+            className="h-[8.875rem] min-h-24 w-full min-w-block-inline-min max-w-product-img-thumbnail-max flex-1 bg-surface p-card-purchase-content"
           >
             <ProductImage image={image} sizes="13rem" />
           </li>
         ))}
       </ul>
-      <div className="flex w-full flex-wrap items-end gap-sm px-xxs">
+      <div className="flex w-full flex-wrap items-end gap-card-purchase-content-gap px-card-purchase-content">
         <div className="w-64">{summary ?? <PurchaseSummary summary={purchase.summary} />}</div>
         <div className="flex flex-1 flex-col items-end gap-xxxs">
           <Button intent="secondary" size="md-oval" width="hug">

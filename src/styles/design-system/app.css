@@ -1102,12 +1102,16 @@
   --spacing-card-discovery-frame: var(--spacing-md-l);      /* Cards/DiscoveryCard/frame  20px */
   --spacing-card-discovery-frame-top: var(--spacing-md);    /* Cards/DiscoveryCard/frame-top  16px */
   --spacing-card-discovery-gap: var(--spacing-md-l);        /* Cards/DiscoveryCard/gap  20px */
+  --spacing-card-discovery-content: var(--spacing-xs);      /* Cards/DiscoveryCard/content  6px */
+  --spacing-card-discovery-content-gap: var(--spacing-sm);  /* Cards/DiscoveryCard/content-gap  8px */
   --spacing-card-review-frame: var(--spacing-md-sm);        /* Cards/ReviewCard/frame  12px */
   --spacing-card-review-frame-top: var(--spacing-md);       /* Cards/ReviewCard/frame-top  16px */
-  --spacing-card-review-gap: var(--spacing-md-l);           /* Cards/ReviewCard/gap  20px */
+  --spacing-card-review-content: var(--spacing-sm);         /* Cards/ReviewCard/content  8px */
+  --spacing-card-review-content-gap: var(--spacing-xs);     /* Cards/ReviewCard/content-gap  6px */
   --spacing-card-purchase-frame: var(--spacing-md-sm);      /* Cards/PurchaseCard/frame  12px */
   --spacing-card-purchase-gap: var(--spacing-md);           /* Cards/PurchaseCard/gap  16px */
   --spacing-card-purchase-content: var(--spacing-xxs);      /* Cards/PurchaseCard/content  4px */
+  --spacing-card-purchase-content-gap: var(--spacing-sm);  /* Cards/PurchaseCard/content-gap  8px */
   --spacing-card-voucher-frame: var(--spacing-sm);          /* Cards/VoucherCard/frame  8px */
   --spacing-card-voucher-content: var(--spacing-sm);        /* Cards/VoucherCard/content  8px */
   --spacing-card-promotion-frame: var(--spacing-md-sm);     /* Cards/PromotionPostCard/frame  12px */

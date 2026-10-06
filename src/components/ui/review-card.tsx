@@ -7,7 +7,8 @@ import { cn } from '@/lib/utils'
 
 /**
  * Figma: Cards / ReviewCard (2194:1982) · Reactions?=True|False, State?=Default|Open.
- * 160–224 px breit (Cards/ReviewCard/…), Kopf 16 px oben, 12 px sonst (frame-top, frame), zentrierte
+ * 160–224 px breit (Cards/ReviewCard/…), Rand 16 px oben, 12 px seitlich (frame-top, frame), Abstand
+ * Bewertung → Reaktionsleiste frame, innerhalb der Bewertung content-gap, Reaktionsleiste py content. Zentrierte
  * Sterne 14 px (nur vergebene), Name + Datum (Comment), Titel H3, Text Comment/BodyText (zweizeilig;
  * aufgeklappt ganz), Bildfläche 100 px bzw. aufgeklappt 140 px (Img/fix-h, tall-fix-h), darunter
  * Buttons / ReactionCounter
@@ -29,11 +30,11 @@ export function ReviewCard({
       data-slot="review-card"
       data-theme="purple-tint-surface-snow"
       className={cn(
-        'group/review relative flex w-full min-w-card-review-min max-w-card-review-max flex-col border border-card-btn-hover-click bg-card-surface pb-sm text-card-content-text',
+        'group/review relative flex w-full min-w-card-review-min max-w-card-review-max flex-col gap-card-review-frame border border-card-btn-hover-click bg-card-surface px-card-review-frame pt-card-review-frame-top text-card-content-text',
         className,
       )}
     >
-      <div className="flex w-full flex-col items-center gap-xs px-card-review-frame pt-card-review-frame-top pb-card-review-frame">
+      <div className="flex w-full flex-col items-center gap-card-review-content-gap">
         <div className="pb-xs">
           <ReviewStars rating={review.rating} emptyStars="hidden" size="sm" className="text-card-content-text" />
         </div>
@@ -60,7 +61,7 @@ export function ReviewCard({
           </div>
         ) : null}
       </div>
-      <div className="flex w-full justify-end px-md-sm pt-sm">
+      <div className="flex w-full justify-end py-card-review-content">
         <ReactionCounter likes={review.likes ?? 0} className="w-auto pt-zero" />
       </div>
     </article>
