@@ -20,7 +20,9 @@ export interface ProductGalleryProps {
  * Spalte gap 12, 240–504 px breit (Product Page/Img/min-w, max-w): in base und md der Produkttitel
  * (ProductPage/ProductTitle, Figma visible-md-down; ab lg steht er in der BuyBox), das quadratische
  * Hauptbild mit Buttons / CarouselNav · SM (zurück, weiter) unten rechts und dem Schnellbutton
- * `addToCart` unten links, darunter Vorschaubilder 128 × 128 (gap-sm) ohne Schatten. Das Hauptbild
+ * `addToCart` unten links, darunter Vorschaubilder 128 × 128 (gap-sm) ohne Schatten und ohne Markierung
+ * des gezeigten Bilds; `aria-current` nennt es Screenreadern. Die Reihe scrollt waagerecht und schneidet
+ * außen ab, deshalb zeigt eine Ebene über dem Vorschaubild den Fokusrahmen (`after:`). Das Hauptbild
  * trägt den Innenschatten „Img-inner-shadow strong“ (Rahmen RAHMEN 3175:5184). Figma zeichnet ihn über
  * dem Bild, deshalb liegt er im Code auf einer Ebene darüber (`after:`). Bilder sind Platzhalterflächen
  * (surface-placeholder), bis Medusa echte Bilder liefert.
@@ -62,7 +64,7 @@ export function ProductGallery({ images, title, addToCart, className }: ProductG
                 aria-label={`Bild ${i + 1} zeigen`}
                 aria-current={i === index || undefined}
                 onClick={() => setIndex(i)}
-                className="block size-full cursor-pointer outline-offset-2 focus-visible:outline-2 focus-visible:outline-btn-primary-bg aria-[current]:outline-1 aria-[current]:outline-content-text"
+                className="relative block size-full cursor-pointer after:pointer-events-none after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:border-2 focus-visible:after:border-btn-primary-bg"
               >
                 <ProductImage image={image} sizes="8rem" />
               </button>
