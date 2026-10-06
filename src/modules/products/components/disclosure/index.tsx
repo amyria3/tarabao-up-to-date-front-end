@@ -61,11 +61,15 @@ export function Disclosure({
           aria-controls={overlay ? undefined : `${id}-panel`}
           aria-haspopup={overlay ? 'dialog' : undefined}
           onClick={toggle}
-          className="flex w-full cursor-pointer items-center gap-md-l py-md-l text-left type-product-page-dropdown-summary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg"
+          className="flex w-full cursor-pointer items-center gap-md-l py-md-sm text-left type-product-page-dropdown-summary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg"
         >
           <span className={cn(overlay && 'flex-1')}>{title}</span>
           {overlay ? (
-            <ArrowUpOrDown variant="down" size={22} className="-rotate-90" />
+            // Figma: Pfeil nach rechts 9 × 22 px. Drehen ändert das Layout nicht, deshalb hält der Rahmen die Maße
+            // (Zeile 46 px + Linie wie in Figma).
+            <span className="inline-flex h-[1.375rem] w-[0.5625rem] items-center justify-center">
+              <ArrowUpOrDown variant="down" size={22} className="-rotate-90" />
+            </span>
           ) : (
             <ArrowUpOrDown variant={open ? 'up' : 'down'} size={22} />
           )}

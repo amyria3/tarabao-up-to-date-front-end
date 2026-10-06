@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: Cards / PromotionPostCard (3912:19740). Framed image, title, text and Buttons / SM / Button-Card. With teaser.href the button links to the promotion.',
+          'Figma: Cards / PromotionPostCard (3912:19740). Framed image, title, text and Buttons / MD / Button-Card. With teaser.href the button links to the promotion.',
       },
     },
   },

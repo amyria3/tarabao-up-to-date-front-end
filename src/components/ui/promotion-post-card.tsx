@@ -8,8 +8,9 @@ import { CARD_THEME } from '@/components/ui/card-chrome'
 
 /**
  * Figma: Cards / PromotionPostCard (3912:19740).
- * Bild mit 12-px-Rand, darunter Titel Cards/ProductTitle, Text Cards/Light
- * und Buttons / SM / Button-Card; py md-sm/md-l, px-xl.
+ * 380 px hoch, 256–384 px breit (Cards/PromotionPostCard/…). Der Bildrand ist das Padding der Karte
+ * (frame 12 px, unten 0). Darunter Titel Cards/ProductTitle, Text Cards/Light und Buttons / MD /
+ * Button-Card mit 12 px Abstand (content), Innenabstand 12 oben, 24 seitlich, 20 unten.
  */
 export function PromotionPostCard({
   teaser,
@@ -25,21 +26,21 @@ export function PromotionPostCard({
       data-slot="promotion-post-card"
       {...CARD_THEME}
       className={cn(
-        'flex h-95 w-full min-w-card-small-min max-w-card-max flex-col bg-card-surface shadow-card text-card-content-text',
+        'flex h-card-promotion w-full min-w-card-promotion-min max-w-card-promotion-max flex-col gap-card-promotion-frame bg-card-surface px-card-promotion-frame pt-card-promotion-frame shadow-card text-card-content-text',
         className,
       )}
     >
-      <div className="min-h-zero w-full flex-1 border-12 border-card-surface">
+      <div className="min-h-zero w-full flex-1">
         <ProductImage image={teaser.image} />
       </div>
-      <div className="flex flex-col items-center gap-md-sm px-xl pt-md-sm pb-md-l">
+      <div className="flex flex-col items-center gap-card-promotion-content px-6 pt-card-promotion-content pb-md-l">
         <h3 className="w-full type-cards-product-title">{teaser.title}</h3>
         {teaser.body ? <p className="w-full type-cards-light">{teaser.body}</p> : null}
         <Button
           asChild={Boolean(teaser.href)}
           intent="card"
-          size="sm"
-          icon={<IconCartEmpty aria-hidden className="size-5" />}
+          size="md"
+          icon={<IconCartEmpty aria-hidden className="h-icon-btn w-auto" />}
         >
           {teaser.href ? <Link href={teaser.href}>{actionLabel}</Link> : actionLabel}
         </Button>

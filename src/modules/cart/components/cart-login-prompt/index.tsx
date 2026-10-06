@@ -39,7 +39,7 @@ export function CartLoginPrompt({
           <Button
             intent="primary"
             size="md"
-            icon={<IconLogIn aria-hidden className="size-6" />}
+            icon={<IconLogIn aria-hidden className="h-btn-md-icon w-auto" />}
             className="w-60"
             onClick={onLogin}
           >

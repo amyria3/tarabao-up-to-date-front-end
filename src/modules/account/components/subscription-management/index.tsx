@@ -82,7 +82,7 @@ export function SubscriptionManagement({
         className={root}
       >
         <div className="flex w-full flex-col items-center pb-md">
-          <InformationBubble fill={false} showIcon={false} role="status">
+          <InformationBubble showIcon={false} role="status">
             {canceledMessage}
           </InformationBubble>
         </div>
@@ -95,7 +95,7 @@ export function SubscriptionManagement({
         </ul>
         <p className="w-full text-center type-cards-md">oder</p>
         <div className="flex w-full flex-col items-center gap-xxs">
-          <Button intent="primary" size="sm" width="hug" onClick={onReactivate}>
+          <Button intent="primary" size="md-oval" width="hug" onClick={onReactivate}>
             {reactivateLabel}
           </Button>
         </div>
@@ -105,7 +105,7 @@ export function SubscriptionManagement({
   return (
     <section data-slot="subscription-management" data-state={state} aria-label="Dein Abo" className={root}>
       <div className="flex w-full flex-col pb-md">
-        <InformationBubble fill={false} role="status">
+        <InformationBubble showIcon={false} role="status">
           {state === 'canceled' && pausedMessage ? pausedMessage : MESSAGES[state]}
         </InformationBubble>
       </div>
@@ -126,7 +126,7 @@ export function SubscriptionManagement({
       </div>
       <p className="w-full type-cards-md">oder</p>
       <div className="flex w-full flex-col gap-xxs">
-        <Button intent="primary" size="sm" className="w-full" onClick={onPause} disabled={paused}>
+        <Button intent="primary" size="md-oval" className="w-full" onClick={onPause} disabled={paused}>
           {pauseLabel}
         </Button>
       </div>
@@ -183,7 +183,7 @@ export function NussAboCancellationStatus({
       <UserMessageExplanation title={t.title} as="h3">
         {text ?? t.text}
       </UserMessageExplanation>
-      <Button intent="secondary" size="sm" onClick={onAction}>
+      <Button intent="secondary" size="md-oval" onClick={onAction}>
         {t.action}
       </Button>
     </div>

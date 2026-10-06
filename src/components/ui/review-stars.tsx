@@ -2,10 +2,15 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-/** Fünfzackiger Stern 20×19 wie Figma STAR „Star 1…5“ */
-function Star({ filled }: { filled: boolean }) {
+/** Fünfzackiger Stern 20×19 wie Figma STAR „Star 1…5“; sm = 14 px hoch (Icons/ReviewStars/fix-h) */
+function Star({ filled, size }: { filled: boolean; size: 'md' | 'sm' }) {
   return (
-    <svg viewBox="0 0 20 19" aria-hidden="true" focusable="false" className="h-[1.1875rem] w-5 shrink-0">
+    <svg
+      viewBox="0 0 20 19"
+      aria-hidden="true"
+      focusable="false"
+      className={cn('shrink-0', size === 'sm' ? 'h-icon-review-star w-auto' : 'h-[1.1875rem] w-5')}
+    >
       <path
         d="M10 0.8l2.7 5.9 6.4.6-4.8 4.3 1.4 6.3L10 14.6l-5.7 3.3 1.4-6.3L.9 7.3l6.4-.6z"
         fill={filled ? 'currentColor' : 'none'}
@@ -26,6 +31,8 @@ export interface ReviewStarsProps {
   align?: 'left' | 'center'
   /** Leere Sterne als Kontur (Primitives / ReviewStars) oder ausgeblendet (Cards / ReviewCard) */
   emptyStars?: 'outline' | 'hidden'
+  /** md: 20 × 19 im Abstand 5 px (Primitives / ReviewStars), sm: 14 px hoch im Abstand 4 px (Cards / ReviewCard) */
+  size?: 'md' | 'sm'
   className?: string
 }
 
@@ -38,6 +45,7 @@ export function ReviewStars({
   label,
   align = 'left',
   emptyStars = 'outline',
+  size = 'md',
   className,
 }: ReviewStarsProps) {
   const full = Math.max(0, Math.min(5, Math.round(rating)))
@@ -49,9 +57,13 @@ export function ReviewStars({
         className,
       )}
     >
-      <div role="img" aria-label={`${full} von 5 Sternen`} className="flex gap-[0.3125rem]">
+      <div
+        role="img"
+        aria-label={`${full} von 5 Sternen`}
+        className={cn('flex', size === 'sm' ? 'gap-xxs' : 'gap-[0.3125rem]')}
+      >
         {Array.from({ length: emptyStars === 'hidden' ? full : 5 }, (_, i) => (
-          <Star key={i} filled={i < full} />
+          <Star key={i} filled={i < full} size={size} />
         ))}
       </div>
       {label ? <p className="type-default-text-md">{label}</p> : null}

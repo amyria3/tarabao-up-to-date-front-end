@@ -345,7 +345,7 @@ export const foundationEntries: LibraryEntry[] = [
   {
     id: 'foundations-heights',
     figma: 'Lyt scl / Heights',
-    code: 'h-btn-lg … h-btn-xxxx-sm, h-input-inline, h-input-search, min-h-card-md',
+    code: 'h-btn-lg … h-btn-xxxx-sm, h-input-inline, h-input-search, h-nav, h-icon-btn, h-card-default, min-h-card-featured …',
     render: () => (
       <ul className="flex flex-wrap items-end gap-md">
         {FOUNDATIONS.heights.map((h) => (

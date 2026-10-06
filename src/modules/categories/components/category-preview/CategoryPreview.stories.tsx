@@ -10,7 +10,7 @@ const r = routes()
 
 const productCards = (count: number) =>
   PRODUCTS.slice(0, count).map((p) => (
-    <li key={p.id} className="w-full min-w-card-min max-w-card-max flex-1">
+    <li key={p.id} className="w-full min-w-card-compact-min max-w-card-compact-max flex-1">
       <ProductCard product={p} size="compact" />
     </li>
   ))
@@ -33,7 +33,7 @@ const meta = {
     children: (
       <>
         {productCards(3)}
-        <li className="w-full min-w-card-min max-w-card-max flex-1">
+        <li className="w-full min-w-card-category-sm-min max-w-card-category-sm-max flex-1">
           <CategoryCardSm category={CATEGORIES_SAMPLE[0]!} />
         </li>
       </>

@@ -17,6 +17,8 @@ export interface CardRowProps {
   scroll?: boolean
   /** Kinder sind <li>-Elemente mit je einer Karte */
   children: React.ReactNode
+  /** Zusätzliche Klassen für Templates / Cards Order, z. B. items-stretch für gleich hohe Karten */
+  listClassName?: string
   className?: string
 }
 
@@ -25,11 +27,14 @@ export interface CardRowProps {
  * Type Of Card=Unspecific|Featured|Discovery. Templates / Section: Slot 00 H2 (mittig bei
  * Scroll, sonst links), Slot 01 Templates / Cards Order (Row: gap-4, verteilt; Tiles: gap-md).
  */
-export function CardRow({ title, scroll = false, children, className }: CardRowProps) {
+export function CardRow({ title, scroll = false, children, listClassName, className }: CardRowProps) {
   return (
     <Section className={className} aria-label={typeof title === 'string' ? title : undefined}>
       <HeadlineH2 align={scroll ? 'center' : 'left'}>{title}</HeadlineH2>
-      <CardsOrder variant={scroll ? 'row' : 'tiles'} className={scroll ? 'justify-between gap-4' : 'gap-md'}>
+      <CardsOrder
+        variant={scroll ? 'row' : 'tiles'}
+        className={cn(scroll ? 'justify-between gap-4' : 'gap-md', listClassName)}
+      >
         {children}
       </CardsOrder>
     </Section>
@@ -51,7 +56,7 @@ export function ProductCardRow({
   return (
     <CardRow title={title} scroll={scroll} className={className}>
       {products.map((p) => (
-        <li key={p.id} className="w-64">
+        <li key={p.id} className="w-card-default-max">
           <ProductCard product={p} />
         </li>
       ))}
@@ -59,7 +64,10 @@ export function ProductCardRow({
   )
 }
 
-/** CardRow · Featured, Variable Card-Hight?=True */
+/**
+ * CardRow · Featured, Variable Card-Hight?=True. Alle Karten einer Reihe sind gleich hoch
+ * (items-stretch, Karte füllt die Höhe), so stehen die Links „Mehr erfahren“ auf einer Linie.
+ */
 export function FeaturedCardRow({
   title,
   teasers,
@@ -70,9 +78,9 @@ export function FeaturedCardRow({
   className?: string
 }) {
   return (
-    <CardRow title={title} className={className}>
+    <CardRow title={title} className={className} listClassName="items-stretch">
       {teasers.map((t) => (
-        <li key={t.id}>
+        <li key={t.id} className="flex">
           <FeaturedCard teaser={t} />
         </li>
       ))}
@@ -82,7 +90,7 @@ export function FeaturedCardRow({
 
 /**
  * CardRow · Discovery, Variable Card-Hight?=True (Figma: Cards Order · Tiles). Die Karten stehen in
- * Reihen zu höchstens drei, da drei Karten mit card-max genau die Inhaltsbreite füllen. Jede Reihe ist
+ * Reihen zu höchstens drei, damit die gewachsene Karte (card-discovery-hover-max) neben ihre Nachbarn passt. Jede Reihe ist
  * eine DiscoveryCardRow: Wächst die Karte ganz links, rücken die Nachbarn nach rechts; ganz rechts
  * rückt der Inhalt nach links; dazwischen rücken die Nachbarn zu beiden Seiten.
  */
@@ -127,7 +135,7 @@ export function BlogCardsSection({
   return (
     <CardRow title={title} scroll className={className}>
       {posts.map((p) => (
-        <li key={p.id} className="w-80">
+        <li key={p.id} className="w-card-blog-max">
           <BlogCard post={p} />
         </li>
       ))}
@@ -153,7 +161,7 @@ export function CustomerReviewsSection({
       <HeadlineH2>{title}</HeadlineH2>
       <CardsOrder variant="row" className="justify-between gap-4">
         {reviews.map((r) => (
-          <li key={r.id} className="w-72">
+          <li key={r.id} className="w-card-review-max">
             <ReviewCard review={r} />
           </li>
         ))}
@@ -180,7 +188,7 @@ export function CustomerReviewedProductsSection({
       <HeadlineH2>{title}</HeadlineH2>
       <CardsOrder variant="row" className="justify-between gap-4">
         {products.map((p) => (
-          <li key={p.id} className="w-64">
+          <li key={p.id} className="w-card-default-max">
             <ProductCardWithReviews product={p} />
           </li>
         ))}

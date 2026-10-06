@@ -239,15 +239,16 @@ Für jeden PR gelten die Regeln aus `apps/medusa-storefront/DESIGN-SYSTEM.md`:
 - Neue Tokens trägt der PR bewusst in `src/styles/design-system/app.css` und `DESIGN-SYSTEM.md` ein.
   Die Storefront übernimmt Änderungen aus Figma nicht automatisch.
 
-Zwischen beiden Projekten bestehen diese Unterschiede (Stand 05.10.2026):
+Zwischen beiden Projekten bestehen diese Unterschiede (Stand 06.10.2026):
 
 | Thema                               | Storefront                                                    | Dieses Projekt                                        |
 | ----------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------- |
 | Breakpoints                         | `lg` 964 px, Tailwind-Standards `sm`, `md`, `xl`, `2xl` aktiv | `md` 768 px, `lg` 1024 px, `sm`, `xl`, `2xl` entfernt |
-| `--vivid-red-100`                   | `#e00000` (Kontrast nach WCAG AA)                             | `#ff0000`                                             |
+| `--vivid-red-100`                   | `#e00000` (Kontrast nach WCAG AA)                             | `#e00000` wie die Storefront (Figma `#ff0000`)        |
+| Grundschrift (`html`)               | Browser-Standard (16 px)                                      | 90 %, alle rem-Werte skalieren mit                    |
 | Abstände mit Zahlen (`h-5`, `w-20`) | erzeugen keine Klasse (`--spacing-*: initial`)                | erzeugen Klassen                                      |
-| Tokens                              | 382 Namen                                                     | 393 Namen, davon 370 gleich                           |
-| `Button`                            | `intent` × `size` (`lg`, `md`, `sm`)                          | zusätzlich `card`, `xxs`, `xxxs` und `width`          |
+| Tokens                              | Schnappschuss von app.tcss (10.08.); Branch `design-system/figma-tokens` Stand 06.10. | app.tcss vom 06.10.                   |
+| `Button`                            | `intent` × `size` (`lg`, `md`, `sm`)                          | zusätzlich `card`, `md-oval`, `xxs`, `xxxs`, `width` und `megaCard` |
 | Links                               | `LocalizedClientLink` setzt das Länderkürzel                  | `routes(countryCode)` mit `next/link`                 |
 
 Die Breakpoints betreffen jede Seite. Darüber entscheidet das Team, bevor ein PR sie ändert.

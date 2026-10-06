@@ -46,18 +46,22 @@
  *    switched via [data-lively-theme]             --megacard-btn-*    Buttons/LG/Primary + Inline
  *  Clrs / Special                    §2e          --special-*         Cards/VoucherCard, Layout/PromoBar
  *    switched via [data-special-theme]
- *  Lyt scl / Heights                 §2d          --height-*          → @utility h-*, §5
+ *  Lyt scl / Heights                 §2d          --height-*          → @utility h-* / min-h-* / max-h-*, §5
+ *  Lyt scl / Heights › …/label-size  §4           --text-btn-*        → text-btn-* (button label sizes)
  *  Lyt scl / Breakpoints (md, lg)    §4           --breakpoint-*      variants md: / lg:
  *  Text Styles (families)            §4           --font-*            all type
  *  Typografy                         §4           --text-*            all type
  *  Text Styles (leading)             §4           --leading-*         line-height, all type
  *  Text Styles (tracking)            §4           --tracking-*        letter-spacing, all type
  *  Box Spacing + Gaps                §4           --spacing-*         all padding/gap/margin
+ *  Box Spacing › Cards/…             §4           --spacing-card-*    card frame, content and gaps
+ *  Motion / Smart Animate            §4           --smart-animate-*   → @utility motion-hover, motion-long, §5
  *  Lyt scl / Width                   §4           --container-*       → w-/min-w-/max-w-
  *  Lyt scl / Width › min/max-w-content  §4 + §5   --content-min/-max  → @utility min-w-content, max-w-content
  *  Text Styles                       §6           (none)              → @utility type-*, one class per style
  *
  *  Collections prefixed "__" are content data, not design tokens — not mapped here.
+ *  "Lyt scl / Scale" holds the rem values behind the aliases — not mapped here.
  *  Check against Figma: 2-tarabao/token-check (figma-dump.js + token_check.py).
  * ================================================================ */
 
@@ -149,8 +153,8 @@
   --peach-rosa-100: #ffabaa;
 
   /* Functional Raw */
-  --vivid-red-100: #ff0000;
-  --vivid-red-10: #ff00001a;
+  --vivid-red-100: #e00000;
+  --vivid-red-10: #e000001a;
 
   /* Transparent (transparent cole-tint, not pure transparent) */
   --transparent-100: #1d202000;
@@ -732,21 +736,63 @@
  *  2d. COMPONENT HEIGHTS — plain custom properties
  *      Tailwind v4 has NO height theme namespace, so these are kept
  *      as variables and exposed through @utility further down.
- *      "Lyt scl / Heights" (10)
+ *      "Lyt scl / Heights" (44 + 5 label sizes in §4)
  * ================================================================ */
 
 :root {
-  --height-btn-lg: 3.75rem;        /* btns/L/fix-h        60px */
-  --height-btn-md: 2.75rem;        /* btns/MD/fix-h       44px */
-  --height-btn-sm: 2.5rem;         /* btns/SM/fix-h       40px */
-  --height-btn-x-sm: 2.25rem;      /* btns/X-SM/fix-h     36px */
-  --height-btn-xx-sm: 1.75rem;     /* btns/XX-SM/fix-h    28px */
-  --height-btn-xxxx-sm: 1.25rem;   /* btns/XXXX-SM/fix-h  20px */
-  --height-input-inline: 2.25rem;  /* Input/Inline/fix-h  36px */
-  --height-input-search: 3.5rem;   /* Input/Search/fix-h  56px */
-  --height-card-md-min: 24rem;     /* Cards/MD/min-h     384px */
-  --height-card-md-max: 42rem;     /* Cards/MD/max-h     672px
-                                      alias [twuc]-168 (42rem) */
+  /* ---- Buttons ---- */
+  --height-btn-lg: 2.75rem;                 /* Btns/L/fix-h  44px */
+  --height-btn-md: 2.25rem;                 /* Btns/MD/fix-h  36px */
+  --height-btn-sm: 2rem;                    /* Btns/SM/fix-h, Btns/SM/button-fix-h  32px */
+  --height-btn-x-sm: 1.5rem;                /* Btns/X-SM/fix-h  24px */
+  --height-btn-xx-sm: 1.25rem;              /* Btns/XX-SM/fix-h  20px */
+  --height-btn-xxxx-sm: 1rem;               /* Btns/XXXX-SM/fix-h  16px */
+  --height-btn-lg-icon: 2rem;               /* Btns/L/icon-fix-h  32px */
+  --height-btn-md-icon: 1.5rem;             /* Btns/MD/icon-fix-h  24px */
+  --height-btn-sm-icon: 1.25rem;            /* Btns/SM/icon-fix-h  20px */
+  --height-btn-x-sm-icon: 1rem;             /* Btns/X-SM/icon-fix-h  16px */
+
+  /* ---- Inputs ---- */
+  --height-input-inline: 2.25rem;           /* Input/Inline/fix-h  36px */
+  --height-input-search: 3.5rem;            /* Input/Search/fix-h  56px */
+  --height-input-textarea-min: 10.25rem;    /* Input/Textarea/min-h  164px */
+
+  /* ---- Navigation ---- */
+  --height-nav: 4rem;                       /* Nav/fix-h (md, lg)  64px */
+  --height-nav-base: 2.75rem;               /* Nav/base/fix-h  44px */
+  --height-icon-nav: 1.5rem;                /* Nav/Icons/fix-h  24px */
+
+  /* ---- Icons (Seitenverhältnis bleibt, Breite folgt) ---- */
+  --height-icon-btn: 1.25rem;               /* Icons/Buttons/fix-h  20px */
+  --height-icon-btn-secondary: 1.625rem;    /* Icons/Buttons/Secondary/fix-h  26px */
+  --height-icon-btn-lg: 2.25rem;            /* Icons/Buttons/LG/fix-h  36px */
+  --height-icon-option-selection: 1rem;     /* Icons/OptionSelection/fix-h  16px */
+  --height-icon-segment-flag: 1.625rem;     /* Icons/SegmentControl/Flag/fix-h  26px */
+  --height-icon-radio: 1.875rem;            /* Icons/Radio/fix-h  30px */
+  --height-icon-arrow: 0.5rem;              /* Icons/ArrowUpOrDown/fix-h  8px */
+  --height-icon-sustainability-nav: 0.75rem; /* Icons/SustainabilityNavigation/fix-h  12px */
+  --height-icon-carousel-huge: 1.5rem;      /* Icons/CarouselNav/Huge/fix-h  24px */
+  --height-icon-carousel-sm: 1rem;          /* Icons/CarouselNav/SM/fix-h  16px */
+  --height-icon-reaction: 0.875rem;         /* Icons/ReactionCounter/fix-h  14px */
+  --height-icon-review-star: 0.875rem;      /* Icons/ReviewStars/fix-h  14px */
+
+  /* ---- Cards ---- */
+  --height-card-default: 18rem;             /* Cards/ProductCard/DefaultSize/fix-h  288px */
+  --height-card-default-title: 2rem;        /* Cards/ProductCard/DefaultSize/Title/fix-h  32px */
+  --height-card-compact: 16rem;             /* Cards/ProductCard/CompactSize/fix-h  256px */
+  --height-card-category-sm: 15rem;         /* Cards/CategoryCard/SM/fix-h  240px */
+  --height-card-category-md: 15.5rem;       /* Cards/CategoryCard/MD/fix-h  248px */
+  --height-card-featured-min: 18rem;        /* Cards/FeaturedCard/min-h  288px */
+  --height-card-featured-max: 31.5rem;      /* Cards/FeaturedCard/max-h  504px */
+  --height-card-featured-img: 10.25rem;     /* Cards/FeaturedCard/Img/fix-h  164px */
+  --height-card-discovery: 22.5rem;         /* Cards/DiscoveryCard/fix-h  360px */
+  --height-card-discovery-hover-img: 12rem; /* Cards/DiscoveryCard/Hover/Img/fix-h  192px */
+  --height-card-blog: 21.5rem;              /* Cards/BlogCard/fix-h  344px */
+  --height-card-review-img: 6.25rem;        /* Cards/ReviewCard/Img/fix-h  100px */
+  --height-card-review-img-tall: 8.75rem;   /* Cards/ReviewCard/Img/tall-fix-h  140px */
+  --height-card-voucher: 9rem;              /* Cards/VoucherCard/fix-h  144px */
+  --height-card-promotion: 23.75rem;        /* Cards/PromotionPostCard/fix-h  380px */
+  --height-megacard-min: 40rem;             /* Cards/MegaCard/min-h  640px */
 }
 
 
@@ -984,6 +1030,21 @@
   --text-48: 3rem;
   --text-60: 3.75rem;
 
+  /* ---- Button label sizes — "Lyt scl / Heights" › Btns/…/label-size ----
+     Usage: text-btn-lg, text-btn-md … */
+  --text-btn-lg: var(--text-30);        /* Btns/L/label-size  30px */
+  --text-btn-md: var(--text-22);        /* Btns/MD/label-size  22px */
+  --text-btn-sm: var(--text-20);        /* Btns/SM/label-size  20px */
+  --text-btn-xx-sm: var(--text-14);     /* Btns/XX-SM/label-size  14px */
+  --text-btn-xxxx-sm: var(--text-11);   /* Btns/XXXX-SM/label-size  11px */
+
+  /* ---- Motion — "Motion / Smart Animate" ----
+     Figma-Übergang „Smart animate“, Kurve „Ease in and out“ = CSS ease-in-out.
+     Usage: duration-(--smart-animate-duration-short) ease-(--smart-animate-easing) */
+  --smart-animate-easing: cubic-bezier(0.42, 0, 0.58, 1); /* Ease in and out */
+  --smart-animate-duration-short: 100ms;  /* Hover */
+  --smart-animate-duration-long: 300ms;   /* Wechsel, Aufklappen */
+
   /* ---- Line height — Leading scale (from Text Styles) ----
      Relative %, min = font height. Figma % / 100 -> unitless.
      Usage: leading-tight, leading-heading, leading-body, leading-relaxed */
@@ -1014,9 +1075,45 @@
   --spacing-md: 1rem;       /* 16px */
   --spacing-md-l: 1.25rem;  /* 20px */
   --spacing-lg: 1.75rem;    /* 28px */
-  --spacing-xl: 2.5rem;     /* 40px */
-  --spacing-xxl: 3rem;      /* 48px */
-  --spacing-xxxl: 3.5rem;   /* 56px */
+  --spacing-xl: 2.25rem;    /* 36px */
+  --spacing-xxl: 2.75rem;   /* 44px */
+  --spacing-xxxl: 3.125rem; /* 50px */
+
+  /* ---- Card spacing — "Box Spacing" › Cards/… ----
+     frame = Rand um das Bild bzw. Innenabstand der Karte, content = Abstand im Infobereich,
+     gap = Abstand zwischen Bild und Text. Usage: p-card-default-frame, gap-card-featured-gap … */
+  --spacing-card-default-frame: var(--spacing-xs);          /* Cards/ProductCard/DefaultSize/frame  6px */
+  --spacing-card-default-content: var(--spacing-sm);        /* Cards/ProductCard/DefaultSize/content  8px */
+  --spacing-card-default-content-gap: var(--spacing-md-sm); /* Cards/ProductCard/DefaultSize/content-gap  12px */
+  --spacing-card-compact-frame: var(--spacing-sm);          /* Cards/ProductCard/CompactSize/frame  8px */
+  --spacing-card-compact-content: var(--spacing-sm);        /* Cards/ProductCard/CompactSize/content  8px */
+  --spacing-card-with-reviews-frame-top: var(--spacing-md-sm); /* Cards/ProductCardWithReviews/frame-top  12px */
+  --spacing-card-with-reviews-gap: var(--spacing-md-l);     /* Cards/ProductCardWithReviews/gap  20px */
+  --spacing-card-category-sm-frame: var(--spacing-md-sm);   /* Cards/CategoryCard/SM/frame  12px */
+  --spacing-card-category-sm-content: var(--spacing-sm);    /* Cards/CategoryCard/SM/content  8px */
+  --spacing-card-category-md-frame: var(--spacing-md-sm);   /* Cards/CategoryCard/MD/frame  12px */
+  --spacing-card-category-md-content: var(--spacing-sm);    /* Cards/CategoryCard/MD/content  8px */
+  --spacing-card-featured-frame: var(--spacing-md-l);       /* Cards/FeaturedCard/frame  20px */
+  --spacing-card-featured-gap: var(--spacing-md);           /* Cards/FeaturedCard/gap  16px */
+  --spacing-card-featured-content-gap: var(--spacing-xxs);  /* Cards/FeaturedCard/content-gap  4px */
+  --spacing-card-blog-frame: var(--spacing-md);             /* Cards/BlogCard/frame  16px */
+  --spacing-card-blog-gap: 1.5rem;                          /* Cards/BlogCard/gap  24px */
+  --spacing-card-discovery-frame: var(--spacing-md-l);      /* Cards/DiscoveryCard/frame  20px */
+  --spacing-card-discovery-frame-top: var(--spacing-md);    /* Cards/DiscoveryCard/frame-top  16px */
+  --spacing-card-discovery-gap: var(--spacing-md-l);        /* Cards/DiscoveryCard/gap  20px */
+  --spacing-card-review-frame: var(--spacing-md-sm);        /* Cards/ReviewCard/frame  12px */
+  --spacing-card-review-frame-top: var(--spacing-md);       /* Cards/ReviewCard/frame-top  16px */
+  --spacing-card-review-gap: var(--spacing-md-l);           /* Cards/ReviewCard/gap  20px */
+  --spacing-card-purchase-frame: var(--spacing-md-sm);      /* Cards/PurchaseCard/frame  12px */
+  --spacing-card-purchase-gap: var(--spacing-md);           /* Cards/PurchaseCard/gap  16px */
+  --spacing-card-purchase-content: var(--spacing-xxs);      /* Cards/PurchaseCard/content  4px */
+  --spacing-card-voucher-frame: var(--spacing-sm);          /* Cards/VoucherCard/frame  8px */
+  --spacing-card-voucher-content: var(--spacing-sm);        /* Cards/VoucherCard/content  8px */
+  --spacing-card-promotion-frame: var(--spacing-md-sm);     /* Cards/PromotionPostCard/frame  12px */
+  --spacing-card-promotion-content: var(--spacing-md-sm);   /* Cards/PromotionPostCard/content  12px */
+  --spacing-card-image-gap: var(--spacing-sm);              /* Cards/ImageCard/gap  8px */
+  --spacing-megacard-frame: var(--spacing-md-l);            /* Cards/MegaCard/frame  20px */
+  --spacing-megacard-content: var(--spacing-md-l);          /* Cards/MegaCard/content  20px */
 
   /* ---- Breiten — "Lyt scl / Width" ----
      Namespace --container-* erzeugt w-, min-w- und max-w-.
@@ -1025,42 +1122,65 @@
      Wert je Modus: hier der base-Wert, :root setzt ab md/lg neu (unten).
      Verweist die Figma-Variable auf max-w-content, steht hier var(--content-max).
      min-w-content und max-w-content: eigene @utility in §5.
-     Nur Figma, ohne Token: viewport-range, min-w-screen, max-w-screen, visible-md-up. */
+     Nur Figma, ohne Token: viewport-range, min-w-screen, max-w-screen, visible-*. */
+  /* Layout */
   --container-block-double-max: var(--content-max); /* Block Element/Double/max-w → max-w-content */
-  --container-block-inline-min: 6rem;         /* Block Element/Inline/min-w  96px */
-  --container-card-min: 15rem;                /* Cards/DefaultSize/min-w  240px */
-  --container-card-max: 24rem;                /* Cards/DefaultSize/max-w  384px */
-  --container-card-img-max: 13rem;            /* Cards/DefaultSize/Img/max-w  208px */
-  --container-card-compact-min: 15rem;        /* Cards/CompactSize/min-w  240px */
-  --container-card-compact-max: 20.5rem;      /* Cards/CompactSize/max-w  328px */
-  --container-card-compact-img-max: 13rem;    /* Cards/CompactSize/Img/max-w  208px */
-  --container-card-small-min: 16rem;          /* Cards/Small/min-w  256px */
-  --container-card-discovery-max: 42rem;      /* Cards/Discovery/max-w  672px */
-  --container-btn-min: 15rem;                 /* Buttons/min-w  240px */
-  --container-nav-block-min: 7rem;            /* Nav/Block/min-w  112px */
-  --container-nav-block-max: 16rem;           /* Nav/Block/max-w  256px */
-  --container-footer-header-max: 28rem;       /* Footer/header-max-w  448px */
-  --container-overlay-message-max: 32rem;     /* Overlay Message/max-w  512px */
-  --container-panel-max: var(--content-max);  /* Panel/max-w → max-w-content */
-  --container-fieldset-min: 15rem;            /* Fieldset/min-w  240px */
-  --container-icon-counter-min: 0.875rem;     /* Icons/Counter/min-w  14px */
-  --container-list-item-img-min: 4.5rem;      /* List Item/Img/min-w  72px */
-  --container-search-max: 37.5rem;            /* Search/max-w  600px */
-  --container-impact-scale-min: 8rem;         /* ImpactScale/min-w  128px */
-  --container-impact-scale-max: 14rem;        /* ImpactScale/max-w  224px */
-  --container-megacard-max: var(--content-max); /* Mega Cards/max-w → max-w-content */
+  --container-block-inline-min: 6rem;               /* Block Element/Inline/min-w  96px */
+  --container-panel-max: var(--content-max);        /* Panel/max-w → max-w-content */
+  --container-megacard-max: var(--content-max);     /* Cards/MegaCard/max-w → max-w-content */
+  --container-footer-header-max: 28rem;             /* Footer/header-max-w  448px */
+  --container-nav-block-min: 7rem;                  /* Nav/Block/min-w  112px */
+  --container-nav-block-max: 16rem;                 /* Nav/Block/max-w  256px */
+  --container-overlay-message-max: 32rem;           /* Overlay Message/max-w  512px */
+  --container-fieldset-min: 15rem;                  /* Fieldset/min-w  240px */
+  --container-btn-min: 15rem;                       /* Buttons/min-w  240px */
+  --container-icon-counter-min: 0.875rem;           /* Icons/Counter/min-w  14px */
+  --container-list-item-img-min: 4.5rem;            /* List Item/Img/min-w  72px */
+  --container-search-max: 37.5rem;                  /* Search/max-w  600px */
+  --container-impact-scale-min: 8rem;               /* ImpactScale/min-w  128px */
+  --container-impact-scale-max: 14rem;              /* ImpactScale/max-w  224px */
+  --container-product-img-min: 15rem;               /* Product Page/Img/min-w  240px */
+  --container-product-img-max: var(--container-card-discovery-hover-max);/* Product Page/Img/max-w → Cards/DiscoveryCard/Hover/max-w */
+  --container-product-img-thumbnail-max: 13rem;     /* ProductImg/Thumbnail/max-w  208px */
+
+  /* Karten */
+  --container-card-default-min: 11.25rem;           /* Cards/ProductCard/DefaultSize/min-w  180px */
+  --container-card-default-max: 18rem;              /* Cards/ProductCard/DefaultSize/max-w  288px */
+  --container-card-compact-min: 15rem;              /* Cards/ProductCard/CompactSize/min-w  240px */
+  --container-card-compact-max: 24rem;              /* Cards/ProductCard/CompactSize/max-w  384px */
+  --container-card-category-sm-max: 16rem;          /* Cards/CategoryCard/SM/max-w  256px */
+  --container-card-blog-min: 11.25rem;              /* Cards/BlogCard/min-w  180px */
+  --container-card-blog-max: 18rem;                 /* Cards/BlogCard/max-w  288px */
+  --container-card-featured-min: 11.25rem;          /* Cards/FeaturedCard/min-w  180px */
+  --container-card-featured-max: 18rem;             /* Cards/FeaturedCard/max-w  288px */
+  --container-card-discovery-min: 11.25rem;         /* Cards/DiscoveryCard/min-w  180px */
+  --container-card-discovery-max: 18rem;            /* Cards/DiscoveryCard/max-w  288px */
+  --container-card-discovery-hover-max: 31.5rem;    /* Cards/DiscoveryCard/Hover/max-w  504px */
+  --container-card-discovery-column-min: 12rem;     /* Cards/DiscoveryCard/Hover/column-min-w  192px */
+  --container-card-review-min: 10rem;               /* Cards/ReviewCard/min-w  160px */
+  --container-card-review-max: 14rem;               /* Cards/ReviewCard/max-w  224px */
+  --container-card-voucher-min: 16rem;              /* Cards/VoucherCard/min-w  256px */
+  --container-card-voucher-max: 24rem;              /* Cards/VoucherCard/max-w  384px */
+  --container-card-promotion-min: 16rem;            /* Cards/PromotionPostCard/min-w  256px */
+  --container-card-promotion-max: 24rem;            /* Cards/PromotionPostCard/max-w  384px */
+  --container-card-image: 15rem;                    /* Cards/ImageCard/fix-w  240px */
 
   /* Wert je Modus (base) */
-  --container-block-max: var(--content-max);  /* Block Element/max-w → max-w-content */
-  --container-btn-max: var(--content-max);    /* Buttons/max-w → max-w-content */
-  --container-btn-payment-max: var(--content-max); /* Buttons/Payment/max-w → max-w-content */
-  --container-subscription-management-max: var(--content-max); /* Subscription Management/max-w → max-w-content */
-  --container-nuss-abo-cancellation-status-max: var(--content-max); /* Nuss-AboCancellationStatus/max-w → max-w-content */
-  --container-block-min: 20rem;               /* Block Element/min-w  320px */
-  --container-overlay-message-min: 20rem;     /* Overlay Message/min-w  320px */
-  --container-panel-min: 20rem;               /* Panel/min-w  320px */
-  --container-product-page-column-min: 20rem; /* Product Page/column-min-w  320px */
-  --container-megacard-min: 20rem;            /* Mega Cards/min-w  320px */
+  --container-block-max: var(--content-max);        /* Block Element/max-w */
+  --container-btn-max: var(--content-max);          /* Buttons/max-w */
+  --container-btn-payment-max: var(--content-max);  /* Buttons/Payment/max-w */
+  --container-subscription-management-max: var(--content-max);/* Subscription Management/max-w */
+  --container-nuss-abo-cancellation-status-max: var(--content-max);/* Nuss-AboCancellationStatus/max-w */
+  --container-block-min: 20rem;                     /* Block Element/min-w  320px */
+  --container-overlay-message-min: 20rem;           /* Overlay Message/min-w  320px */
+  --container-panel-min: 20rem;                     /* Panel/min-w  320px */
+  --container-product-page-column-min: 20rem;       /* Product Page/column-min-w  320px */
+  --container-megacard-min: 20rem;                  /* Cards/MegaCard/min-w  320px */
+  --container-search-min: var(--container-megacard-min);/* Search/min-w → Cards/MegaCard/min-w */
+  --container-product-img-thumbnail-row-min: 15rem; /* ProductImg/Thumbnail-Row/min-w  240px */
+  --container-card-category-sm-min: 10.25rem;       /* Cards/CategoryCard/SM/min-w  164px */
+  --container-card-category-md-min: 13rem;          /* Cards/CategoryCard/MD/min-w  208px */
+  --container-card-category-md-max: 17rem;          /* Cards/CategoryCard/MD/max-w  272px */
 }
 /* ---- Breitenbereiche — Pin an :root ----
    Entspricht dem Modus-Pin an Templates / Page in Figma.
@@ -1069,39 +1189,47 @@
   --content-min: 20rem;                       /* min-w-content  320px */
   --content-max: 48rem;                       /* max-w-content  768px → Breakpoints/md */
   @variant md {
-    --container-block-max: 32rem;             /* 512px */
-    --container-btn-max: 32rem;               /* 512px */
-    --container-btn-payment-max: 28rem;       /* 448px */
-    --container-subscription-management-max: 40rem; /* 640px */
-    --container-nuss-abo-cancellation-status-max: 24rem; /* 384px */
-    --container-block-min: 20rem;
-    --container-overlay-message-min: 24rem;
-    --container-panel-min: 24rem;
-    --container-product-page-column-min: 20.5rem;
-    --container-megacard-min: 26.5rem;
+    --container-block-max: 32rem;                       /* 512px */
+    --container-btn-max: 32rem;                         /* 512px */
+    --container-btn-payment-max: 28rem;                 /* 448px */
+    --container-subscription-management-max: 40rem;     /* 640px */
+    --container-nuss-abo-cancellation-status-max: 24rem;/* 384px */
+    --container-block-min: 20rem;                       /* 320px */
+    --container-overlay-message-min: 24rem;             /* 384px */
+    --container-panel-min: 24rem;                       /* 384px */
+    --container-product-page-column-min: 20.5rem;       /* 328px */
+    --container-megacard-min: 26.5rem;                  /* 424px */
+    --container-product-img-thumbnail-row-min: 16rem;   /* 256px */
+    --container-card-category-sm-min: 15rem;            /* 240px */
+    --container-card-category-md-min: 15rem;            /* 240px */
+    --container-card-category-md-max: 18rem;            /* 288px */
     --content-min: 45.5rem;                   /* 728px */
     --content-max: 64rem;                     /* 1024px → Breakpoints/lg */
   }
   @variant lg {
-    --container-block-max: 32rem;             /* 512px */
-    --container-btn-max: 32rem;               /* 512px */
-    --container-btn-payment-max: 28rem;       /* 448px */
-    --container-subscription-management-max: 40rem; /* 640px */
-    --container-nuss-abo-cancellation-status-max: 24rem; /* 384px */
-    --container-block-min: 24rem;
-    --container-overlay-message-min: 24rem;
-    --container-panel-min: 24rem;
-    --container-product-page-column-min: 20.5rem;
-    --container-megacard-min: 26.5rem;
+    --container-block-max: 32rem;                       /* 512px */
+    --container-btn-max: 32rem;                         /* 512px */
+    --container-btn-payment-max: 28rem;                 /* 448px */
+    --container-subscription-management-max: 40rem;     /* 640px */
+    --container-nuss-abo-cancellation-status-max: 24rem;/* 384px */
+    --container-block-min: 24rem;                       /* 384px */
+    --container-overlay-message-min: 24rem;             /* 384px */
+    --container-panel-min: 24rem;                       /* 384px */
+    --container-product-page-column-min: 20.5rem;       /* 328px */
+    --container-megacard-min: 26.5rem;                  /* 424px */
+    --container-product-img-thumbnail-row-min: 16rem;   /* 256px */
+    --container-card-category-sm-min: 15rem;            /* 240px */
+    --container-card-category-md-min: 15rem;            /* 240px */
+    --container-card-category-md-max: 18rem;            /* 288px */
     --content-min: 61.5rem;                   /* 984px */
-    --content-max: 78rem;                     /* 1248px → [twuc]-312 */
+    --content-max: 78rem;                     /* 1248px */
   }
 }
 
 
 
 /* ================================================================
- *  5. HEIGHT AND CONTENT-WIDTH UTILITIES — @utility
+ *  5. HEIGHT, CONTENT-WIDTH AND MOTION UTILITIES — @utility
  *     v4 has no height theme namespace, so fixed/min/max heights are
  *     declared explicitly. Values come from §2d.
  *     min-w-content / max-w-content carry the Figma names as class names.
@@ -1112,18 +1240,73 @@
 @utility max-w-content { max-width: var(--content-max); }
 @utility min-w-content { min-width: var(--content-min); }
 
-@utility h-btn-lg      { height: var(--height-btn-lg); }
-@utility h-btn-md      { height: var(--height-btn-md); }
-@utility h-btn-sm      { height: var(--height-btn-sm); }
-@utility h-btn-x-sm    { height: var(--height-btn-x-sm); }
-@utility h-btn-xx-sm   { height: var(--height-btn-xx-sm); }
-@utility h-btn-xxxx-sm { height: var(--height-btn-xxxx-sm); }
+@utility h-btn-lg                       { height: var(--height-btn-lg); }
+@utility h-btn-md                       { height: var(--height-btn-md); }
+@utility h-btn-sm                       { height: var(--height-btn-sm); }
+@utility h-btn-x-sm                     { height: var(--height-btn-x-sm); }
+@utility h-btn-xx-sm                    { height: var(--height-btn-xx-sm); }
+@utility h-btn-xxxx-sm                  { height: var(--height-btn-xxxx-sm); }
+@utility h-btn-lg-icon                  { height: var(--height-btn-lg-icon); }
+@utility h-btn-md-icon                  { height: var(--height-btn-md-icon); }
+@utility h-btn-sm-icon                  { height: var(--height-btn-sm-icon); }
+@utility h-btn-x-sm-icon                { height: var(--height-btn-x-sm-icon); }
 
-@utility h-input-inline { height: var(--height-input-inline); }
-@utility h-input-search { height: var(--height-input-search); }
+@utility h-input-inline                 { height: var(--height-input-inline); }
+@utility h-input-search                 { height: var(--height-input-search); }
+@utility min-h-input-textarea           { min-height: var(--height-input-textarea-min); }
 
-@utility min-h-card-md { min-height: var(--height-card-md-min); }
-@utility max-h-card-md { max-height: var(--height-card-md-max); }
+@utility h-nav                          { height: var(--height-nav); }
+@utility h-nav-base                     { height: var(--height-nav-base); }
+@utility h-icon-nav                     { height: var(--height-icon-nav); }
+
+@utility h-icon-btn                     { height: var(--height-icon-btn); }
+@utility h-icon-btn-secondary           { height: var(--height-icon-btn-secondary); }
+@utility h-icon-btn-lg                  { height: var(--height-icon-btn-lg); }
+@utility h-icon-option-selection        { height: var(--height-icon-option-selection); }
+@utility h-icon-segment-flag            { height: var(--height-icon-segment-flag); }
+@utility h-icon-radio                   { height: var(--height-icon-radio); }
+@utility h-icon-arrow                   { height: var(--height-icon-arrow); }
+@utility h-icon-sustainability-nav      { height: var(--height-icon-sustainability-nav); }
+@utility h-icon-carousel-huge           { height: var(--height-icon-carousel-huge); }
+@utility h-icon-carousel-sm             { height: var(--height-icon-carousel-sm); }
+@utility h-icon-reaction                { height: var(--height-icon-reaction); }
+@utility h-icon-review-star             { height: var(--height-icon-review-star); }
+
+@utility h-card-default                 { height: var(--height-card-default); }
+@utility h-card-default-title           { height: var(--height-card-default-title); }
+@utility h-card-compact                 { height: var(--height-card-compact); }
+@utility h-card-category-sm             { height: var(--height-card-category-sm); }
+@utility h-card-category-md             { height: var(--height-card-category-md); }
+@utility min-h-card-featured            { min-height: var(--height-card-featured-min); }
+@utility max-h-card-featured            { max-height: var(--height-card-featured-max); }
+@utility h-card-featured-img            { height: var(--height-card-featured-img); }
+@utility h-card-discovery               { height: var(--height-card-discovery); }
+@utility h-card-discovery-hover-img     { height: var(--height-card-discovery-hover-img); }
+@utility h-card-blog                    { height: var(--height-card-blog); }
+@utility h-card-review-img              { height: var(--height-card-review-img); }
+@utility h-card-review-img-tall         { height: var(--height-card-review-img-tall); }
+@utility h-card-voucher                 { height: var(--height-card-voucher); }
+@utility h-card-promotion               { height: var(--height-card-promotion); }
+@utility min-h-megacard                 { min-height: var(--height-megacard-min); }
+
+/* Alles, was beim Hover passiert (Figma „Smart animate“, short). */
+@utility motion-hover {
+  transition-property: padding, translate, width, max-width, height, opacity, box-shadow;
+  transition-duration: var(--smart-animate-duration-short);
+  transition-timing-function: var(--smart-animate-easing);
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: none;
+  }
+}
+/* Lange Wege: Schieber im MegaSwitch, DiscoveryCard wächst in die Breite (long). */
+@utility motion-long {
+  transition-property: padding, translate, width, max-width, height, opacity, box-shadow;
+  transition-duration: var(--smart-animate-duration-long);
+  transition-timing-function: var(--smart-animate-easing);
+  @media (prefers-reduced-motion: reduce) {
+    transition-property: none;
+  }
+}
 
 
 /* ================================================================
@@ -1139,7 +1322,7 @@
 
 @utility type-h1 { /* H1 */
   font-family: var(--font-display);
-  font-size: var(--text-48);
+  font-size: var(--text-30);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1155,7 +1338,15 @@
 }
 @utility type-h2 { /* H2 */
   font-family: var(--font-display);
-  font-size: var(--text-24);
+  font-size: var(--text-22);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+@utility type-h2-produktkategorie { /* H2 Produktkategorie */
+  font-family: var(--font-display);
+  font-size: var(--text-30);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1163,7 +1354,7 @@
 }
 @utility type-h2-alternative { /* H2 Alternative */
   font-family: var(--font-accent-one);
-  font-size: var(--text-22);
+  font-size: var(--text-20);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1186,7 +1377,7 @@
 }
 @utility type-navigation-full-screen-main-category { /* Navigation/FullScreen/MainCategory */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 800;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1194,7 +1385,7 @@
 }
 @utility type-navigation-full-screen-sub-category { /* Navigation/FullScreen/SubCategory */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 600;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1209,7 +1400,7 @@
 }
 @utility type-navigation-side-navigation-sub-category { /* Navigation/SideNavigation/SubCategory */
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-12);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1233,7 +1424,7 @@
 }
 @utility type-buttons-md { /* Buttons/MD */
   font-family: var(--font-accent-two);
-  font-size: var(--text-24);
+  font-size: var(--text-22);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -1249,7 +1440,7 @@
 }
 @utility type-cards-product-title { /* Cards/ProductTitle */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-12);
   font-weight: 700;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-normal);
@@ -1302,35 +1493,35 @@
 }
 @utility type-table-th { /* Table/<th> */
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-14);
   font-weight: 600;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-table-cell { /* Table/Cell */
   font-family: var(--font-body);
-  font-size: var(--text-20);
+  font-size: var(--text-16);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-product-page-product-title { /* ProductPage/ProductTitle */
   font-family: var(--font-body);
-  font-size: var(--text-24);
+  font-size: var(--text-20);
   font-weight: 800;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-product-page-hightlighted { /* ProductPage/Hightlighted */
   font-family: var(--font-body);
-  font-size: var(--text-16);
-  font-weight: 800;
+  font-size: var(--text-10);
+  font-weight: 700;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-product-page-dropdown-summary { /* ProductPage/Dropdown/Summary */
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-14);
   font-weight: 700;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-normal);
@@ -1366,7 +1557,7 @@
 }
 @utility type-shopping-cart-checkout-headline { /* ShoppingCart & Checkout/Headline */
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-13);
   font-weight: 700;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1408,7 +1599,7 @@
 }
 @utility type-input-input-text { /* Input/InputText */
   font-family: var(--font-body);
-  font-size: var(--text-18);
+  font-size: var(--text-14);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1422,7 +1613,7 @@
 }
 @utility type-label-default { /* Label/default */
   font-family: var(--font-accent-two);
-  font-size: var(--text-16);
+  font-size: var(--text-12);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -1430,7 +1621,7 @@
 }
 @utility type-comment-body-text { /* Comment/BodyText */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-11);
   font-weight: 400;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
@@ -1451,7 +1642,7 @@
 }
 @utility type-user-message-lg { /* UserMessage/LG */
   font-family: var(--font-accent-two);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1480,7 +1671,7 @@
 }
 @utility type-h2-subtitle { /* H2 Subtitle */
   font-family: var(--font-accent-two);
-  font-size: var(--text-20);
+  font-size: var(--text-18);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1488,7 +1679,7 @@
 }
 @utility type-h3 { /* H3 */
   font-family: var(--font-accent-one);
-  font-size: var(--text-20);
+  font-size: var(--text-16);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1496,7 +1687,7 @@
 }
 @utility type-h3-subtitle { /* H3 Subtitle */
   font-family: var(--font-accent-two);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 400;
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
@@ -1504,7 +1695,7 @@
 }
 @utility type-default-text-lg { /* DefaultText LG */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 300;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
@@ -1512,7 +1703,7 @@
 }
 @utility type-default-text-md { /* DefaultText MD */
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-12);
   font-weight: 400;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
@@ -1520,28 +1711,28 @@
 }
 @utility type-default-text-s { /* DefaultText S */
   font-family: var(--font-body);
-  font-size: var(--text-12);
+  font-size: var(--text-11);
   font-weight: 300;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-bullet-points { /* BulletPoints */
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-12);
   font-weight: 400;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-comment { /* Comment */
   font-family: var(--font-body);
-  font-size: var(--text-12);
+  font-size: var(--text-10);
   font-weight: 300;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
 }
 @utility type-link { /* Link */
   font-family: var(--font-body);
-  font-size: var(--text-16);
+  font-size: var(--text-14);
   font-weight: 600;
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-normal);
@@ -1549,7 +1740,7 @@
 }
 @utility type-buttons-x-sm { /* Buttons/X-SM */
   font-family: var(--font-accent-two);
-  font-size: var(--text-18);
+  font-size: var(--text-16);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -1574,7 +1765,7 @@
 }
 @utility type-buttons-quantity-packaging { /* Buttons/Quantity&Packaging */
   font-family: var(--font-body);
-  font-size: var(--text-14);
+  font-size: var(--text-11);
   font-weight: 600;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-normal);
@@ -1589,7 +1780,7 @@
 }
 @utility type-label-selected { /* Label/Selected */
   font-family: var(--font-accent-two);
-  font-size: var(--text-16);
+  font-size: var(--text-13);
   font-weight: 400;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
@@ -1603,18 +1794,17 @@
   letter-spacing: var(--tracking-tight);
   text-transform: uppercase;
 }
-@utility type-h2-produktkategorie { /* H2 Produktkategorie */
-  font-family: var(--font-display);
-  font-size: var(--text-40);
-  font-weight: 400;
-  line-height: var(--leading-heading);
-  letter-spacing: var(--tracking-tight);
-  text-transform: uppercase;
-}
 @utility type-navigation-endpoint { /* Navigation/Endpoint */
   font-family: var(--font-body);
   font-size: var(--text-12);
   font-weight: 500;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-wide);
+}
+@utility type-input-textarea-text { /* Input/TextareaText */
+  font-family: var(--font-body);
+  font-size: var(--text-18);
+  font-weight: 400;
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-normal);
 }

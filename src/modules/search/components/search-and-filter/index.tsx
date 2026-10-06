@@ -67,7 +67,7 @@ export function SearchAndFilter({
         <QueryState state={state} resultsText={results ? `${results.length} Treffer` : undefined}>
           <CardsOrder variant="tiles">
             {(results ?? []).map((product) => (
-              <li key={product.id} className="w-full max-w-card-max min-w-card-min flex-1">
+              <li key={product.id} className="w-full max-w-card-default-max min-w-card-default-min flex-1">
                 <ProductCard product={product} />
               </li>
             ))}

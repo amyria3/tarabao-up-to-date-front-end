@@ -6,7 +6,7 @@ import { ProductCard } from '@modules/products/components/product-card'
 import { BLOG_POST, PRODUCTS } from '@/lib/fixtures'
 
 const TILES = PRODUCTS.map((product) => (
-  <li key={product.id} className="w-full max-w-card-max min-w-card-min flex-1">
+  <li key={product.id} className="w-full max-w-card-default-max min-w-card-default-min flex-1">
     <ProductCard product={product} />
   </li>
 ))

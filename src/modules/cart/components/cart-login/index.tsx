@@ -51,7 +51,7 @@ export function CartLogIn({ error, onSubmit, submitLabel = 'Anmelden', className
         intent="primary"
         size="md"
         disabled={pending}
-        icon={<IconLogIn aria-hidden className="size-6" />}
+        icon={<IconLogIn aria-hidden className="h-btn-md-icon w-auto" />}
         className="w-60"
       >
         {submitLabel}

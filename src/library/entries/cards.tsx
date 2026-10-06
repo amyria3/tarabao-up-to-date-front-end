@@ -40,7 +40,7 @@ export const cardEntries: LibraryEntry[] = [
     figma: 'Cards / ProductCard / DefaultSize',
     nodeId: '2356:2667',
     code: '<ProductCard product={product} />',
-    note: 'Hover?=True zeigt Buttons / SM / Button-Card. Bilder sind Platzhalter (surface-placeholder).',
+    note: 'Hover?=True zeigt Buttons / MD / Button-Card. Bilder sind Platzhalter (surface-placeholder).',
     render: () => (
       <ThemeMatrix>
         {() => (
@@ -91,7 +91,7 @@ export const cardEntries: LibraryEntry[] = [
     figma: 'Cards / CategoryCard / SM',
     nodeId: '2628:2698',
     code: '<CategoryCardSm category={category} />',
-    note: 'Der Bildrand nutzt in Figma das Primitive purple-early-evening-sky-light.',
+    note: 'Der Bildrand hat die Farbe der Karte (card-surface-&-img-stroke-color-default).',
     render: () => (
       <ThemeMatrix>
         {() => (
@@ -223,7 +223,7 @@ export const cardEntries: LibraryEntry[] = [
     figma: 'Cards / DiscoveryCard',
     nodeId: '6708:16673',
     code: '<DiscoveryCard teaser={teaser} />',
-    note: 'Hover (und Fokus) verbreitert die Karte auf card-discovery-max und zeigt teaser.facts.',
+    note: 'Hover (und Fokus) verbreitert die Karte auf card-discovery-hover-max und zeigt teaser.facts.',
     render: () => (
       <ThemeMatrix columns={2}>
         {() => (

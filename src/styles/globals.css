@@ -1,5 +1,7 @@
 /* Tarabao-Designsystem (Tailwind v4, CSS-first). app.css ist app.tcss aus
-   claude-figma-automation/2-tarabao, Stand 29.09.2026 abends (3d8a193), unverändert. Die
+   claude-figma-automation/2-tarabao, Stand 06.10.2026, unverändert bis auf --vivid-red-*
+   (#e00000 wie die Storefront, WCAG; siehe docs/ABWEICHUNGEN.md). app.css bringt auch die
+   Bewegung (--smart-animate-*, motion-hover, motion-long) und Input/TextareaText mit. Die
    Endung .css braucht Next/Turbopack. */
 @import './design-system/app.css';
 
@@ -20,11 +22,11 @@
   color-scheme: light only;
 }
 
-/* Grundschriftgröße 70 % (Daria, 05.10.): Alle rem-Werte (Schriften, Abstände, Breiten)
+/* Grundschriftgröße 90 % (Daria, 06.10.): Alle rem-Werte (Schriften, Abstände, Breiten)
    skalieren mit. Breakpoints in Media Queries bleiben bei 768 / 1024 px, da Browser rem dort
    immer auf 16 px beziehen. */
 html {
-  font-size: 70%;
+  font-size: 90%;
 }
 
 /* Zustände wie die Figma-Varianten Hover?=True: echtes :hover oder
@@ -126,41 +128,9 @@ html {
   --shadow-card-blog-hover:
     0.1875rem 0.1875rem 0.125rem 0.25rem rgb(58 56 66 / 0.14), 0.0625rem 0.0625rem 0.03125rem 0 rgb(58 56 66 / 0.1);
   --shadow-search-hover: 0.09375rem 0.15625rem 0 0.0625rem rgb(54 53 63 / 0.12);
-  --shadow-filter-hover: 0.0625rem 0.125rem 0 0.0625rem rgb(54 53 64 / 0.1);
+  --shadow-filter-hover: 0.0625rem 0.125rem 0 0.0625rem rgb(54 53 63 / 0.1);
   --inset-shadow-search: inset 0.0625rem 0.0625rem 0 0 rgb(58 56 66 / 0.1);
   --inset-shadow-img-strong: inset 0 0 0.15625rem 0 rgb(58 56 66 / 0.35);
-}
-
-/* ── Bewegung: drei zentrale Werte zum Justieren ───────────────────────────────────────────
-   Gleiche Werte wie die Figma-Collection „Motion“ (Gruppe Smart Animate). Figma kann Übergänge
-   im Prototyp nicht an Variablen binden; die Smart-Animate-Übergänge tragen deshalb dieselben
-   Zahlen von Hand. Farben wechseln sofort; bei „Bewegung reduzieren“ springen alle Zustände.
-   app.tcss führt keine Bewegung; siehe docs/ABWEICHUNGEN.md. */
-@theme static {
-  /* Kurve aller Übergänge: Figma „Ease in and out“ (= CSS ease-in-out) */
-  --smart-animate-easing: cubic-bezier(0.42, 0, 0.58, 1);
-  /* Hover: Buttons heben sich an, Karten ändern ihre Größe, Inhalte blenden über (wie CompactSize) */
-  --smart-animate-duration-short: 100ms;
-  /* Lange Wege: Schieber im MegaSwitch, DiscoveryCard wächst in die Breite */
-  --smart-animate-duration-long: 300ms;
-}
-/* Alles, was beim Hover passiert. */
-@utility motion-hover {
-  transition-property: padding, translate, width, max-width, height, opacity, box-shadow;
-  transition-duration: var(--smart-animate-duration-short);
-  transition-timing-function: var(--smart-animate-easing);
-  @media (prefers-reduced-motion: reduce) {
-    transition-property: none;
-  }
-}
-/* Lange Wege. */
-@utility motion-long {
-  transition-property: padding, translate, width, max-width, height, opacity, box-shadow;
-  transition-duration: var(--smart-animate-duration-long);
-  transition-timing-function: var(--smart-animate-easing);
-  @media (prefers-reduced-motion: reduce) {
-    transition-property: none;
-  }
 }
 
 /* Textstil „Megacard/fließtext“ (Manrope 24/36, −2 %) stammt in Figma aus einer
@@ -171,23 +141,6 @@ html {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: var(--tracking-tight);
-}
-
-/* Input / Field · Type=Textarea (9767:33432): Textstil „Input/TextareaText“ (Manrope 18/1.4)
-   und die Höhe „Input/Textarea/min-h“ (164 px) fehlen in app.tcss (Stand 3d8a193);
-   siehe docs/ABWEICHUNGEN.md. */
-@utility type-input-textarea-text {
-  font-family: var(--font-body);
-  font-size: var(--text-18);
-  font-weight: 400;
-  line-height: var(--leading-body);
-  letter-spacing: var(--tracking-normal);
-}
-@theme {
-  --height-input-textarea: 10.25rem; /* Input/Textarea/min-h 164px */
-}
-@utility min-h-input-textarea {
-  min-height: var(--height-input-textarea);
 }
 
 @theme {

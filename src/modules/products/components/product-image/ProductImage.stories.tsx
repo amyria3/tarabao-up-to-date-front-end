@@ -16,7 +16,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="aspect-square w-full max-w-card-max">
+      <div className="aspect-square w-full max-w-product-img-max">
         <Story />
       </div>
     ),

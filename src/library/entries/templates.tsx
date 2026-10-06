@@ -49,7 +49,7 @@ export const templateEntries: LibraryEntry[] = [
         <Specimen label="Variant=CardsTiles">
           <CardsOrder variant="tiles">
             {PRODUCTS.map((p) => (
-              <li key={p.id} className="w-full max-w-card-max min-w-card-min flex-1">
+              <li key={p.id} className="w-full max-w-card-default-max min-w-card-default-min flex-1">
                 <ProductCard product={p} />
               </li>
             ))}

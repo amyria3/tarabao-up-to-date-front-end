@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils'
 
 /**
  * Figma: Cards / ReviewCard (2194:1982) · Reactions?=True|False, State?=Default|Open.
- * Kopf pt-lg px-md-l, zentrierte Sterne (nur vergebene), Name + Datum (Comment),
- * Titel H3, Text Comment/BodyText (zweizeilig, h 44; aufgeklappt ganz), Bildfläche
- * h154 bzw. aufgeklappt h216, darunter Buttons / ReactionCounter
+ * 160–224 px breit (Cards/ReviewCard/…), Kopf 16 px oben, 12 px sonst (frame-top, frame), zentrierte
+ * Sterne 14 px (nur vergebene), Name + Datum (Comment), Titel H3, Text Comment/BodyText (zweizeilig;
+ * aufgeklappt ganz), Bildfläche 100 px bzw. aufgeklappt 140 px (Img/fix-h, tall-fix-h), darunter
+ * Buttons / ReactionCounter
  * (Reactions?=False → Variant=1, Herz als Kontur; True → Variant=2 mit Zahl).
  * In Figma zeigt State?=Open den gekürzten und State?=Default den vollen Text;
  * hier öffnet ein Klick auf den Text die ganze Bewertung (<details>, defaultOpen).
@@ -28,20 +29,20 @@ export function ReviewCard({
       data-slot="review-card"
       data-theme="purple-tint-surface-snow"
       className={cn(
-        'group/review relative flex w-full max-w-card-max flex-col border border-card-btn-hover-click bg-card-surface pb-md text-card-content-text',
+        'group/review relative flex w-full min-w-card-review-min max-w-card-review-max flex-col border border-card-btn-hover-click bg-card-surface pb-sm text-card-content-text',
         className,
       )}
     >
-      <div className="flex w-full flex-col items-center gap-sm px-md-l pt-lg pb-md-l">
-        <div className="pb-2.5">
-          <ReviewStars rating={review.rating} emptyStars="hidden" className="text-card-content-text" />
+      <div className="flex w-full flex-col items-center gap-xs px-card-review-frame pt-card-review-frame-top pb-card-review-frame">
+        <div className="pb-xs">
+          <ReviewStars rating={review.rating} emptyStars="hidden" size="sm" className="text-card-content-text" />
         </div>
-        <div className="flex w-full flex-col pb-xxs">
+        <div className="flex w-full flex-col pb-xxxs">
           <p className="flex items-center gap-xxs type-comment">
             <span>{review.author}</span>
             <span>{review.dateLabel}</span>
           </p>
-          <div className="flex flex-col gap-[0.9375rem] pt-sm">
+          <div className="flex flex-col gap-sm pt-xs">
             <HeadlineH3 as="h3">{review.title}</HeadlineH3>
             <details open={defaultOpen} className="group/details">
               <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
@@ -54,12 +55,12 @@ export function ReviewCard({
           </div>
         </div>
         {review.image ? (
-          <div className="h-[9.625rem] w-full group-has-[details[open]]/review:h-54">
+          <div className="h-card-review-img w-full group-has-[details[open]]/review:h-card-review-img-tall">
             <ProductImage image={review.image} className="[&_img]:opacity-40" />
           </div>
         ) : null}
       </div>
-      <div className="flex w-full justify-end px-md pt-md-sm">
+      <div className="flex w-full justify-end px-md-sm pt-sm">
         <ReactionCounter likes={review.likes ?? 0} className="w-auto pt-zero" />
       </div>
     </article>

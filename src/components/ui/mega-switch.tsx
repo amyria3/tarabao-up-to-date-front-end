@@ -13,9 +13,10 @@ export interface MegaSwitchProps extends Omit<React.ComponentProps<typeof Switch
   onLabel?: string
   forceHover?: boolean
   /**
-   * Figma: Switches / MegaSwitch (Standard, Labels h-10, Buttons/MD) oder
-   * Switches / MegaSwitch / XXSM (9481:45126): Labels h-7, Buttons/XX-SM, Track 29 px,
-   * Padding 2/2; im Warenkorb (Components / Cart / ProductItem).
+   * Figma: Switches / MegaSwitch (Standard, Labels und Pillen so hoch wie Btns/MD/fix-h, Buttons/MD)
+   * oder Switches / MegaSwitch / XXSM (9481:45126): Labels und Pillen so hoch wie Btns/XX-SM/fix-h,
+   * Buttons/XX-SM; im Warenkorb (Components / Cart / ProductItem). Beide mit Padding 2/2, der Track ist
+   * die Wurzel (40 bzw. 24 px).
    */
   size?: 'md' | 'xxsm'
 }
@@ -23,7 +24,7 @@ export interface MegaSwitchProps extends Omit<React.ComponentProps<typeof Switch
 /**
  * Figma: Switches / MegaSwitch (8847:23405) · Switched?=False|True, State=Default|Hover.
  * Wurzel Fill min-w-btn-min max-w-btn-max, Form „Oval“ in switch-segment-bg,
- * gewählte Hälfte als zweites Oval (h40) in switch-segment-bg-selected.
+ * gewählte Hälfte als zweites Oval (so hoch wie das Label) in switch-segment-bg-selected.
  * Hover nur auf der nicht gewählten Hälfte (Figma: While hovering am Label, ohne Animation):
  * „Right Label Surface“ legt dort ein zweites Oval in switch-segment-bg-selected, beide Labels
  * in switch-segment-label-selected.
@@ -41,7 +42,9 @@ export const MegaSwitch = React.forwardRef<HTMLButtonElement, MegaSwitchProps>(f
   const half = cn(
     'flex flex-1 items-center justify-center text-center',
     'transition-colors duration-(--smart-animate-duration-long) ease-(--smart-animate-easing) motion-reduce:transition-none',
-    xxsm ? 'h-7' : 'h-10',
+    // Hover blendet nur kurz über (wie Dissolve in Figma); der Klick behält die lange Dauer.
+    'group-free-hovered:duration-(--smart-animate-duration-short)',
+    xxsm ? 'h-btn-xx-sm' : 'h-btn-md',
   )
   return (
     <SwitchPrimitive.Root
@@ -51,7 +54,7 @@ export const MegaSwitch = React.forwardRef<HTMLButtonElement, MegaSwitchProps>(f
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
         'group relative flex w-full cursor-pointer select-none items-center',
-        xxsm ? 'min-w-fieldset-min max-w-block-max' : 'min-w-btn-min max-w-btn-max',
+        'min-w-btn-min max-w-btn-max',
         // Padding 2/2 in allen Zuständen wie in Figma (29.09.): Der Switch hebt sich beim Hover nicht an.
         'py-xxxs',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
@@ -79,7 +82,7 @@ export const MegaSwitch = React.forwardRef<HTMLButtonElement, MegaSwitchProps>(f
         // Blendet an Ort und Stelle ein und aus (wie die geparkte Right Label Surface in Figma):
         // Nach einem Klick bleibt die Fläche auf der neu gewählten Hälfte, bis der Schieber dort
         // ankommt; erst danach springt sie unsichtbar auf die freie Hälfte.
-        className="absolute inset-y-zero left-1/2 w-1/2 py-xxxs opacity-0 [transition:opacity_var(--smart-animate-duration-long)_var(--smart-animate-easing),left_0s_var(--smart-animate-duration-long)] group-selected:left-zero group-free-hovered:opacity-100 motion-reduce:transition-none"
+        className="absolute inset-y-zero left-1/2 w-1/2 py-xxxs opacity-0 [transition:opacity_var(--smart-animate-duration-long)_var(--smart-animate-easing),left_0s_var(--smart-animate-duration-long)] group-free-hovered:[transition:opacity_var(--smart-animate-duration-short)_var(--smart-animate-easing),left_0s_var(--smart-animate-duration-long)] group-selected:left-zero group-free-hovered:opacity-100 motion-reduce:transition-none"
       >
         <span className="relative block h-full">
           <ButtonShape shape="oval" className="text-switch-segment-bg-selected" />

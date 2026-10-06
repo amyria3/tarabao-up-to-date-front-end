@@ -16,6 +16,7 @@ import type { ProductDetailModel } from '@/lib/view-models'
 import { cn } from '@/lib/utils'
 
 export type AddToCartRequest = { productId: string; variantId: string; subscription: boolean }
+export type BuyBoxSelection = { variantId: string; subscription: boolean }
 
 export interface BuyBoxProps {
   product: ProductDetailModel
@@ -23,6 +24,8 @@ export interface BuyBoxProps {
   shippingHref?: string
   pending?: boolean
   onAddToCart?: (request: AddToCartRequest) => void
+  /** Meldet jede Änderung von Größe oder Einmalkauf/Abo, z. B. für den Schnellbutton in Sections / ProductHeader */
+  onSelectionChange?: (selection: BuyBoxSelection) => void
   className?: string
 }
 
@@ -40,18 +43,29 @@ export function BuyBox({
   shippingHref = '/de-de/page/versandrichtlinien',
   pending,
   onAddToCart,
+  onSelectionChange,
   className,
 }: BuyBoxProps) {
   const [variantId, setVariantId] = React.useState(defaultVariantId ?? product.variants[0]?.id ?? '')
   const [subscription, setSubscription] = React.useState(false)
   const variant = product.variants.find((v) => v.id === variantId) ?? product.variants[0]
+  const changeVariant = (id: string) => {
+    setVariantId(id)
+    onSelectionChange?.({ variantId: id, subscription })
+  }
+  const changeSubscription = (next: boolean) => {
+    setSubscription(next)
+    if (variant) onSelectionChange?.({ variantId: variant.id, subscription: next })
+  }
   return (
     <div
       data-slot="buy-box"
       className={cn('flex w-full min-w-block-min max-w-block-max flex-col gap-sm text-content-text', className)}
     >
       <div className="flex w-full flex-col gap-md-sm pb-md-l">
-        <h1 className="w-full type-product-page-product-title">{product.title}</h1>
+        {/* Figma visible-lg-up: Unter lg steht der Titel sichtbar über der Galerie (ProductGallery); die
+            Überschrift bleibt hier für Screenreader. */}
+        <h1 className="sr-only w-full type-product-page-product-title lg:not-sr-only">{product.title}</h1>
         {product.rating !== undefined ? (
           <div className="flex items-center gap-5">
             <ReviewStars rating={product.rating} className="w-auto" />
@@ -75,17 +89,19 @@ export function BuyBox({
           <p className="type-product-page-hightlighted">Menge, Verpackung und Preis*:</p>
           <ShippingCostsInfo href={shippingHref} />
         </div>
-        <SizeAndPrice variants={product.variants} value={variantId} onValueChange={setVariantId} />
+        <SizeAndPrice variants={product.variants} value={variantId} onValueChange={changeVariant} />
       </div>
       <div className="flex w-full flex-col gap-sm pt-md">
-        <Choice subscription={subscription} onSubscriptionChange={setSubscription} />
+        <Choice subscription={subscription} onSubscriptionChange={changeSubscription} />
         <div className="flex w-full flex-col items-end">
+          {/* Figma: Buttons / LG / PrimaryButton · Mega Card?=False (Farben von MD / PrimaryButton, Maße von LG) */}
           <Button
             intent="primary"
-            size="md"
+            size="lg"
+            megaCard={false}
             className="w-full"
             disabled={pending || !variant}
-            icon={<IconCart aria-hidden className="size-6" />}
+            icon={<IconCart aria-hidden className="h-btn-lg-icon w-auto" />}
             onClick={() => variant && onAddToCart?.({ productId: product.id, variantId: variant.id, subscription })}
           >
             In den Warenkorb

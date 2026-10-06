@@ -65,7 +65,7 @@ export function AddedToCartMessage({
         </p>
       </div>
       <div className="relative flex flex-col gap-xxs">
-        <Button intent="secondary" size="sm" className="w-75" onClick={onContinue ?? onClose}>
+        <Button intent="secondary" size="md-oval" className="w-75" onClick={onContinue ?? onClose}>
           {continueLabel}
         </Button>
         <SegmentControlButton asChild className="w-75">

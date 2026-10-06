@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: Cards / CategoryCard / SM (2628:2698). State=Default|Hover, Variant=Default|Nüsse Pur. The whole card is a link; the image frame uses the primitive purple-early-evening-sky-light.',
+          'Figma: Cards / CategoryCard / SM (2628:2698). State=Default|Hover, Variant=Default|Nüsse Pur. The whole card is a link; the image frame uses the card colour (card-surface-&-img-stroke-color-default).',
       },
     },
   },

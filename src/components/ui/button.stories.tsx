@@ -5,9 +5,8 @@ import {
   BUTTON_FAMILIES,
   BUTTON_FIGMA_NAMES,
   Button,
+  buttonFamilyProps,
   type ButtonFamily,
-  type ButtonIntent,
-  type ButtonSize,
 } from '@/components/ui/button'
 import { ThemeScope } from '@/components/ui/theme-scope'
 import { LIVELY_THEMES, type LivelyTheme } from '@/lib/design-system/themes'
@@ -15,11 +14,14 @@ import { LIVELY_THEMES, type LivelyTheme } from '@/lib/design-system/themes'
 /** Figma node of each button family (Buttons / LG … XXXS). */
 const NODE_IDS: Record<ButtonFamily, string> = {
   'primary-lg': '509:1251',
+  'primary-lg-plain': '509:1251',
   'inline-lg': '2342:2047',
   'primary-md': '2310:2156',
   'secondary-md': '2342:2052',
+  'primary-md-oval': '10197:52492',
+  'secondary-md-oval': '10197:54714',
+  'card-md': '10131:52168',
   'primary-sm': '2342:2053',
-  'secondary-sm': '6799:19379',
   'inline-sm': '2359:3245',
   'card-sm': '7932:33160',
   'primary-xxs': '2328:2172',
@@ -32,9 +34,9 @@ const figma = (family: ButtonFamily) => `${BUTTON_FIGMA_NAMES[family]} (${NODE_I
 
 /** One story per Figma family: intent and size from the family key. */
 function familyStory(family: ButtonFamily): Story {
-  const [intent, size] = family.split('-') as [ButtonIntent, ButtonSize]
+  const { intent, size, megaCard } = buttonFamilyProps(family)
   return {
-    args: { intent, size },
+    args: { intent, size, ...(megaCard === false ? { megaCard } : {}) },
     parameters: { docs: { description: { story: `Figma: ${figma(family)}.` } } },
   }
 }
@@ -97,8 +99,8 @@ export const WithIcon: Story = {
 }
 
 export const HugContent: Story = {
-  args: { intent: 'primary', size: 'sm', width: 'hug', children: 'Kündigung zurücknehmen' },
-  parameters: { docs: { description: { story: `Figma: ${figma('primary-sm')} · Hug content?=True.` } } },
+  args: { intent: 'primary', size: 'md-oval', width: 'hug', children: 'Kündigung zurücknehmen' },
+  parameters: { docs: { description: { story: `Figma: ${figma('primary-md-oval')} · Hug content?=True.` } } },
 }
 
 export const PrimaryLg: Story = { ...familyStory('primary-lg'), decorators: [livelyTheme] }
@@ -109,7 +111,16 @@ export const SecondaryMd: Story = familyStory('secondary-md')
 
 export const PrimarySm: Story = familyStory('primary-sm')
 
-export const SecondarySm: Story = familyStory('secondary-sm')
+export const PrimaryLgPlain: Story = familyStory('primary-lg-plain')
+
+export const PrimaryMdOval: Story = familyStory('primary-md-oval')
+
+export const SecondaryMdOval: Story = familyStory('secondary-md-oval')
+
+export const CardMd: Story = {
+  ...familyStory('card-md'),
+  args: { intent: 'card', size: 'md', children: 'Call to action' },
+}
 
 export const InlineSm: Story = familyStory('inline-sm')
 

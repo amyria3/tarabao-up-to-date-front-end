@@ -41,20 +41,32 @@ export function HeadlineH1({
 }
 
 /**
- * Figma: Primitives / Headline / H2 (7565:23679) · Style=Default|Alternative (looks like H3)|Sbtile.
+ * Figma: Primitives / Headline / H2 (7565:23679) · Style=Default|Alternative (looks like H3)|Sbtile,
+ * Hug content?=False|True. Mit width="hug" ist die Überschrift so breit wie ihr Text. So steht ein
+ * Element daneben (z. B. ein Inline-Button) direkt hinter dem Textende.
  */
 export function HeadlineH2({
   variant = 'default',
   align = 'left',
+  width = 'fill',
   as,
   className,
   ...props
-}: HeadingProps<'default' | 'alternative' | 'subtitle'>) {
+}: HeadingProps<'default' | 'alternative' | 'subtitle'> & {
+  /** Figma-Achse Hug content? (fill = False, hug = True) */
+  width?: 'fill' | 'hug'
+}) {
   const Comp = as ?? (variant === 'subtitle' ? 'p' : 'h2')
   const type = { default: 'type-h2', alternative: 'type-h2-alternative', subtitle: 'type-h2-subtitle' }[variant]
   return (
     <Comp
-      className={cn('w-full hyphens-auto break-words text-content-text', type, ALIGN[align], className)}
+      className={cn(
+        'hyphens-auto break-words text-content-text',
+        width === 'hug' ? 'w-fit' : 'w-full',
+        type,
+        ALIGN[align],
+        className,
+      )}
       {...props}
     />
   )

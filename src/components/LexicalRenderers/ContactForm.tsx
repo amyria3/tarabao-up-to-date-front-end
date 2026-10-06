@@ -45,7 +45,7 @@ export function ContactForm({
           <UserMessageExplanation title={successTitle} as="h3" className="text-center">
             {successText}
           </UserMessageExplanation>
-          <Button intent="secondary" size="sm" className="w-full" onClick={() => setSent(false)}>
+          <Button intent="secondary" size="md-oval" className="w-full" onClick={() => setSent(false)}>
             {resetLabel}
           </Button>
         </div>

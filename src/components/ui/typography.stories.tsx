@@ -50,7 +50,7 @@ export const HeadlineH2: Story = {
     docs: {
       description: {
         story:
-          'Figma: Primitives / Headline / H2 (7565:23679). Style=Default, Alternative (looks like H3), Sbtile; Align=Center.',
+          'Figma: Primitives / Headline / H2 (7565:23679). Style=Default, Alternative (looks like H3), Sbtile; Align=Center; Hug content?=True.',
       },
     },
   },
@@ -60,6 +60,9 @@ export const HeadlineH2: Story = {
       <HeadlineH2Component variant="alternative">{HEADLINE}</HeadlineH2Component>
       <HeadlineH2Component variant="subtitle">{SUBTITLE}</HeadlineH2Component>
       <HeadlineH2Component align="center">{HEADLINE}</HeadlineH2Component>
+      <HeadlineH2Component width="hug" className="bg-surface-placeholder">
+        {HEADLINE}
+      </HeadlineH2Component>
     </div>
   ),
 }

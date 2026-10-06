@@ -44,7 +44,7 @@ export function OrderConfirmation({
         <p className="text-right">*wir antworten in der Regel am Montag und Donnerstag auf E-Mails</p>
       </div>
       <div className="flex w-full flex-col items-center gap-xxs">
-        <Button asChild intent="secondary" size="sm">
+        <Button asChild intent="secondary" size="md-oval">
           <Link href={accountHref}>Zu Deinem Kundenkonto</Link>
         </Button>
       </div>

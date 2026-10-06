@@ -10,12 +10,15 @@ import { cn } from '@/lib/utils'
  *
  * | intent × size   | Figma-Komponente                 |
  * | --------------- | -------------------------------- |
- * | primary · lg    | Buttons / LG / PrimaryButton     |
+ * | primary · lg    | Buttons / LG / PrimaryButton (Mega Card?=True)  |
+ * | primary · lg, megaCard={false} | Buttons / LG / PrimaryButton (Mega Card?=False) |
  * | inline · lg     | Buttons / LG / Inline            |
  * | primary · md    | Buttons / MD / PrimaryButton     |
  * | secondary · md  | Buttons / MD / SecondaryButton   |
+ * | primary · md-oval   | Buttons / MD / PrimaryButton-Oval   |
+ * | secondary · md-oval | Buttons / MD / SecondaryButton-Oval |
+ * | card · md       | Buttons / MD / Button-Card       |
  * | primary · sm    | Buttons / SM / PrimaryButton     |
- * | secondary · sm  | Buttons / SM / SecondaryButton   |
  * | inline · sm     | Buttons / SM / Inline            |
  * | card · sm       | Buttons / SM / Button-Card       |
  * | primary · xxs   | Buttons / XXS / PrimaryButton    |
@@ -23,11 +26,12 @@ import { cn } from '@/lib/utils'
  * | inline · xxs    | Buttons / XXS / Inline           |
  * | inline · xxxs   | Buttons / XXXS / Inline          |
  *
- * LG-Buttons gehören in Figma zur Collection „Clrs / Mega Cards“ und folgen
- * deshalb `data-lively-theme` (Kampagne), nicht `data-theme`.
+ * LG-Buttons mit Mega Card?=True gehören in Figma zur Collection „Clrs / Mega Cards“ und folgen
+ * deshalb `data-lively-theme` (Kampagne), nicht `data-theme`. Mit `megaCard={false}` nutzt der
+ * LG-Button die Farben von Buttons / MD / PrimaryButton (z. B. „In den Warenkorb“ in der BuyBox).
  */
 export type ButtonIntent = 'primary' | 'secondary' | 'inline' | 'card'
-export type ButtonSize = 'lg' | 'md' | 'sm' | 'xxs' | 'xxxs'
+export type ButtonSize = 'lg' | 'md' | 'md-oval' | 'sm' | 'xxs' | 'xxxs'
 export type ButtonWidth = 'fill' | 'hug'
 
 type Family = {
@@ -61,6 +65,19 @@ const FAMILIES = {
     shape: 'oblong',
     shapeColor: 'text-megacard-btn-primary-bg group-hovered:text-megacard-btn-primary-bg-hover',
     labelColor: 'text-megacard-btn-primary-label group-hovered:text-megacard-btn-primary-label-hover',
+    type: 'type-buttons-lg',
+    height: 'h-btn-lg',
+    padding: 'px-sm',
+    gap: 'gap-md-sm',
+    lift: LIFT_4,
+    width: 'fill',
+  },
+  'primary-lg-plain': {
+    shape: 'oblong',
+    shapeColor:
+      'text-btn-primary-bg group-hovered:text-btn-primary-bg-hover group-disabled:text-btn-primary-bg-inactive',
+    labelColor:
+      'text-btn-primary-label group-hovered:text-btn-primary-label-hover group-disabled:text-btn-primary-label-inactive',
     type: 'type-buttons-lg',
     height: 'h-btn-lg',
     padding: 'px-sm',
@@ -110,6 +127,47 @@ const FAMILIES = {
     lift: LIFT_4,
     width: 'fill',
   },
+  'primary-md-oval': {
+    shape: 'oval',
+    shapeColor:
+      'text-btn-primary-bg group-hovered:text-btn-primary-bg-hover group-disabled:text-btn-primary-bg-inactive',
+    labelColor:
+      'text-btn-primary-label group-hovered:text-btn-primary-label-hover group-disabled:text-btn-primary-label-inactive',
+    type: 'type-buttons-md',
+    height: 'h-btn-md',
+    padding: 'px-md-l',
+    gap: 'gap-md-sm',
+    lift: LIFT_4,
+    width: 'fill',
+  },
+  'secondary-md-oval': {
+    shape: 'oval',
+    shapeColor:
+      'text-btn-secondary-bg group-hovered:text-btn-secondary-bg-hover group-disabled:text-btn-secondary-bg-inactive',
+    labelColor:
+      'text-btn-secondary-label group-hovered:text-btn-secondary-label-hover group-disabled:text-btn-secondary-label-inactive',
+    type: 'type-buttons-md',
+    height: 'h-btn-md',
+    outline: 'text-btn-secondary-label group-hovered:opacity-0 group-disabled:text-btn-secondary-label-inactive',
+    padding: 'px-md-l',
+    gap: 'gap-md-sm',
+    lift: LIFT_4,
+    width: 'fill',
+  },
+  'card-md': {
+    shape: null,
+    hoverShape: 'oval',
+    shapeColor: 'text-card-btn-hover-click',
+    labelColor: 'text-card-content-text-hover group-hovered:text-card-content-text',
+    type: 'type-buttons-md',
+    height: 'h-btn-md',
+    padding: 'px-md',
+    gap: 'gap-md-sm',
+    lift: LIFT_4,
+    width: 'fill',
+    // Figma: nur max-w (Buttons/max-w), kein min-w — die Karte gibt die Breite vor.
+    root: 'min-w-zero',
+  },
   'primary-sm': {
     shape: 'oval',
     shapeColor:
@@ -118,20 +176,6 @@ const FAMILIES = {
       'text-btn-primary-label group-hovered:text-btn-primary-label-hover group-disabled:text-btn-primary-label-inactive',
     type: 'type-buttons-sm',
     height: 'h-btn-sm',
-    padding: 'px-sm',
-    gap: 'gap-md-sm',
-    lift: LIFT_4,
-    width: 'fill',
-  },
-  'secondary-sm': {
-    shape: 'oval',
-    shapeColor:
-      'text-btn-secondary-bg group-hovered:text-btn-secondary-bg-hover group-disabled:text-btn-secondary-bg-inactive',
-    labelColor:
-      'text-btn-secondary-label group-hovered:text-btn-secondary-label-hover group-disabled:text-btn-secondary-label-inactive',
-    type: 'type-buttons-md',
-    height: 'h-btn-sm',
-    outline: 'text-btn-secondary-label group-hovered:opacity-0 group-disabled:text-btn-secondary-label-inactive',
     padding: 'px-sm',
     gap: 'gap-md-sm',
     lift: LIFT_4,
@@ -221,12 +265,15 @@ export const BUTTON_FAMILIES = Object.keys(FAMILIES) as ButtonFamily[]
 
 /** Figma-Name je Kombination. */
 export const BUTTON_FIGMA_NAMES: Record<ButtonFamily, string> = {
-  'primary-lg': 'Buttons / LG / PrimaryButton',
+  'primary-lg': 'Buttons / LG / PrimaryButton · Mega Card?=True',
+  'primary-lg-plain': 'Buttons / LG / PrimaryButton · Mega Card?=False',
   'inline-lg': 'Buttons / LG / Inline',
   'primary-md': 'Buttons / MD / PrimaryButton',
   'secondary-md': 'Buttons / MD / SecondaryButton',
+  'primary-md-oval': 'Buttons / MD / PrimaryButton-Oval',
+  'secondary-md-oval': 'Buttons / MD / SecondaryButton-Oval',
+  'card-md': 'Buttons / MD / Button-Card',
   'primary-sm': 'Buttons / SM / PrimaryButton',
-  'secondary-sm': 'Buttons / SM / SecondaryButton',
   'inline-sm': 'Buttons / SM / Inline',
   'card-sm': 'Buttons / SM / Button-Card',
   'primary-xxs': 'Buttons / XXS / PrimaryButton',
@@ -235,15 +282,27 @@ export const BUTTON_FIGMA_NAMES: Record<ButtonFamily, string> = {
   'inline-xxxs': 'Buttons / XXXS / Inline',
 }
 
-function resolveFamily(intent: ButtonIntent, size: ButtonSize): ButtonFamily {
+/** intent, size und megaCard je Familie (Bibliothek, Storybook). */
+export function buttonFamilyProps(family: ButtonFamily): {
+  intent: ButtonIntent
+  size: ButtonSize
+  megaCard?: boolean
+} {
+  if (family === 'primary-lg-plain') return { intent: 'primary', size: 'lg', megaCard: false }
+  const [intent, ...rest] = family.split('-')
+  return { intent: intent as ButtonIntent, size: rest.join('-') as ButtonSize }
+}
+
+function resolveFamily(intent: ButtonIntent, size: ButtonSize, megaCard: boolean): ButtonFamily {
+  if (intent === 'primary' && size === 'lg' && !megaCard) return 'primary-lg-plain'
   const key = `${intent}-${size}` as ButtonFamily
   if (key in FAMILIES) return key
   // Kombinationen ohne Figma-Komponente fallen auf die nächste vorhandene Größe zurück.
   const fallback: Record<ButtonIntent, ButtonFamily> = {
     primary: 'primary-md',
-    secondary: 'secondary-md',
+    secondary: size === 'sm' ? 'secondary-md-oval' : 'secondary-md',
     inline: 'inline-sm',
-    card: 'card-sm',
+    card: 'card-md',
   }
   return fallback[intent]
 }
@@ -259,6 +318,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   shape?: ButtonShapeKind
   /** Zeigt den Hover-Zustand statisch (Bibliothek, Storybook). */
   forceHover?: boolean
+  /**
+   * Figma-Achse „Mega Card?“ an Buttons / LG / PrimaryButton: true = Farben der Kampagne
+   * (data-lively-theme), false = Farben von Buttons / MD / PrimaryButton.
+   */
+  megaCard?: boolean
   /** Rendert das einzige Kind (z. B. <a>) als Wurzel, wie in der Storefront. */
   asChild?: boolean
 }
@@ -271,6 +335,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     icon,
     shape,
     forceHover,
+    megaCard = true,
     asChild = false,
     className,
     children,
@@ -279,7 +344,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
   },
   ref,
 ) {
-  const family = resolveFamily(intent, size)
+  const family = resolveFamily(intent, size, megaCard)
   const f: Family = FAMILIES[family]
   const resolvedWidth = width ?? f.width
   const restShape = shape ?? f.shape

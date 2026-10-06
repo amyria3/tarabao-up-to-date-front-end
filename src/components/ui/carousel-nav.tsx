@@ -42,7 +42,8 @@ export const CarouselNav = React.forwardRef<HTMLButtonElement, CarouselNavProps>
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
         'group relative inline-flex shrink-0 cursor-pointer items-center justify-center',
-        size === 'huge' ? 'h-[4.25rem] w-[4.625rem]' : 'h-btn-md w-[2.875rem]',
+        // Figma: Form ohne Höhen-Variable (Huge 74 × 68, SM 46 × 44).
+        size === 'huge' ? 'h-[4.25rem] w-[4.625rem]' : 'h-11 w-[2.875rem]',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         'disabled:cursor-not-allowed disabled:opacity-60',
         className,
@@ -50,7 +51,12 @@ export const CarouselNav = React.forwardRef<HTMLButtonElement, CarouselNavProps>
       {...props}
     >
       <Shape className="absolute inset-0 size-full text-btn-primary-bg group-hovered:text-btn-primary-bg-hover" />
-      <Arrow className="relative motion-hover text-btn-primary-label group-hovered:-translate-y-xxs group-hovered:text-btn-primary-label-hover" />
+      <Arrow
+        className={cn(
+          'relative w-auto motion-hover text-btn-primary-label group-hovered:-translate-y-xxs group-hovered:text-btn-primary-label-hover',
+          size === 'huge' ? 'h-icon-carousel-huge' : 'h-icon-carousel-sm',
+        )}
+      />
     </button>
   )
 })

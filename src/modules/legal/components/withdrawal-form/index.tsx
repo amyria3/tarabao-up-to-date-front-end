@@ -57,7 +57,7 @@ export function OrderCancellation({
             <UserMessageExplanation title="oder Melde Dich an" as="h3" className="text-center">
               Um die Bestellung auszuwählen, die Du zurückgeben möchtest
             </UserMessageExplanation>
-            <Button intent="secondary" size="sm" className="w-full" onClick={() => setStep('login')}>
+            <Button intent="secondary" size="md-oval" className="w-full" onClick={() => setStep('login')}>
               Anmelden
             </Button>
           </div>

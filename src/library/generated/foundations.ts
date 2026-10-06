@@ -273,12 +273,12 @@ export const FOUNDATIONS = {
     },
     {
       name: 'vivid-red-100',
-      value: '#ff0000',
+      value: '#e00000',
       group: 'Functional Raw',
     },
     {
       name: 'vivid-red-10',
-      value: '#ff00001a',
+      value: '#e000001a',
       group: 'Functional Raw',
     },
     {
@@ -435,7 +435,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'switch-segment-bg',
-        value: 'var(--transparent-100)',
+        value: 'var(--purple-early-evening-sky-40-opaque)',
       },
       {
         name: 'switch-segment-label',
@@ -467,6 +467,10 @@ export const FOUNDATIONS = {
       },
       {
         name: 'counter-bg-hover-click',
+        value: 'var(--purple-early-evening-sky-100)',
+      },
+      {
+        name: 'btn-icon-bg-hover',
         value: 'var(--purple-early-evening-sky-100)',
       },
       {
@@ -689,7 +693,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'switch-segment-bg',
-        value: 'var(--transparent-100)',
+        value: 'var(--purple-early-evening-sky-40-opaque)',
       },
       {
         name: 'switch-segment-label',
@@ -721,6 +725,10 @@ export const FOUNDATIONS = {
       },
       {
         name: 'counter-bg-hover-click',
+        value: 'var(--purple-early-evening-sky-100)',
+      },
+      {
+        name: 'btn-icon-bg-hover',
         value: 'var(--purple-early-evening-sky-100)',
       },
       {
@@ -943,7 +951,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'switch-segment-bg',
-        value: 'var(--transparent-100)',
+        value: 'var(--purple-early-evening-sky-40-opaque)',
       },
       {
         name: 'switch-segment-label',
@@ -975,6 +983,10 @@ export const FOUNDATIONS = {
       },
       {
         name: 'counter-bg-hover-click',
+        value: 'var(--purple-early-evening-sky-100)',
+      },
+      {
+        name: 'btn-icon-bg-hover',
         value: 'var(--purple-early-evening-sky-100)',
       },
       {
@@ -1197,7 +1209,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'switch-segment-bg',
-        value: 'var(--transparent-100)',
+        value: 'var(--purple-early-evening-sky-40-opaque)',
       },
       {
         name: 'switch-segment-label',
@@ -1229,6 +1241,10 @@ export const FOUNDATIONS = {
       },
       {
         name: 'counter-bg-hover-click',
+        value: 'var(--purple-early-evening-sky-100)',
+      },
+      {
+        name: 'btn-icon-bg-hover',
         value: 'var(--purple-early-evening-sky-100)',
       },
       {
@@ -1999,6 +2015,11 @@ export const FOUNDATIONS = {
       group: 'Counter',
     },
     {
+      utility: 'btn-icon-bg-hover',
+      source: 'btn-icon-bg-hover',
+      group: 'Button Icon',
+    },
+    {
       utility: 'btn-option-selection-bg',
       source: 'btn-option-selection-bg',
       group: 'Option Selector Button',
@@ -2509,6 +2530,31 @@ export const FOUNDATIONS = {
       value: '3.75rem',
       comment: '',
     },
+    {
+      name: 'btn-lg',
+      value: 'var(--text-30)',
+      comment: 'Btns/L/label-size  30px',
+    },
+    {
+      name: 'btn-md',
+      value: 'var(--text-22)',
+      comment: 'Btns/MD/label-size  22px',
+    },
+    {
+      name: 'btn-sm',
+      value: 'var(--text-20)',
+      comment: 'Btns/SM/label-size  20px',
+    },
+    {
+      name: 'btn-xx-sm',
+      value: 'var(--text-14)',
+      comment: 'Btns/XX-SM/label-size  14px',
+    },
+    {
+      name: 'btn-xxxx-sm',
+      value: 'var(--text-11)',
+      comment: 'Btns/XXXX-SM/label-size  11px',
+    },
   ],
   leading: [
     {
@@ -2602,18 +2648,178 @@ export const FOUNDATIONS = {
     },
     {
       name: 'xl',
-      value: '2.5rem',
-      comment: '40px',
+      value: '2.25rem',
+      comment: '36px',
     },
     {
       name: 'xxl',
-      value: '3rem',
-      comment: '48px',
+      value: '2.75rem',
+      comment: '44px',
     },
     {
       name: 'xxxl',
-      value: '3.5rem',
-      comment: '56px',
+      value: '3.125rem',
+      comment: '50px',
+    },
+    {
+      name: 'card-default-frame',
+      value: 'var(--spacing-xs)',
+      comment: 'Cards/ProductCard/DefaultSize/frame  6px',
+    },
+    {
+      name: 'card-default-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/ProductCard/DefaultSize/content  8px',
+    },
+    {
+      name: 'card-default-content-gap',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/ProductCard/DefaultSize/content-gap  12px',
+    },
+    {
+      name: 'card-compact-frame',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/ProductCard/CompactSize/frame  8px',
+    },
+    {
+      name: 'card-compact-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/ProductCard/CompactSize/content  8px',
+    },
+    {
+      name: 'card-with-reviews-frame-top',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/ProductCardWithReviews/frame-top  12px',
+    },
+    {
+      name: 'card-with-reviews-gap',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/ProductCardWithReviews/gap  20px',
+    },
+    {
+      name: 'card-category-sm-frame',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/CategoryCard/SM/frame  12px',
+    },
+    {
+      name: 'card-category-sm-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/CategoryCard/SM/content  8px',
+    },
+    {
+      name: 'card-category-md-frame',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/CategoryCard/MD/frame  12px',
+    },
+    {
+      name: 'card-category-md-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/CategoryCard/MD/content  8px',
+    },
+    {
+      name: 'card-featured-frame',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/FeaturedCard/frame  20px',
+    },
+    {
+      name: 'card-featured-gap',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/FeaturedCard/gap  16px',
+    },
+    {
+      name: 'card-featured-content-gap',
+      value: 'var(--spacing-xxs)',
+      comment: 'Cards/FeaturedCard/content-gap  4px',
+    },
+    {
+      name: 'card-blog-frame',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/BlogCard/frame  16px',
+    },
+    {
+      name: 'card-blog-gap',
+      value: '1.5rem',
+      comment: 'Cards/BlogCard/gap  24px',
+    },
+    {
+      name: 'card-discovery-frame',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/DiscoveryCard/frame  20px',
+    },
+    {
+      name: 'card-discovery-frame-top',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/DiscoveryCard/frame-top  16px',
+    },
+    {
+      name: 'card-discovery-gap',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/DiscoveryCard/gap  20px',
+    },
+    {
+      name: 'card-review-frame',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/ReviewCard/frame  12px',
+    },
+    {
+      name: 'card-review-frame-top',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/ReviewCard/frame-top  16px',
+    },
+    {
+      name: 'card-review-gap',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/ReviewCard/gap  20px',
+    },
+    {
+      name: 'card-purchase-frame',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/PurchaseCard/frame  12px',
+    },
+    {
+      name: 'card-purchase-gap',
+      value: 'var(--spacing-md)',
+      comment: 'Cards/PurchaseCard/gap  16px',
+    },
+    {
+      name: 'card-purchase-content',
+      value: 'var(--spacing-xxs)',
+      comment: 'Cards/PurchaseCard/content  4px',
+    },
+    {
+      name: 'card-voucher-frame',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/VoucherCard/frame  8px',
+    },
+    {
+      name: 'card-voucher-content',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/VoucherCard/content  8px',
+    },
+    {
+      name: 'card-promotion-frame',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/PromotionPostCard/frame  12px',
+    },
+    {
+      name: 'card-promotion-content',
+      value: 'var(--spacing-md-sm)',
+      comment: 'Cards/PromotionPostCard/content  12px',
+    },
+    {
+      name: 'card-image-gap',
+      value: 'var(--spacing-sm)',
+      comment: 'Cards/ImageCard/gap  8px',
+    },
+    {
+      name: 'megacard-frame',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/MegaCard/frame  20px',
+    },
+    {
+      name: 'megacard-content',
+      value: 'var(--spacing-md-l)',
+      comment: 'Cards/MegaCard/content  20px',
     },
   ],
   containers: [
@@ -2628,49 +2834,19 @@ export const FOUNDATIONS = {
       comment: 'Block Element/Inline/min-w  96px',
     },
     {
-      name: 'card-min',
-      value: '15rem',
-      comment: 'Cards/DefaultSize/min-w  240px',
+      name: 'panel-max',
+      value: 'var(--content-max)',
+      comment: 'Panel/max-w → max-w-content',
     },
     {
-      name: 'card-max',
-      value: '24rem',
-      comment: 'Cards/DefaultSize/max-w  384px',
+      name: 'megacard-max',
+      value: 'var(--content-max)',
+      comment: 'Cards/MegaCard/max-w → max-w-content',
     },
     {
-      name: 'card-img-max',
-      value: '13rem',
-      comment: 'Cards/DefaultSize/Img/max-w  208px',
-    },
-    {
-      name: 'card-compact-min',
-      value: '15rem',
-      comment: 'Cards/CompactSize/min-w  240px',
-    },
-    {
-      name: 'card-compact-max',
-      value: '20.5rem',
-      comment: 'Cards/CompactSize/max-w  328px',
-    },
-    {
-      name: 'card-compact-img-max',
-      value: '13rem',
-      comment: 'Cards/CompactSize/Img/max-w  208px',
-    },
-    {
-      name: 'card-small-min',
-      value: '16rem',
-      comment: 'Cards/Small/min-w  256px',
-    },
-    {
-      name: 'card-discovery-max',
-      value: '42rem',
-      comment: 'Cards/Discovery/max-w  672px',
-    },
-    {
-      name: 'btn-min',
-      value: '15rem',
-      comment: 'Buttons/min-w  240px',
+      name: 'footer-header-max',
+      value: '28rem',
+      comment: 'Footer/header-max-w  448px',
     },
     {
       name: 'nav-block-min',
@@ -2683,24 +2859,19 @@ export const FOUNDATIONS = {
       comment: 'Nav/Block/max-w  256px',
     },
     {
-      name: 'footer-header-max',
-      value: '28rem',
-      comment: 'Footer/header-max-w  448px',
-    },
-    {
       name: 'overlay-message-max',
       value: '32rem',
       comment: 'Overlay Message/max-w  512px',
     },
     {
-      name: 'panel-max',
-      value: 'var(--content-max)',
-      comment: 'Panel/max-w → max-w-content',
-    },
-    {
       name: 'fieldset-min',
       value: '15rem',
       comment: 'Fieldset/min-w  240px',
+    },
+    {
+      name: 'btn-min',
+      value: '15rem',
+      comment: 'Buttons/min-w  240px',
     },
     {
       name: 'icon-counter-min',
@@ -2728,24 +2899,144 @@ export const FOUNDATIONS = {
       comment: 'ImpactScale/max-w  224px',
     },
     {
-      name: 'megacard-max',
-      value: 'var(--content-max)',
-      comment: 'Mega Cards/max-w → max-w-content',
+      name: 'product-img-min',
+      value: '15rem',
+      comment: 'Product Page/Img/min-w  240px',
+    },
+    {
+      name: 'product-img-max',
+      value: 'var(--container-card-discovery-hover-max)',
+      comment: 'Product Page/Img/max-w → Cards/DiscoveryCard/Hover/max-w',
+    },
+    {
+      name: 'product-img-thumbnail-max',
+      value: '13rem',
+      comment: 'ProductImg/Thumbnail/max-w  208px',
+    },
+    {
+      name: 'card-default-min',
+      value: '11.25rem',
+      comment: 'Cards/ProductCard/DefaultSize/min-w  180px',
+    },
+    {
+      name: 'card-default-max',
+      value: '18rem',
+      comment: 'Cards/ProductCard/DefaultSize/max-w  288px',
+    },
+    {
+      name: 'card-compact-min',
+      value: '15rem',
+      comment: 'Cards/ProductCard/CompactSize/min-w  240px',
+    },
+    {
+      name: 'card-compact-max',
+      value: '24rem',
+      comment: 'Cards/ProductCard/CompactSize/max-w  384px',
+    },
+    {
+      name: 'card-category-sm-max',
+      value: '16rem',
+      comment: 'Cards/CategoryCard/SM/max-w  256px',
+    },
+    {
+      name: 'card-blog-min',
+      value: '11.25rem',
+      comment: 'Cards/BlogCard/min-w  180px',
+    },
+    {
+      name: 'card-blog-max',
+      value: '18rem',
+      comment: 'Cards/BlogCard/max-w  288px',
+    },
+    {
+      name: 'card-featured-min',
+      value: '11.25rem',
+      comment: 'Cards/FeaturedCard/min-w  180px',
+    },
+    {
+      name: 'card-featured-max',
+      value: '18rem',
+      comment: 'Cards/FeaturedCard/max-w  288px',
+    },
+    {
+      name: 'card-discovery-min',
+      value: '11.25rem',
+      comment: 'Cards/DiscoveryCard/min-w  180px',
+    },
+    {
+      name: 'card-discovery-max',
+      value: '18rem',
+      comment: 'Cards/DiscoveryCard/max-w  288px',
+    },
+    {
+      name: 'card-discovery-hover-max',
+      value: '31.5rem',
+      comment: 'Cards/DiscoveryCard/Hover/max-w  504px',
+    },
+    {
+      name: 'card-discovery-column-min',
+      value: '12rem',
+      comment: 'Cards/DiscoveryCard/Hover/column-min-w  192px',
+    },
+    {
+      name: 'card-review-min',
+      value: '10rem',
+      comment: 'Cards/ReviewCard/min-w  160px',
+    },
+    {
+      name: 'card-review-max',
+      value: '14rem',
+      comment: 'Cards/ReviewCard/max-w  224px',
+    },
+    {
+      name: 'card-voucher-min',
+      value: '16rem',
+      comment: 'Cards/VoucherCard/min-w  256px',
+    },
+    {
+      name: 'card-voucher-max',
+      value: '24rem',
+      comment: 'Cards/VoucherCard/max-w  384px',
+    },
+    {
+      name: 'card-promotion-min',
+      value: '16rem',
+      comment: 'Cards/PromotionPostCard/min-w  256px',
+    },
+    {
+      name: 'card-promotion-max',
+      value: '24rem',
+      comment: 'Cards/PromotionPostCard/max-w  384px',
+    },
+    {
+      name: 'card-image',
+      value: '15rem',
+      comment: 'Cards/ImageCard/fix-w  240px',
     },
     {
       name: 'block-max',
       value: 'var(--content-max)',
-      comment: 'Block Element/max-w → max-w-content',
+      comment: 'Block Element/max-w',
     },
     {
       name: 'btn-max',
       value: 'var(--content-max)',
-      comment: 'Buttons/max-w → max-w-content',
+      comment: 'Buttons/max-w',
     },
     {
       name: 'btn-payment-max',
       value: 'var(--content-max)',
-      comment: 'Buttons/Payment/max-w → max-w-content',
+      comment: 'Buttons/Payment/max-w',
+    },
+    {
+      name: 'subscription-management-max',
+      value: 'var(--content-max)',
+      comment: 'Subscription Management/max-w',
+    },
+    {
+      name: 'nuss-abo-cancellation-status-max',
+      value: 'var(--content-max)',
+      comment: 'Nuss-AboCancellationStatus/max-w',
     },
     {
       name: 'block-min',
@@ -2770,39 +3061,84 @@ export const FOUNDATIONS = {
     {
       name: 'megacard-min',
       value: '20rem',
-      comment: 'Mega Cards/min-w  320px',
+      comment: 'Cards/MegaCard/min-w  320px',
+    },
+    {
+      name: 'search-min',
+      value: 'var(--container-megacard-min)',
+      comment: 'Search/min-w → Cards/MegaCard/min-w',
+    },
+    {
+      name: 'product-img-thumbnail-row-min',
+      value: '15rem',
+      comment: 'ProductImg/Thumbnail-Row/min-w  240px',
+    },
+    {
+      name: 'card-category-sm-min',
+      value: '10.25rem',
+      comment: 'Cards/CategoryCard/SM/min-w  164px',
+    },
+    {
+      name: 'card-category-md-min',
+      value: '13rem',
+      comment: 'Cards/CategoryCard/MD/min-w  208px',
+    },
+    {
+      name: 'card-category-md-max',
+      value: '17rem',
+      comment: 'Cards/CategoryCard/MD/max-w  272px',
     },
   ],
   heights: [
     {
       name: 'btn-lg',
-      value: '3.75rem',
-      comment: 'btns/L/fix-h        60px',
+      value: '2.75rem',
+      comment: 'Btns/L/fix-h  44px',
     },
     {
       name: 'btn-md',
-      value: '2.75rem',
-      comment: 'btns/MD/fix-h       44px',
+      value: '2.25rem',
+      comment: 'Btns/MD/fix-h  36px',
     },
     {
       name: 'btn-sm',
-      value: '2.5rem',
-      comment: 'btns/SM/fix-h       40px',
+      value: '2rem',
+      comment: 'Btns/SM/fix-h, Btns/SM/button-fix-h  32px',
     },
     {
       name: 'btn-x-sm',
-      value: '2.25rem',
-      comment: 'btns/X-SM/fix-h     36px',
+      value: '1.5rem',
+      comment: 'Btns/X-SM/fix-h  24px',
     },
     {
       name: 'btn-xx-sm',
-      value: '1.75rem',
-      comment: 'btns/XX-SM/fix-h    28px',
+      value: '1.25rem',
+      comment: 'Btns/XX-SM/fix-h  20px',
     },
     {
       name: 'btn-xxxx-sm',
+      value: '1rem',
+      comment: 'Btns/XXXX-SM/fix-h  16px',
+    },
+    {
+      name: 'btn-lg-icon',
+      value: '2rem',
+      comment: 'Btns/L/icon-fix-h  32px',
+    },
+    {
+      name: 'btn-md-icon',
+      value: '1.5rem',
+      comment: 'Btns/MD/icon-fix-h  24px',
+    },
+    {
+      name: 'btn-sm-icon',
       value: '1.25rem',
-      comment: 'btns/XXXX-SM/fix-h  20px',
+      comment: 'Btns/SM/icon-fix-h  20px',
+    },
+    {
+      name: 'btn-x-sm-icon',
+      value: '1rem',
+      comment: 'Btns/X-SM/icon-fix-h  16px',
     },
     {
       name: 'input-inline',
@@ -2815,14 +3151,164 @@ export const FOUNDATIONS = {
       comment: 'Input/Search/fix-h  56px',
     },
     {
-      name: 'card-md-min',
-      value: '24rem',
-      comment: 'Cards/MD/min-h     384px',
+      name: 'input-textarea-min',
+      value: '10.25rem',
+      comment: 'Input/Textarea/min-h  164px',
     },
     {
-      name: 'card-md-max',
-      value: '42rem',
-      comment: '',
+      name: 'nav',
+      value: '4rem',
+      comment: 'Nav/fix-h (md, lg)  64px',
+    },
+    {
+      name: 'nav-base',
+      value: '2.75rem',
+      comment: 'Nav/base/fix-h  44px',
+    },
+    {
+      name: 'icon-nav',
+      value: '1.5rem',
+      comment: 'Nav/Icons/fix-h  24px',
+    },
+    {
+      name: 'icon-btn',
+      value: '1.25rem',
+      comment: 'Icons/Buttons/fix-h  20px',
+    },
+    {
+      name: 'icon-btn-secondary',
+      value: '1.625rem',
+      comment: 'Icons/Buttons/Secondary/fix-h  26px',
+    },
+    {
+      name: 'icon-btn-lg',
+      value: '2.25rem',
+      comment: 'Icons/Buttons/LG/fix-h  36px',
+    },
+    {
+      name: 'icon-option-selection',
+      value: '1rem',
+      comment: 'Icons/OptionSelection/fix-h  16px',
+    },
+    {
+      name: 'icon-segment-flag',
+      value: '1.625rem',
+      comment: 'Icons/SegmentControl/Flag/fix-h  26px',
+    },
+    {
+      name: 'icon-radio',
+      value: '1.875rem',
+      comment: 'Icons/Radio/fix-h  30px',
+    },
+    {
+      name: 'icon-arrow',
+      value: '0.5rem',
+      comment: 'Icons/ArrowUpOrDown/fix-h  8px',
+    },
+    {
+      name: 'icon-sustainability-nav',
+      value: '0.75rem',
+      comment: 'Icons/SustainabilityNavigation/fix-h  12px',
+    },
+    {
+      name: 'icon-carousel-huge',
+      value: '1.5rem',
+      comment: 'Icons/CarouselNav/Huge/fix-h  24px',
+    },
+    {
+      name: 'icon-carousel-sm',
+      value: '1rem',
+      comment: 'Icons/CarouselNav/SM/fix-h  16px',
+    },
+    {
+      name: 'icon-reaction',
+      value: '0.875rem',
+      comment: 'Icons/ReactionCounter/fix-h  14px',
+    },
+    {
+      name: 'icon-review-star',
+      value: '0.875rem',
+      comment: 'Icons/ReviewStars/fix-h  14px',
+    },
+    {
+      name: 'card-default',
+      value: '18rem',
+      comment: 'Cards/ProductCard/DefaultSize/fix-h  288px',
+    },
+    {
+      name: 'card-default-title',
+      value: '2rem',
+      comment: 'Cards/ProductCard/DefaultSize/Title/fix-h  32px',
+    },
+    {
+      name: 'card-compact',
+      value: '16rem',
+      comment: 'Cards/ProductCard/CompactSize/fix-h  256px',
+    },
+    {
+      name: 'card-category-sm',
+      value: '15rem',
+      comment: 'Cards/CategoryCard/SM/fix-h  240px',
+    },
+    {
+      name: 'card-category-md',
+      value: '15.5rem',
+      comment: 'Cards/CategoryCard/MD/fix-h  248px',
+    },
+    {
+      name: 'card-featured-min',
+      value: '18rem',
+      comment: 'Cards/FeaturedCard/min-h  288px',
+    },
+    {
+      name: 'card-featured-max',
+      value: '31.5rem',
+      comment: 'Cards/FeaturedCard/max-h  504px',
+    },
+    {
+      name: 'card-featured-img',
+      value: '10.25rem',
+      comment: 'Cards/FeaturedCard/Img/fix-h  164px',
+    },
+    {
+      name: 'card-discovery',
+      value: '22.5rem',
+      comment: 'Cards/DiscoveryCard/fix-h  360px',
+    },
+    {
+      name: 'card-discovery-hover-img',
+      value: '12rem',
+      comment: 'Cards/DiscoveryCard/Hover/Img/fix-h  192px',
+    },
+    {
+      name: 'card-blog',
+      value: '21.5rem',
+      comment: 'Cards/BlogCard/fix-h  344px',
+    },
+    {
+      name: 'card-review-img',
+      value: '6.25rem',
+      comment: 'Cards/ReviewCard/Img/fix-h  100px',
+    },
+    {
+      name: 'card-review-img-tall',
+      value: '8.75rem',
+      comment: 'Cards/ReviewCard/Img/tall-fix-h  140px',
+    },
+    {
+      name: 'card-voucher',
+      value: '9rem',
+      comment: 'Cards/VoucherCard/fix-h  144px',
+    },
+    {
+      name: 'card-promotion',
+      value: '23.75rem',
+      comment: 'Cards/PromotionPostCard/fix-h  380px',
+    },
+    {
+      name: 'megacard-min',
+      value: '40rem',
+      comment: 'Cards/MegaCard/min-h  640px',
     },
   ],
   textStyles: [
@@ -2831,7 +3317,7 @@ export const FOUNDATIONS = {
       figma: 'H1',
       props: {
         'font-family': 'var(--font-display)',
-        'font-size': 'var(--text-48)',
+        'font-size': 'var(--text-30)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -2855,7 +3341,19 @@ export const FOUNDATIONS = {
       figma: 'H2',
       props: {
         'font-family': 'var(--font-display)',
-        'font-size': 'var(--text-24)',
+        'font-size': 'var(--text-22)',
+        'font-weight': '400',
+        'line-height': 'var(--leading-heading)',
+        'letter-spacing': 'var(--tracking-tight)',
+        'text-transform': 'uppercase',
+      },
+    },
+    {
+      utility: 'type-h2-produktkategorie',
+      figma: 'H2 Produktkategorie',
+      props: {
+        'font-family': 'var(--font-display)',
+        'font-size': 'var(--text-30)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -2867,7 +3365,7 @@ export const FOUNDATIONS = {
       figma: 'H2 Alternative',
       props: {
         'font-family': 'var(--font-accent-one)',
-        'font-size': 'var(--text-22)',
+        'font-size': 'var(--text-20)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -2902,7 +3400,7 @@ export const FOUNDATIONS = {
       figma: 'Navigation/FullScreen/MainCategory',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '800',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -2914,7 +3412,7 @@ export const FOUNDATIONS = {
       figma: 'Navigation/FullScreen/SubCategory',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '600',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -2937,7 +3435,7 @@ export const FOUNDATIONS = {
       figma: 'Navigation/SideNavigation/SubCategory',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-12)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -2973,7 +3471,7 @@ export const FOUNDATIONS = {
       figma: 'Buttons/MD',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-24)',
+        'font-size': 'var(--text-22)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -2997,7 +3495,7 @@ export const FOUNDATIONS = {
       figma: 'Cards/ProductTitle',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-12)',
         'font-weight': '700',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3078,7 +3576,7 @@ export const FOUNDATIONS = {
       figma: 'Table/<th>',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-18)',
+        'font-size': 'var(--text-14)',
         'font-weight': '600',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3089,7 +3587,7 @@ export const FOUNDATIONS = {
       figma: 'Table/Cell',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-20)',
+        'font-size': 'var(--text-16)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3100,7 +3598,7 @@ export const FOUNDATIONS = {
       figma: 'ProductPage/ProductTitle',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-24)',
+        'font-size': 'var(--text-20)',
         'font-weight': '800',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3111,8 +3609,8 @@ export const FOUNDATIONS = {
       figma: 'ProductPage/Hightlighted',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
-        'font-weight': '800',
+        'font-size': 'var(--text-10)',
+        'font-weight': '700',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
       },
@@ -3122,7 +3620,7 @@ export const FOUNDATIONS = {
       figma: 'ProductPage/Dropdown/Summary',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-18)',
+        'font-size': 'var(--text-14)',
         'font-weight': '700',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3178,7 +3676,7 @@ export const FOUNDATIONS = {
       figma: 'ShoppingCart & Checkout/Headline',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-13)',
         'font-weight': '700',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3244,7 +3742,7 @@ export const FOUNDATIONS = {
       figma: 'Input/InputText',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-18)',
+        'font-size': 'var(--text-14)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3266,7 +3764,7 @@ export const FOUNDATIONS = {
       figma: 'Label/default',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-12)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3278,7 +3776,7 @@ export const FOUNDATIONS = {
       figma: 'Comment/BodyText',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-11)',
         'font-weight': '400',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3311,7 +3809,7 @@ export const FOUNDATIONS = {
       figma: 'UserMessage/LG',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3356,7 +3854,7 @@ export const FOUNDATIONS = {
       figma: 'H2 Subtitle',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-20)',
+        'font-size': 'var(--text-18)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3368,7 +3866,7 @@ export const FOUNDATIONS = {
       figma: 'H3',
       props: {
         'font-family': 'var(--font-accent-one)',
-        'font-size': 'var(--text-20)',
+        'font-size': 'var(--text-16)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3380,7 +3878,7 @@ export const FOUNDATIONS = {
       figma: 'H3 Subtitle',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '400',
         'line-height': 'var(--leading-heading)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3392,7 +3890,7 @@ export const FOUNDATIONS = {
       figma: 'DefaultText LG',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '300',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3404,7 +3902,7 @@ export const FOUNDATIONS = {
       figma: 'DefaultText MD',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-12)',
         'font-weight': '400',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3416,7 +3914,7 @@ export const FOUNDATIONS = {
       figma: 'DefaultText S',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-12)',
+        'font-size': 'var(--text-11)',
         'font-weight': '300',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3427,7 +3925,7 @@ export const FOUNDATIONS = {
       figma: 'BulletPoints',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-12)',
         'font-weight': '400',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3438,7 +3936,7 @@ export const FOUNDATIONS = {
       figma: 'Comment',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-12)',
+        'font-size': 'var(--text-10)',
         'font-weight': '300',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3449,7 +3947,7 @@ export const FOUNDATIONS = {
       figma: 'Link',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-14)',
         'font-weight': '600',
         'line-height': 'var(--leading-body)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3461,7 +3959,7 @@ export const FOUNDATIONS = {
       figma: 'Buttons/X-SM',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-18)',
+        'font-size': 'var(--text-16)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3498,7 +3996,7 @@ export const FOUNDATIONS = {
       figma: 'Buttons/Quantity&Packaging',
       props: {
         'font-family': 'var(--font-body)',
-        'font-size': 'var(--text-14)',
+        'font-size': 'var(--text-11)',
         'font-weight': '600',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-normal)',
@@ -3521,7 +4019,7 @@ export const FOUNDATIONS = {
       figma: 'Label/Selected',
       props: {
         'font-family': 'var(--font-accent-two)',
-        'font-size': 'var(--text-16)',
+        'font-size': 'var(--text-13)',
         'font-weight': '400',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-tight)',
@@ -3541,18 +4039,6 @@ export const FOUNDATIONS = {
       },
     },
     {
-      utility: 'type-h2-produktkategorie',
-      figma: 'H2 Produktkategorie',
-      props: {
-        'font-family': 'var(--font-display)',
-        'font-size': 'var(--text-40)',
-        'font-weight': '400',
-        'line-height': 'var(--leading-heading)',
-        'letter-spacing': 'var(--tracking-tight)',
-        'text-transform': 'uppercase',
-      },
-    },
-    {
       utility: 'type-navigation-endpoint',
       figma: 'Navigation/Endpoint',
       props: {
@@ -3561,6 +4047,17 @@ export const FOUNDATIONS = {
         'font-weight': '500',
         'line-height': 'var(--leading-tight)',
         'letter-spacing': 'var(--tracking-wide)',
+      },
+    },
+    {
+      utility: 'type-input-textarea-text',
+      figma: 'Input/TextareaText',
+      props: {
+        'font-family': 'var(--font-body)',
+        'font-size': 'var(--text-18)',
+        'font-weight': '400',
+        'line-height': 'var(--leading-body)',
+        'letter-spacing': 'var(--tracking-normal)',
       },
     },
   ],

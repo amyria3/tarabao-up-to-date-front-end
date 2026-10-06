@@ -25,7 +25,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
       type={type}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group relative inline-flex h-btn-xxxx-sm cursor-pointer items-center gap-xxs pr-sm pl-xxxs text-content-text',
+        // Figma: Wurzel Hug, 20 px hoch (nicht an Btns/XXXX-SM/fix-h gebunden).
+        'group relative inline-flex h-5 cursor-pointer items-center gap-xxs pr-sm pl-xxxs text-content-text',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         className,
       )}

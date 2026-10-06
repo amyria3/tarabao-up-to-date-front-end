@@ -3,7 +3,6 @@ import { DisclosureToggle } from '@/components/ui/disclosure-toggle'
 import { Counter } from '@/components/ui/counter'
 import { IconButton } from '@/components/ui/icon-button'
 import { OptionSelectionButton } from '@/components/ui/option-selection-button'
-import { PaymentButton } from '@modules/checkout/components/payment-button'
 import { PlusMinus } from '@/components/ui/plus-minus'
 import { ReactionCounter } from '@/components/ui/reaction-counter'
 import { SegmentControlButton } from '@/components/ui/segment-control-button'
@@ -13,9 +12,8 @@ import {
   BUTTON_FAMILIES,
   BUTTON_FIGMA_NAMES,
   Button,
+  buttonFamilyProps,
   type ButtonFamily,
-  type ButtonIntent,
-  type ButtonSize,
 } from '@/components/ui/button'
 import { ButtonShape, type ButtonShapeKind } from '@/components/ui/button-shape'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -28,11 +26,14 @@ import type { LibraryEntry } from '@/library/types'
 
 const NODE_IDS: Record<ButtonFamily, string> = {
   'primary-lg': '509:1251',
+  'primary-lg-plain': '509:1251',
   'inline-lg': '2342:2047',
   'primary-md': '2310:2156',
   'secondary-md': '2342:2052',
+  'primary-md-oval': '10197:52492',
+  'secondary-md-oval': '10197:54714',
+  'card-md': '10131:52168',
   'primary-sm': '2342:2053',
-  'secondary-sm': '6799:19379',
   'inline-sm': '2359:3245',
   'card-sm': '7932:33160',
   'primary-xxs': '2328:2172',
@@ -42,64 +43,73 @@ const NODE_IDS: Record<ButtonFamily, string> = {
 }
 
 /** Familien mit Achse „Hug content?“ (SM) bzw. „Hug?“ (XXS Primary) in Figma, siehe 2.4. */
-const WITH_HUG = new Set<ButtonFamily>(['primary-sm', 'secondary-sm'])
+const WITH_HUG = new Set<ButtonFamily>(['primary-sm', 'primary-md-oval', 'secondary-md-oval'])
 
 /** Familien mit Variante „Inactive?=True“ in Figma. */
-const WITH_INACTIVE = new Set<ButtonFamily>(['primary-md', 'secondary-md', 'secondary-sm', 'primary-xxs'])
+const WITH_INACTIVE = new Set<ButtonFamily>([
+  'primary-lg-plain',
+  'primary-md',
+  'secondary-md',
+  'secondary-md-oval',
+  'primary-xxs',
+])
 
 /** Familien mit „Show Icon?“ und Icon der Figma-Standardinstanz. */
 const ICONS: Partial<Record<ButtonFamily, { Icon: typeof IconCartEmpty; className: string }>> = {
   'primary-md': { Icon: IconDelivery, className: 'size-6' },
   'secondary-md': { Icon: IconCartEmpty, className: 'size-[1.5625rem]' },
-  'primary-sm': { Icon: IconCartEmpty, className: 'size-5' },
-  'secondary-sm': { Icon: IconCartEmpty, className: 'size-[1.5625rem]' },
+  'primary-lg-plain': { Icon: IconCartEmpty, className: 'h-btn-lg-icon w-auto' },
+  'primary-md-oval': { Icon: IconCartEmpty, className: 'h-btn-md-icon w-auto' },
+  'secondary-md-oval': { Icon: IconCartEmpty, className: 'h-btn-md-icon w-auto' },
+  'card-md': { Icon: IconCartEmpty, className: 'h-icon-btn w-auto' },
+  'primary-sm': { Icon: IconCartEmpty, className: 'h-btn-sm-icon w-auto' },
   'inline-sm': { Icon: IconCartEmpty, className: 'size-5' },
-  'card-sm': { Icon: IconCartEmpty, className: 'size-5' },
+  'card-sm': { Icon: IconCartEmpty, className: 'h-btn-sm-icon w-auto' },
 }
 
 const LABEL: Partial<Record<ButtonFamily, string>> = {
   'card-sm': 'Call to action',
+  'card-md': 'Call to action',
 }
 
 function split(family: ButtonFamily) {
-  const [intent, size] = family.split('-') as [ButtonIntent, ButtonSize]
-  return { intent, size }
+  return buttonFamilyProps(family)
 }
 
 function FamilySpecimens({ family }: { family: ButtonFamily }) {
-  const { intent, size } = split(family)
+  const { intent, size, megaCard } = split(family)
   const label = LABEL[family] ?? 'In den Warenkorb'
   const iconDef = ICONS[family]
   const icon = iconDef ? <iconDef.Icon aria-hidden className={iconDef.className} /> : undefined
   return (
     <>
       <Specimen label="Default">
-        <Button intent={intent} size={size} icon={icon}>
+        <Button intent={intent} size={size} megaCard={megaCard} icon={icon}>
           {label}
         </Button>
       </Specimen>
       <Specimen label="Hover">
-        <Button intent={intent} size={size} icon={icon} forceHover>
+        <Button intent={intent} size={size} megaCard={megaCard} icon={icon} forceHover>
           {label}
         </Button>
       </Specimen>
       {WITH_INACTIVE.has(family) ? (
         <Specimen label="Inaktiv">
-          <Button intent={intent} size={size} icon={icon} disabled>
+          <Button intent={intent} size={size} megaCard={megaCard} icon={icon} disabled>
             {label}
           </Button>
         </Specimen>
       ) : null}
       {WITH_HUG.has(family) ? (
         <Specimen label="Hug content?=True">
-          <Button intent={intent} size={size} width="hug">
+          <Button intent={intent} size={size} megaCard={megaCard} width="hug">
             Kündigung zurücknehmen
           </Button>
         </Specimen>
       ) : null}
       {iconDef ? (
         <Specimen label="Ohne Icon">
-          <Button intent={intent} size={size}>
+          <Button intent={intent} size={size} megaCard={megaCard}>
             {label}
           </Button>
         </Specimen>
@@ -109,13 +119,13 @@ function FamilySpecimens({ family }: { family: ButtonFamily }) {
 }
 
 const familyEntries: LibraryEntry[] = BUTTON_FAMILIES.map((family) => {
-  const { intent, size } = split(family)
-  const isLg = size === 'lg'
+  const { intent, size, megaCard } = split(family)
+  const isLg = family === 'primary-lg' || family === 'inline-lg'
   return {
-    id: `buttons-${size}-${intent}`,
+    id: `buttons-${size}-${intent}${megaCard === false ? '-plain' : ''}`,
     figma: BUTTON_FIGMA_NAMES[family],
     nodeId: NODE_IDS[family],
-    code: `<Button intent="${intent}" size="${size}" />`,
+    code: `<Button intent="${intent}" size="${size}"${megaCard === false ? ' megaCard={false}' : ''} />`,
     note: isLg
       ? 'LG-Buttons nutzen die Tokens aus „Clrs / Mega Cards“ und folgen deshalb data-lively-theme (je Kampagne).'
       : undefined,
@@ -278,27 +288,6 @@ export const buttonEntries: LibraryEntry[] = [
             <Specimen label="theme={null} (erbt den Modus)">
               <Checkbox aria-label="Nicht gewählt" theme={null} />
               <Checkbox aria-label="Gewählt" theme={null} defaultChecked />
-            </Specimen>
-          </>
-        )}
-      </ThemeMatrix>
-    ),
-  },
-  {
-    id: 'buttons-payment',
-    figma: 'Buttons / Payment',
-    nodeId: '3230:22134',
-    code: '<PaymentButton />',
-    note: 'Optional logo-Prop für ein Zahlungsart-Logo hinter dem Label (in Figma nicht belegt).',
-    render: () => (
-      <ThemeMatrix>
-        {() => (
-          <>
-            <Specimen label="Default">
-              <PaymentButton />
-            </Specimen>
-            <Specimen label="Hover">
-              <PaymentButton forceHover />
             </Specimen>
           </>
         )}

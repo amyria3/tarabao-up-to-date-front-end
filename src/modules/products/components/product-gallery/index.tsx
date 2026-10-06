@@ -10,16 +10,20 @@ import { cn } from '@/lib/utils'
 export interface ProductGalleryProps {
   images: ImageModel[]
   title: string
+  /** Schnellbutton unten links auf dem Hauptbild (Components / AddToBasket / Mobile), siehe Sections / ProductHeader */
+  addToCart?: React.ReactNode
   className?: string
 }
 
 /**
  * Figma: Visuals / Product / Image (2531:2860) · Variant=Default, in Sections / ProductHeader.
- * Spalte gap-3, min-w-card-min, max-w-block-max: Hauptbild h-87.5 mit Buttons / CarouselNav · SM
- * (zurück, weiter) unten rechts, darunter Vorschaubilder 128 × 128 (gap-sm). Bilder sind
- * Platzhalterflächen (surface-placeholder), bis Medusa echte Bilder liefert.
+ * Spalte gap 12, 240–504 px breit (Product Page/Img/min-w, max-w): in base und md der Produkttitel
+ * (ProductPage/ProductTitle, Figma visible-md-down; ab lg steht er in der BuyBox), das quadratische
+ * Hauptbild mit Buttons / CarouselNav · SM (zurück, weiter) unten rechts und dem Schnellbutton
+ * `addToCart` unten links, darunter Vorschaubilder 128 × 128 (gap-sm). Bilder sind Platzhalterflächen
+ * (surface-placeholder), bis Medusa echte Bilder liefert.
  */
-export function ProductGallery({ images, title, className }: ProductGalleryProps) {
+export function ProductGallery({ images, title, addToCart, className }: ProductGalleryProps) {
   const [index, setIndex] = React.useState(0)
   const count = images.length
   const go = (step: number) => setIndex((i) => (i + step + count) % count)
@@ -29,10 +33,14 @@ export function ProductGallery({ images, title, className }: ProductGalleryProps
       role="group"
       aria-roledescription="Bildergalerie"
       aria-label={title}
-      className={cn('flex w-full min-w-card-min max-w-block-max flex-col gap-3', className)}
+      className={cn('flex w-full min-w-product-img-min max-w-product-img-max flex-col gap-md-sm', className)}
     >
-      <div className="relative h-87.5 w-full">
-        <ProductImage image={images[index]} sizes="(min-width: 64rem) 32rem, 100vw" priority />
+      <p aria-hidden className="w-full type-product-page-product-title lg:hidden">
+        {title}
+      </p>
+      <div className="relative aspect-square w-full">
+        <ProductImage image={images[index]} sizes="(min-width: 64rem) 31.5rem, 100vw" priority />
+        {addToCart ? <div className="absolute bottom-2.5 left-2.5 flex">{addToCart}</div> : null}
         {count > 1 ? (
           <div className="absolute right-2.5 bottom-2.5 flex items-end gap-2">
             <CarouselNav size="sm" direction="left" aria-label="Vorheriges Bild" onClick={() => go(-1)} />

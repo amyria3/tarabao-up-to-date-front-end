@@ -212,7 +212,7 @@ export function Nutmixer({
         )}
         <div className="flex w-full flex-col gap-sm pt-md-sm">
           <DefaultParagraph size="md">Der Preis wird erst angezeigt, wenn die Tüte voll ist. :)</DefaultParagraph>
-          <Button intent="primary" size="sm" className="w-full" disabled={!full} onClick={() => onOrder?.(mix)}>
+          <Button intent="primary" size="md-oval" className="w-full" disabled={!full} onClick={() => onOrder?.(mix)}>
             Nussmix bestellen
           </Button>
         </div>

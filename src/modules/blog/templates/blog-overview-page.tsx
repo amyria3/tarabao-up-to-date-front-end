@@ -13,9 +13,9 @@ export function BlogOverviewPage({ posts }: { posts: TeaserModel[] }) {
     <>
       <Section aria-label="Unser Blog">
         <HeadlineH1>Unser Blog</HeadlineH1>
-        <CardsOrder variant="tiles" className="gap-md">
+        <CardsOrder variant="tiles" className="items-stretch gap-md">
           {posts.map((p) => (
-            <li key={p.id}>
+            <li key={p.id} className="flex">
               <FeaturedCard teaser={p} variant="blog-post" />
             </li>
           ))}

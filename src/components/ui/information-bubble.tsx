@@ -44,12 +44,14 @@ export function InformationBubble({
       <ButtonShape shape="very-oval" className="text-surface-highlighted" />
       <span
         className={cn(
-          'relative flex w-full items-center gap-[0.625rem] overflow-clip p-md-sm text-content-text',
+          'relative flex w-full items-center gap-[0.625rem] p-md-sm text-content-text',
           badge && 'justify-center',
         )}
       >
         {icon ? <IconCheck30 aria-hidden className="size-5 shrink-0" /> : null}
-        <span className={cn('type-label-default', !hug && 'flex-1', badge && 'whitespace-nowrap')}>{children}</span>
+        <span className={cn('type-label-default', !hug && 'flex-1 text-center', badge && 'whitespace-nowrap')}>
+          {children}
+        </span>
       </span>
     </Comp>
   )

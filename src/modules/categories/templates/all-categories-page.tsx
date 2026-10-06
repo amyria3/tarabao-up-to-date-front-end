@@ -24,7 +24,8 @@ export function AllCategoriesPage({
         <HeadlineH1>{title}</HeadlineH1>
         <CardsOrder variant="tiles" className="gap-md">
           {categories.map((c) => (
-            <li key={c.id} className="w-80">
+            // Figma: 16 Instanzen Fill, lg vier je Reihe, Breite zwischen min-w und max-w der Karte.
+            <li key={c.id} className="flex w-full min-w-card-category-md-min max-w-card-category-md-max flex-1">
               <CategoryCardMd category={c} actionLabel="Zur Kategorie" />
             </li>
           ))}
@@ -32,7 +33,7 @@ export function AllCategoriesPage({
         {subcategories.length ? (
           <CardsOrder variant="tiles" className="gap-md">
             {subcategories.map((c) => (
-              <li key={c.id} className="w-64">
+              <li key={c.id} className="w-card-category-sm-max">
                 <CategoryCardSm category={c} />
               </li>
             ))}

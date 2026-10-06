@@ -137,7 +137,7 @@ export function MegaCard({ card, variant = 'orange-black', headingLevel: Heading
       data-variant={variant}
       data-lively-theme={lively}
       className={cn(
-        'relative flex min-h-160 w-full min-w-megacard-min max-w-128 flex-col items-center bg-megacard-section-bg p-md-l lg:max-w-none',
+        'relative flex min-h-megacard w-full min-w-megacard-min max-w-128 flex-col items-center bg-megacard-section-bg p-md-l lg:max-w-none',
         l.root,
         className,
       )}

@@ -14,7 +14,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: Cards / ProductCard / DefaultSize (2356:2667). CompactSize (8555:27280) via `size="compact"`. Product data fills the card; Hover?=True shows Buttons / SM / Button-Card, which puts the product into the cart once. Product=Placeholder is a card without product and without interaction. Images are placeholder surfaces (surface-placeholder).',
+          'Figma: Cards / ProductCard / DefaultSize (2356:2667). CompactSize (8555:27280) via `size="compact"`. Product data fills the card; Hover?=True shows Buttons / MD / Button-Card, which puts the product into the cart once. Product=Placeholder is a card without product and without interaction. Images are placeholder surfaces (surface-placeholder).',
       },
     },
   },

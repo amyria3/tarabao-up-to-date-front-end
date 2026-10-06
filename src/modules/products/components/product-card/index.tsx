@@ -13,6 +13,15 @@ import { CARD_THEME } from '@/components/ui/card-chrome'
 
 export type ProductCardSize = 'default' | 'compact'
 
+/** Figma: Wurzel mit Breiten, Höhe und Bildrand je Größe (Cards/ProductCard/DefaultSize|CompactSize/…). */
+const DEFAULT_ROOT =
+  'h-card-default min-w-card-default-min max-w-card-default-max gap-card-default-frame px-card-default-frame pt-card-default-frame'
+const COMPACT_ROOT =
+  'h-card-compact min-w-card-compact-min max-w-card-compact-max gap-card-compact-frame p-card-compact-frame'
+/** Figma flex-col im Ruhezustand: DefaultSize gap 12 · unten 8, CompactSize unten bündig, gap und oben/unten 8. */
+const DEFAULT_INFO = 'gap-card-default-content-gap pb-card-default-content'
+const COMPACT_INFO = 'justify-end gap-card-compact-content py-card-compact-content'
+
 export interface ProductCardProps {
   product: ProductCardModel
   /** Figma: DefaultSize (2356:2667) oder CompactSize (8555:27280) */
@@ -40,9 +49,10 @@ export interface ProductCardProps {
  * Context (Shop, Nutmixer) und Hover?. Im Code liefern die Produktdaten die Inhalte; Placeholder ist
  * eine Karte ohne Produkt und ohne Interaktion. „Rein in den Korb“ (CompactSize) bzw. „In den Warenkorb“
  * legt die Sorte der Karte einmalig in den Warenkorb (Produkt-ID an den Warenkorb).
- * Karte mit Rahmen card-btn-hover-click, Schatten „Cards default“, Bild mit
- * 8-px-Rand in card-surface. Beim Hover wird die Fläche card-surface-hover,
- * der Infobereich schrumpft (88 → 60) und zeigt Buttons / SM / Button-Card.
+ * Karte mit Rahmen card-btn-hover-click und Schatten „Cards default“. Der Bildrand ist das Padding der
+ * Karte (Cards/ProductCard/…/frame, DefaultSize 6 px ohne Rand unten, CompactSize 8 px rundum) und hat
+ * damit immer die Farbe der Karte. Beim Hover wird die Fläche card-surface-hover, der Infobereich
+ * schrumpft auf Buttons / MD / Button-Card, und das Bild wächst nach (Smart Animate).
  * Titel und Bild verlinken auf das Produkt; die Warenkorb-Aktion ist ein
  * eigener Button (Tastatur: nach dem Titel erreichbar, blendet sich bei Fokus ein).
  */
@@ -67,21 +77,28 @@ export function ProductCard({
         data-product="placeholder"
         aria-hidden
         className={cn(
-          'relative flex w-full min-w-card-min max-w-card-max flex-col border border-card-btn-hover-click bg-card-surface shadow-card',
-          compact ? 'h-64' : 'h-96',
+          'relative flex w-full flex-col border border-card-btn-hover-click bg-card-surface shadow-card',
+          compact ? COMPACT_ROOT : DEFAULT_ROOT,
           className,
         )}
       >
-        <div className="min-h-zero flex-1 border-8 border-card-surface">
+        <div className="min-h-zero w-full flex-1">
           <ProductImage image={undefined} />
         </div>
         <div
           className={cn(
-            'flex w-full flex-col items-center px-sm text-center text-card-content-text',
-            compact ? 'h-[5.5rem] justify-end gap-sm pb-[0.875rem]' : 'h-[5.5rem] gap-md pb-md-l',
+            'flex w-full flex-col items-center text-center text-card-content-text',
+            compact ? COMPACT_INFO : DEFAULT_INFO,
           )}
         >
-          <p className="flex h-10 w-full items-end justify-center type-cards-product-title">Produktname</p>
+          <p
+            className={cn(
+              'flex w-full items-end justify-center type-cards-product-title',
+              !compact && 'h-card-default-title',
+            )}
+          >
+            Produktname
+          </p>
           <p className="flex flex-wrap items-center justify-center gap-x-md-sm">
             <span className="type-cards-md">ab 0,00 €</span>
             <span className="type-cards-light">(ab 0,00 €/kg)</span>
@@ -98,39 +115,34 @@ export function ProductCard({
       data-product={context === 'nutmixer' ? 'lose-ware' : 'doypack'}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card relative flex w-full min-w-card-min max-w-card-max flex-col border border-card-btn-hover-click bg-card-surface shadow-card hover:shadow-card-hover data-hovered:shadow-card-hover motion-hover',
+        'group/card relative flex w-full flex-col border border-card-btn-hover-click bg-card-surface shadow-card hover:shadow-card-hover data-hovered:shadow-card-hover motion-hover',
         'hover:bg-card-surface-hover data-hovered:bg-card-surface-hover',
-        compact ? 'h-64' : 'h-96',
+        compact ? COMPACT_ROOT : DEFAULT_ROOT,
         className,
       )}
     >
-      <Link
-        href={product.href}
-        tabIndex={-1}
-        aria-hidden
-        className={cn(
-          'min-h-zero flex-1 border-8 border-card-surface',
-          'group-hover/card:border-card-surface-hover group-data-hovered/card:border-card-surface-hover',
-        )}
-      >
-        <ProductImage image={product.image} sizes="(min-width: 64rem) 24rem, 50vw" />
+      <Link href={product.href} tabIndex={-1} aria-hidden className="min-h-zero w-full flex-1">
+        <ProductImage image={product.image} sizes="(min-width: 64rem) 18rem, 50vw" />
       </Link>
       <div
         className={cn(
-          // Infobereich schrumpft beim Hover (88 → 60 bzw. 48), Text und Button blenden über (motion-hover).
+          // Figma: Infobereich HUG. Die Höhen stehen hier fest, damit der Wechsel animiert (motion-hover):
+          // DefaultSize 4.625rem (Titel 2rem + Abstand 0.75rem + Preis 1.375rem + unten 0.5rem), beim Hover
+          // 2.875rem (Button 2.5rem + unten 0.375rem); CompactSize 3.75rem, beim Hover 2.5rem (nur der Button).
           'relative w-full overflow-hidden motion-hover',
-          compact ? 'h-[5.5rem]' : 'h-[5.5rem] group-hover/card:h-[3.75rem] group-data-hovered/card:h-[3.75rem]',
-          compact && 'group-hover/card:h-12 group-data-hovered/card:h-12',
+          compact
+            ? 'h-[3.75rem] group-hover/card:h-10 group-data-hovered/card:h-10 group-has-[[data-slot=card-action]:focus-within]/card:h-10'
+            : 'h-[4.625rem] group-hover/card:h-[2.875rem] group-data-hovered/card:h-[2.875rem] group-has-[[data-slot=card-action]:focus-within]/card:h-[2.875rem]',
         )}
       >
         <div
           className={cn(
-            'flex h-full w-full flex-col items-center px-sm text-center text-card-content-text motion-hover',
+            'flex h-full w-full flex-col items-center text-center text-card-content-text motion-hover',
             'group-hover/card:opacity-0 group-data-hovered/card:opacity-0 group-has-[[data-slot=card-action]:focus-within]/card:opacity-0',
-            compact ? 'justify-end gap-sm pb-[0.875rem]' : 'gap-md pb-md-l',
+            compact ? COMPACT_INFO : DEFAULT_INFO,
           )}
         >
-          <Heading className="flex h-10 w-full items-end justify-center">
+          <Heading className={cn('flex w-full items-end justify-center', !compact && 'h-card-default-title')}>
             <Link
               href={product.href}
               className="line-clamp-2 type-cards-product-title focus-visible:outline-2 focus-visible:outline-btn-primary-bg"
@@ -148,16 +160,15 @@ export function ProductCard({
           className={cn(
             'absolute inset-0 flex items-end justify-center bg-card-surface-hover opacity-0 motion-hover',
             'group-hover/card:opacity-100 group-data-hovered/card:opacity-100 focus-within:opacity-100',
-            // Figma flex-col: CompactSize 2/8/2/8 (gap-sm links und rechts wie der Bildrand), DefaultSize pb 6.
-            compact ? 'px-sm py-xxxs' : 'pb-xs',
+            // Figma flex-col beim Hover: DefaultSize unten 6 px (frame), CompactSize ohne Abstand (unten wirkt der Rand der Karte).
+            !compact && 'pb-card-default-frame',
           )}
         >
           <Button
             intent="card"
-            size="sm"
-            // Die Karte begrenzt die Breite (card-min = btn-min): ohne min-w-zero ragt der Button über den Innenabstand.
-            className="min-w-zero"
-            icon={<IconCartEmpty aria-hidden className="size-5" />}
+            size="md"
+            // Figma Context=Nutmixer: „Rein in den Mix!“ ohne Icon (Show Icon?=False).
+            icon={context === 'shop' ? <IconCartEmpty aria-hidden className="h-icon-btn w-auto" /> : undefined}
             onClick={() => onAddToCart?.(product.id)}
             aria-label={`${label}: ${product.title}`}
           >
@@ -171,11 +182,11 @@ export function ProductCard({
 
 /**
  * Figma: Cards / ProductCardWithReviews (8308:32238).
- * Spalte pt-md-sm gap-md-l: ReviewStars (zentriert) über der ProductCard.
+ * Spalte pt 12 · gap 20 (Cards/ProductCardWithReviews/frame-top, gap): ReviewStars (zentriert) über der ProductCard.
  */
 export function ProductCardWithReviews({ product, ...props }: ProductCardProps) {
   return (
-    <div className="flex w-full min-w-card-min max-w-card-max flex-col gap-md-l pt-md-sm">
+    <div className="flex w-full min-w-card-default-min max-w-card-default-max flex-col gap-card-with-reviews-gap pt-card-with-reviews-frame-top">
       <ReviewStars rating={product.rating ?? 5} align="center" label={product.reviewCountLabel} />
       <ProductCard product={product} {...props} />
     </div>

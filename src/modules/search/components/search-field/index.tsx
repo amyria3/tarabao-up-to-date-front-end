@@ -38,7 +38,7 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
       data-slot="search-field"
       data-filled={value ? '' : undefined}
       className={cn(
-        'flex h-14 w-full max-w-search-max items-center gap-md-sm bg-search-bg px-1.5 inset-shadow-search',
+        'flex h-input-search w-full max-w-search-max items-center gap-md-sm bg-search-bg px-1.5 inset-shadow-search',
         'hover:bg-search-bg-hover hover:shadow-search-hover',
         'focus-within:bg-search-bg-focused focus-within:shadow-filter-hover focus-within:inset-ring-6 focus-within:inset-ring-search-stroke-focused',
         // Figma kennt Eingabe nur zusammen mit Active?=True: befüllt bleibt die aktive Fläche stehen

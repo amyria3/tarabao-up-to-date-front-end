@@ -145,7 +145,7 @@ export function AccountDataBlock({
       {children}
       {emptyText ? <p className="w-full type-user-message-lg">{emptyText}</p> : null}
       {actionLabel ? (
-        <Button intent="secondary" size="sm" className="w-full" onClick={onAction}>
+        <Button intent="secondary" size="md-oval" className="w-full" onClick={onAction}>
           {actionLabel}
         </Button>
       ) : null}

@@ -36,11 +36,11 @@ export function PurchaseCard({
       )}
     >
       <p className={sent ? 'max-w-57 type-user-message-x-lg' : 'type-user-message-lg'}>{purchase.statusLabel}</p>
-      <ul className="flex w-full min-w-card-small-min max-w-panel-max flex-wrap gap-sm">
+      <ul className="flex w-full min-w-product-img-thumbnail-row-min max-w-panel-max flex-wrap gap-sm">
         {purchase.images.map((image, i) => (
           <li
             key={i}
-            className="h-[8.875rem] min-h-24 w-full min-w-block-inline-min max-w-card-img-max flex-1 border-4 border-surface"
+            className="h-[8.875rem] min-h-24 w-full min-w-block-inline-min max-w-product-img-thumbnail-max flex-1 bg-surface p-xxs"
           >
             <ProductImage image={image} sizes="13rem" />
           </li>
@@ -49,7 +49,7 @@ export function PurchaseCard({
       <div className="flex w-full flex-wrap items-end gap-sm px-xxs">
         <div className="w-64">{summary ?? <PurchaseSummary summary={purchase.summary} />}</div>
         <div className="flex flex-1 flex-col items-end gap-xxxs">
-          <Button intent="secondary" size="sm" width="hug">
+          <Button intent="secondary" size="md-oval" width="hug">
             {purchase.ctaLabel}
           </Button>
         </div>
