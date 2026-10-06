@@ -20,7 +20,9 @@ export interface ProductGalleryProps {
  * Spalte gap 12, 240–504 px breit (Product Page/Img/min-w, max-w): in base und md der Produkttitel
  * (ProductPage/ProductTitle, Figma visible-md-down; ab lg steht er in der BuyBox), das quadratische
  * Hauptbild mit Buttons / CarouselNav · SM (zurück, weiter) unten rechts und dem Schnellbutton
- * `addToCart` unten links, darunter Vorschaubilder 128 × 128 (gap-sm). Bilder sind Platzhalterflächen
+ * `addToCart` unten links, darunter Vorschaubilder 128 × 128 (gap-sm) ohne Schatten. Das Hauptbild
+ * trägt den Innenschatten „Img-inner-shadow strong“ (Rahmen RAHMEN 3175:5184). Figma zeichnet ihn über
+ * dem Bild, deshalb liegt er im Code auf einer Ebene darüber (`after:`). Bilder sind Platzhalterflächen
  * (surface-placeholder), bis Medusa echte Bilder liefert.
  */
 export function ProductGallery({ images, title, addToCart, className }: ProductGalleryProps) {
@@ -38,7 +40,7 @@ export function ProductGallery({ images, title, addToCart, className }: ProductG
       <p aria-hidden className="w-full type-product-page-product-title lg:hidden">
         {title}
       </p>
-      <div className="relative aspect-square w-full">
+      <div className="relative aspect-square w-full after:pointer-events-none after:absolute after:inset-0 after:inset-shadow-img-strong">
         <ProductImage image={images[index]} sizes="(min-width: 64rem) 31.5rem, 100vw" priority />
         {addToCart ? <div className="absolute bottom-2.5 left-2.5 flex">{addToCart}</div> : null}
         {count > 1 ? (
