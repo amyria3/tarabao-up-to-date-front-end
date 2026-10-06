@@ -91,6 +91,13 @@ const heights = declarations(blockAfter(':root', section('2d. COMPONENT HEIGHTS'
   comment: d.comment,
 }))
 
+// 4. Effektstile (Schatten), auch mehrzeilige Werte
+const shadows = [
+  ...blockAfter('\n@theme static {').body.matchAll(
+    /--((?:inset-)?shadow-[\w-]+)\s*:\s*([^;]+);\s*(?:\/\*\s*(.*?)\s*\*\/)?/g,
+  ),
+].map((m) => ({ name: m[1], value: m[2].replace(/\s+/g, ' ').trim(), comment: m[3] ?? '' }))
+
 // 6. Textstile
 const textStyles = []
 for (const m of css.matchAll(/@utility (type-[\w-]+)\s*\{\s*\/\*\s*(.+?)\s*\*\/([^}]*)\}/g)) {
@@ -119,6 +126,7 @@ const data = {
   spacing: pick('spacing-'),
   containers: pick('container-'),
   heights,
+  shadows,
   textStyles,
 }
 
@@ -131,5 +139,5 @@ writeFileSync(
 )
 console.log(
   `foundations: ${data.primitives.length} Primitives, ${data.colorUtilities.length} Farb-Utilities, ` +
-    `${data.textStyles.length} Textstile, ${data.spacing.length} Abstände, ${data.containers.length} Breiten, ${data.heights.length} Höhen`,
+    `${data.textStyles.length} Textstile, ${data.spacing.length} Abstände, ${data.containers.length} Breiten, ${data.heights.length} Höhen, ${data.shadows.length} Schatten`,
 )

@@ -3098,7 +3098,7 @@ export const FOUNDATIONS = {
     {
       name: 'btn-sm',
       value: '2rem',
-      comment: 'Btns/SM/fix-h, Btns/SM/button-fix-h  32px',
+      comment: 'Btns/SM/fix-h  32px',
     },
     {
       name: 'btn-x-sm',
@@ -3279,6 +3279,44 @@ export const FOUNDATIONS = {
       name: 'megacard-min',
       value: '40rem',
       comment: 'Cards/MegaCard/min-h  640px',
+    },
+  ],
+  shadows: [
+    {
+      name: 'shadow-card',
+      value: '0.0625rem 0.0625rem 0.3125rem 0 rgb(27 27 22 / 0.05)',
+      comment: 'Cards default',
+    },
+    {
+      name: 'shadow-card-hover',
+      value:
+        '0.175rem 0.2375rem 0.125rem 0.25rem rgb(58 56 66 / 0.08), -0.0625rem -0.0625rem 0.125rem 0.625rem rgb(58 56 66 / 0.05)',
+      comment: 'Cards on-hover',
+    },
+    {
+      name: 'shadow-search-hover',
+      value: '0.09375rem 0.15625rem 0 0.0625rem rgb(54 53 63 / 0.12)',
+      comment: 'Search on-hover',
+    },
+    {
+      name: 'shadow-filter-hover',
+      value: '0.0625rem 0.125rem 0 0.0625rem rgb(54 53 63 / 0.1)',
+      comment: 'Filter-Chips on-hover',
+    },
+    {
+      name: 'shadow-carousel-img-hover',
+      value: '0.0625rem 0.0625rem 0.125rem 1rem rgb(58 56 66 / 0.25)',
+      comment: 'Carussel-imgs on-hover',
+    },
+    {
+      name: 'inset-shadow-img-strong',
+      value: 'inset 0 0 0.15625rem 0 rgb(58 56 66 / 0.35)',
+      comment: 'Img-inner-shadow strong',
+    },
+    {
+      name: 'inset-shadow-img-weak',
+      value: 'inset 0 0 0.05rem 0 rgb(58 56 66 / 0.5)',
+      comment: 'Img-inner-shadow weak',
     },
   ],
   textStyles: [

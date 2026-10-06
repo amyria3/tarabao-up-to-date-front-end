@@ -154,8 +154,8 @@ export interface AccountDataBlockProps {
 /**
  * Figma: Components / Account / DataBlock (3941:19858) · Dein Profil?, Deine Addressen?,
  * Deine Zahlungsmethoden?, Deine Wunschliste?. p-lg gap-md, surface-color, Rahmen
- * card-btn-hover-click; Titel Cards/Featured/Title, SummaryItems, Buttons / SM / SecondaryButton
- * über die volle Breite (z. B. „Abmelden“, „Ganze Liste zeigen“).
+ * card-btn-hover-click, Schatten „Cards default“; Titel Cards/Featured/Title, SummaryItems,
+ * Buttons / SM / SecondaryButton über die volle Breite (z. B. „Abmelden“, „Ganze Liste zeigen“).
  */
 export function AccountDataBlock({
   title,
@@ -170,7 +170,7 @@ export function AccountDataBlock({
       data-slot="account-data-block"
       aria-label={title}
       className={cn(
-        'flex w-full max-w-block-max flex-col gap-md border border-card-btn-hover-click bg-surface p-lg text-content-text',
+        'flex w-full max-w-block-max flex-col gap-md border border-card-btn-hover-click bg-surface p-lg text-content-text shadow-card',
         className,
       )}
     >

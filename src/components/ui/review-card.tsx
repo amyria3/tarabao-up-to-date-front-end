@@ -30,7 +30,7 @@ export function ReviewCard({
       data-slot="review-card"
       data-theme="purple-tint-surface-snow"
       className={cn(
-        'group/review relative flex w-full min-w-card-review-min max-w-card-review-max flex-col gap-card-review-frame border border-card-btn-hover-click bg-card-surface px-card-review-frame pt-card-review-frame-top text-card-content-text',
+        'group/review relative flex w-full min-w-card-review-min max-w-card-review-max flex-col gap-card-review-frame border border-card-btn-hover-click bg-card-surface shadow-card px-card-review-frame pt-card-review-frame-top text-card-content-text',
         className,
       )}
     >

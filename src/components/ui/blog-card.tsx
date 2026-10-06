@@ -25,8 +25,8 @@ export function BlogCard({
       data-variant={variant}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card flex h-card-blog w-full min-w-card-blog-min max-w-card-blog-max flex-col items-center justify-center gap-card-blog-gap border border-card-btn-hover-click bg-surface p-card-blog-frame shadow-card-blog motion-hover',
-        'hover:bg-card-surface-hover hover:shadow-card-blog-hover data-hovered:bg-card-surface-hover data-hovered:shadow-card-blog-hover focus-visible:outline-2 focus-visible:outline-btn-primary-bg',
+        'group/card flex h-card-blog w-full min-w-card-blog-min max-w-card-blog-max flex-col items-center justify-center gap-card-blog-gap border border-card-btn-hover-click bg-surface p-card-blog-frame shadow-card motion-hover',
+        'hover:bg-card-surface-hover hover:shadow-card-hover data-hovered:bg-card-surface-hover data-hovered:shadow-card-hover focus-visible:outline-2 focus-visible:outline-btn-primary-bg',
         className,
       )}
     >

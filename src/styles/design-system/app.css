@@ -55,6 +55,8 @@
  *  Box Spacing + Gaps                §4           --spacing-*         all padding/gap/margin
  *  Box Spacing › Cards/…             §4           --spacing-card-*    card frame, content and gaps
  *  Motion / Smart Animate            §4           --smart-animate-*   → @utility motion-hover, motion-long, §5
+ *  Effect Styles ("Code: …")        §4           --shadow-*          → shadow-*: cards, search, filter chips
+ *                                                 --inset-shadow-*    → inset-shadow-*: images
  *  Lyt scl / Width                   §4           --container-*       → w-/min-w-/max-w-
  *  Lyt scl / Width › min/max-w-content  §4 + §5   --content-min/-max  → @utility min-w-content, max-w-content
  *  Text Styles                       §6           (none)              → @utility type-*, one class per style
@@ -735,14 +737,14 @@
  *  2d. COMPONENT HEIGHTS — plain custom properties
  *      Tailwind v4 has NO height theme namespace, so these are kept
  *      as variables and exposed through @utility further down.
- *      "Lyt scl / Heights" (44 + 5 label sizes in §4)
+ *      "Lyt scl / Heights"
  * ================================================================ */
 
 :root {
   /* ---- Buttons ---- */
   --height-btn-lg: 2.75rem;                 /* Btns/L/fix-h  44px */
   --height-btn-md: 2.25rem;                 /* Btns/MD/fix-h  36px */
-  --height-btn-sm: 2rem;                    /* Btns/SM/fix-h, Btns/SM/button-fix-h  32px */
+  --height-btn-sm: 2rem;                    /* Btns/SM/fix-h  32px */
   --height-btn-x-sm: 1.5rem;                /* Btns/X-SM/fix-h  24px */
   --height-btn-xx-sm: 1.25rem;              /* Btns/XX-SM/fix-h  20px */
   --height-btn-xxxx-sm: 1rem;               /* Btns/XXXX-SM/fix-h  16px */
@@ -1030,6 +1032,20 @@
   --smart-animate-easing: cubic-bezier(0.42, 0, 0.58, 1); /* Ease in and out */
   --smart-animate-duration-short: 100ms;  /* Hover */
   --smart-animate-duration-long: 300ms;   /* Wechsel, Aufklappen */
+
+  /* ---- Schatten — Effektstile ----
+     --shadow-* erzeugt shadow-*, --inset-shadow-* erzeugt inset-shadow-*.
+     Name = „Code: …“ in der Beschreibung des Effektstils, Figma px → rem @ 16px base,
+     Schatten in der Reihenfolge der Figma-Effektliste. */
+  --shadow-card: 0.0625rem 0.0625rem 0.3125rem 0 rgb(27 27 22 / 0.05); /* Cards default */
+  --shadow-card-hover:
+    0.175rem 0.2375rem 0.125rem 0.25rem rgb(58 56 66 / 0.08),
+    -0.0625rem -0.0625rem 0.125rem 0.625rem rgb(58 56 66 / 0.05); /* Cards on-hover */
+  --shadow-search-hover: 0.09375rem 0.15625rem 0 0.0625rem rgb(54 53 63 / 0.12); /* Search on-hover */
+  --shadow-filter-hover: 0.0625rem 0.125rem 0 0.0625rem rgb(54 53 63 / 0.1); /* Filter-Chips on-hover */
+  --shadow-carousel-img-hover: 0.0625rem 0.0625rem 0.125rem 1rem rgb(58 56 66 / 0.25); /* Carussel-imgs on-hover */
+  --inset-shadow-img-strong: inset 0 0 0.15625rem 0 rgb(58 56 66 / 0.35); /* Img-inner-shadow strong */
+  --inset-shadow-img-weak: inset 0 0 0.05rem 0 rgb(58 56 66 / 0.5); /* Img-inner-shadow weak */
 
   /* ---- Line height — Leading scale (from Text Styles) ----
      Relative %, min = font height. Figma % / 100 -> unitless.

@@ -34,7 +34,7 @@ export function CategoryCardSm({
       {...CARD_THEME}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card flex h-card-category-sm w-full min-w-card-category-sm-min max-w-card-category-sm-max flex-col items-end justify-end gap-card-category-sm-content bg-card-surface px-card-category-sm-frame pt-card-category-sm-frame shadow-card',
+        'group/card flex h-card-category-sm w-full min-w-card-category-sm-min max-w-card-category-sm-max flex-col items-end justify-end gap-card-category-sm-content border border-card-btn-hover-click bg-card-surface px-card-category-sm-frame pt-card-category-sm-frame shadow-card',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         className,
       )}

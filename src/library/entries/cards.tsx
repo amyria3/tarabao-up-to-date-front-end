@@ -229,10 +229,10 @@ export const cardEntries: LibraryEntry[] = [
       <ThemeMatrix columns={2}>
         {() => (
           <>
-            <Specimen label="State=Default">
+            <Specimen label="Hover?=False">
               <DiscoveryCard teaser={DISCOVERY} />
             </Specimen>
-            <Specimen label="State=Hover">
+            <Specimen label="Hover?=True">
               <DiscoveryCard teaser={DISCOVERY} forceHover />
             </Specimen>
           </>
@@ -317,10 +317,10 @@ export const cardEntries: LibraryEntry[] = [
       <ThemeMatrix columns={2}>
         {() => (
           <>
-            <Specimen label="Default">
+            <Specimen label="Hover?=False">
               <ImageCard card={RECIPE_IMAGES[0]!} />
             </Specimen>
-            <Specimen label="Hover">
+            <Specimen label="Hover?=True">
               <ImageCard card={RECIPE_IMAGES[1]!} forceHover />
             </Specimen>
           </>

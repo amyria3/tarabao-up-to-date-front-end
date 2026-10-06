@@ -363,6 +363,24 @@ export const foundationEntries: LibraryEntry[] = [
     ),
   },
   {
+    id: 'foundations-effects',
+    figma:
+      'Effektstile (Cards default, Cards on-hover, Search on-hover, Filter-Chips on-hover, Carussel-imgs on-hover, Img-inner-shadow strong · weak)',
+    code: 'shadow-card, hover:shadow-card-hover, shadow-search-hover, shadow-filter-hover, inset-shadow-img-strong …',
+    note: 'Den Klassennamen nennt die Beschreibung des Effektstils in Figma („Code: …“).',
+    render: () => (
+      <ul className="flex flex-wrap gap-xl">
+        {FOUNDATIONS.shadows.map((s) => (
+          <li key={s.name} className="flex w-40 flex-col gap-sm type-default-text-s">
+            <span aria-hidden className="block h-20 w-full bg-card-surface" style={{ boxShadow: `var(--${s.name})` }} />
+            <code>{s.name}</code>
+            <span className="text-content-weak">{s.comment}</span>
+          </li>
+        ))}
+      </ul>
+    ),
+  },
+  {
     id: 'foundations-icons',
     figma: 'Icons',
     code: "import { IconCartEmpty } from '@/components/icons'",

@@ -116,21 +116,11 @@ html {
   }
 }
 
-/* Effekt-Stile aus Figma („Cards default“, „Cards on-hover“, „Search on-hover“, „Filter-Chips on-hover“,
-   „Img-inner-shadow strong“, BlogCard). app.tcss führt keine Schatten; siehe docs/ABWEICHUNGEN.md.
-   „Cards default“ seit 05.10. weicher: kein Spread, mehr Weichzeichnung, weniger Deckkraft.
-   „Cards on-hover“ bleibt. Die BlogCard nutzt dieselben Werte wie die übrigen Karten. */
+/* Die Effektstile aus Figma (shadow-card, shadow-card-hover, shadow-search-hover, shadow-filter-hover,
+   shadow-carousel-img-hover, inset-shadow-img-strong, inset-shadow-img-weak) kommen aus app.css.
+   Der Innenschatten des Suchfelds hat in Figma keinen Effektstil; siehe docs/ABWEICHUNGEN.md. */
 @theme {
-  --shadow-card: 0.0625rem 0.125rem 0.375rem 0 rgb(58 56 66 / 0.06);
-  --shadow-card-hover:
-    0.1875rem 0.1875rem 0.125rem 0.25rem rgb(58 56 66 / 0.14), 0.0625rem 0.0625rem 0.03125rem 0 rgb(58 56 66 / 0.1);
-  --shadow-card-blog: 0.0625rem 0.125rem 0.375rem 0 rgb(58 56 66 / 0.06);
-  --shadow-card-blog-hover:
-    0.1875rem 0.1875rem 0.125rem 0.25rem rgb(58 56 66 / 0.14), 0.0625rem 0.0625rem 0.03125rem 0 rgb(58 56 66 / 0.1);
-  --shadow-search-hover: 0.09375rem 0.15625rem 0 0.0625rem rgb(54 53 63 / 0.12);
-  --shadow-filter-hover: 0.0625rem 0.125rem 0 0.0625rem rgb(54 53 63 / 0.1);
   --inset-shadow-search: inset 0.0625rem 0.0625rem 0 0 rgb(58 56 66 / 0.1);
-  --inset-shadow-img-strong: inset 0 0 0.15625rem 0 rgb(58 56 66 / 0.35);
 }
 
 /* Textstil „Megacard/fließtext“ (Manrope 24/36, −2 %) stammt in Figma aus einer

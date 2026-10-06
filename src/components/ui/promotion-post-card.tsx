@@ -26,7 +26,7 @@ export function PromotionPostCard({
       data-slot="promotion-post-card"
       {...CARD_THEME}
       className={cn(
-        'flex h-card-promotion w-full min-w-card-promotion-min max-w-card-promotion-max flex-col gap-card-promotion-frame bg-card-surface px-card-promotion-frame pt-card-promotion-frame shadow-card text-card-content-text',
+        'flex h-card-promotion w-full min-w-card-promotion-min max-w-card-promotion-max flex-col gap-card-promotion-frame border border-card-btn-hover-click bg-card-surface px-card-promotion-frame pt-card-promotion-frame shadow-card text-card-content-text',
         className,
       )}
     >
