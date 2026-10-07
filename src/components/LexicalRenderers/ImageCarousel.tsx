@@ -19,9 +19,10 @@ export interface ImageCardProps extends Omit<React.ButtonHTMLAttributes<HTMLButt
 }
 
 /**
- * Figma: Cards / ImageCard (9324:45224). Spalte gap-sm, w-60: Bild 240 × 144 (Platzhalter) und
- * Bildunterschrift (Cards/Blog/Title, card-content-text). Hover zeigt das Auge über dem Bild,
- * ein Klick öffnet Components / OverlayComponents / Image.
+ * Figma: Cards / ImageCard (9324:45224) · Hover?=False|True. Spalte 240 px breit (Cards/ImageCard/fix-w)
+ * mit 8 px Abstand (Cards/ImageCard/gap): Bild 240 × 144 im img-wrapper (Platzhalter) und Bildunterschrift
+ * (Cards/Blog/Title, card-content-text). Hover zeigt in der Bildmitte den Kreis „Zoom“ (48 px, surface-color)
+ * mit Icons / Eye (20 px); ein Klick öffnet Components / OverlayComponents / Image.
  */
 export const ImageCard = React.forwardRef<HTMLButtonElement, ImageCardProps>(function ImageCard(
   { card, forceHover, className, type = 'button', ...props },
@@ -35,7 +36,7 @@ export const ImageCard = React.forwardRef<HTMLButtonElement, ImageCardProps>(fun
       data-hovered={forceHover ? '' : undefined}
       aria-label={`${card.caption} groß anzeigen`}
       className={cn(
-        'group flex w-60 cursor-pointer flex-col items-start gap-sm text-left',
+        'group flex w-card-image cursor-pointer flex-col items-start gap-card-image-gap text-left',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         className,
       )}
@@ -45,9 +46,11 @@ export const ImageCard = React.forwardRef<HTMLButtonElement, ImageCardProps>(fun
         <ProductImage image={card.image} sizes="15rem" />
         <span
           aria-hidden
-          className="absolute inset-zero hidden items-center justify-center bg-surface/50 text-content-text group-hovered:flex group-focus-visible:flex"
+          className="absolute inset-zero hidden items-center justify-center group-hovered:flex group-focus-visible:flex"
         >
-          <IconEye className="size-7.5" />
+          <span className="flex size-12 items-center justify-center rounded-full bg-surface text-content-text">
+            <IconEye className="size-5" />
+          </span>
         </span>
       </span>
       <span className="w-full type-cards-blog-title text-card-content-text">{card.caption}</span>

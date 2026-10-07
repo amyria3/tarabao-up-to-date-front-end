@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils'
  * Figma: Cards / ReviewCard (2194:1982) · Reactions?=True|False, State?=Default|Open.
  * 160–224 px breit (Cards/ReviewCard/…), Rand 16 px oben, 12 px seitlich (frame-top, frame), Abstand
  * Bewertung → Reaktionsleiste frame, innerhalb der Bewertung content-gap, Reaktionsleiste py content. Zentrierte
- * Sterne 14 px (nur vergebene), Name + Datum (Comment), Titel H3, Text Comment/BodyText (zweizeilig;
- * aufgeklappt ganz), Bildfläche 100 px bzw. aufgeklappt 140 px (Img/fix-h, tall-fix-h), darunter
+ * Sterne 14 px (nur vergebene), Name + Datum (Comment), Titel H3, Text Comment/BodyText (zweizeilig in
+ * einem 44-px-Block; aufgeklappt ganz), Bildfläche 100 px bzw. aufgeklappt 140 px (Img/fix-h, tall-fix-h), darunter
  * Buttons / ReactionCounter
  * (Reactions?=False → Variant=1, Herz als Kontur; True → Variant=2 mit Zahl).
  * In Figma zeigt State?=Open den gekürzten und State?=Default den vollen Text;
@@ -46,7 +46,8 @@ export function ReviewCard({
           <div className="flex flex-col gap-sm pt-xs">
             <HeadlineH3 as="h3">{review.title}</HeadlineH3>
             <details open={defaultOpen} className="group/details">
-              <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+              {/* Figma: Textblock fest 2.75rem (calc 11), gekürzt auf die Zeilen, die hineinpassen; aufgeklappt Hug. */}
+              <summary className="block h-11 cursor-pointer list-none group-open/details:h-auto [&::-webkit-details-marker]:hidden">
                 <span className="line-clamp-2 type-comment-body-text group-open/details:line-clamp-none">
                   {review.body}
                 </span>

@@ -14,9 +14,10 @@ export interface CategoryCardProps {
 }
 
 /**
- * Figma: Cards / CategoryCard / SM (2628:2698) · State=Default|Hover, Variant=Default|Nüsse Pur.
+ * Figma: Cards / CategoryCard / SM (2628:2698) · Hover?=False|True, Variant=Default|Nüsse Pur.
  * 240 px hoch (Cards/CategoryCard/SM/fix-h), Breite 164 · 240 · 240 bis 256 px. Der Bildrand ist das
- * Padding der Karte (frame 12 px, unten 0) und hat die Farbe der Karte. Titel unten rechts
+ * Padding der Karte (frame 12 px, unten 0) und hat die Farbe der Karte. Zwischen Bild und Titel liegen
+ * ebenfalls 12 px (frame). Titel unten rechts
  * (Cards/ProductTitle). Hover: Der Titel weicht Buttons / SM / Button-Card „Erkunden“ mit Icons / Eye
  * (All Button Labels/Erkunden), das Bild wird kürzer.
  * Die ganze Karte ist ein Link, der Button deshalb nur Darstellung (span).
@@ -34,7 +35,7 @@ export function CategoryCardSm({
       {...CARD_THEME}
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
-        'group/card flex h-card-category-sm w-full min-w-card-category-sm-min max-w-card-category-sm-max flex-col items-end justify-end gap-card-category-sm-content border border-card-btn-hover-click bg-card-surface px-card-category-sm-frame pt-card-category-sm-frame shadow-card',
+        'group/card flex h-card-category-sm w-full min-w-card-category-sm-min max-w-card-category-sm-max flex-col items-end justify-end gap-card-category-sm-frame border border-card-btn-hover-click bg-card-surface px-card-category-sm-frame pt-card-category-sm-frame shadow-card',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         className,
       )}
@@ -69,7 +70,7 @@ export function CategoryCardSm({
  * ist das Padding der Karte (frame 12 px) und hat die Farbe der Karte. Titel Cards/ProductTitle mit
  * 8 px oben und unten (content). Hover: Fläche card-surface-hover, unten kein Rand, Buttons / MD /
  * Button-Card „Erkunden“ mit Icons / Eye (All Button Labels/Erkunden) und 8 px darunter, das Bild wird kürzer.
- * Bildgrund in Figma #ffffff ohne Token → bg-white.
+ * Der Bildrahmen trägt wie in Figma surface-placeholder (ProductImage).
  */
 export function CategoryCardMd({
   category,
@@ -89,7 +90,7 @@ export function CategoryCardMd({
       )}
     >
       <span className="block min-h-zero w-full flex-1">
-        <ProductImage image={category.image} className="bg-white" />
+        <ProductImage image={category.image} />
       </span>
       {/* Figma flex-col: 1.8125rem (Titel 0.8125rem + 0.5rem oben und unten), beim Hover Button 2.5rem + unten 0.5rem. */}
       <div className="relative h-[1.8125rem] w-full overflow-hidden motion-hover group-hover/card:h-12 group-data-hovered/card:h-12">

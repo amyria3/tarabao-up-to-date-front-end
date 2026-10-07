@@ -8,7 +8,7 @@ import { CARD_THEME, CARD_FRAME } from '@/components/ui/card-chrome'
 
 /**
  * Figma: Cards / PurchaseCard (6748:17300) · Status=Sent|Arrived.
- * p-md-sm gap-md, max-w-panel-max: Status (Sent: UserMessage/X-LG in 228 px,
+ * p-md-sm gap-md, max-w-panel-max: Status (Sent: UserMessage/X-LG über die volle Breite,
  * Arrived: UserMessage/LG), Produktbilder (Umbruch, 4-px-Rand surface-color),
  * Zusammenfassung (Components / PurchaseSummary) und Buttons / SM / SecondaryButton
  * (Hug content?=True). Die Sorte jedes Produktbilds kommt aus den Bestelldaten.
@@ -35,7 +35,7 @@ export function PurchaseCard({
         className,
       )}
     >
-      <p className={sent ? 'max-w-57 type-user-message-x-lg' : 'type-user-message-lg'}>{purchase.statusLabel}</p>
+      <p className={sent ? 'type-user-message-x-lg' : 'type-user-message-lg'}>{purchase.statusLabel}</p>
       <ul className="flex w-full min-w-product-img-thumbnail-row-min max-w-panel-max flex-wrap gap-card-purchase-content-gap">
         {purchase.images.map((image, i) => (
           <li
