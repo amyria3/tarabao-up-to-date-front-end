@@ -18,8 +18,9 @@ export interface SearchFieldProps extends Omit<React.InputHTMLAttributes<HTMLInp
  * Figma: Components / Search / Input (2339:2155) · Hover?, Active?, Input?, Eingabe?.
  * Zeile h14 (56 px), px-1.5, max-w-search-max, Fläche search-bg mit innerem Schatten;
  * Hover search-bg-hover und „Search on-hover“; aktiv search-bg-focused, Kontur
- * search-stroke-focused 6 px und „Filter-Chips on-hover“. Innen px-3 gap-md-sm: Lupe 30,
- * Eingabe Input/InputText in search-input-text, mit Eingabe ein Kreuz (Touch-Fläche 44 px).
+ * search-stroke-focused 6 px und „Filter-Chips on-hover“. Innen px-3 gap-md-sm:
+ * Lupe h-icon-search (Search/Icons/fix-h), Eingabe Input/InputText in search-input-text,
+ * mit Eingabe ein Kreuz h-icon-btn (Icons/Buttons/fix-h, Touch-Fläche 44 px).
  */
 export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(function SearchField(
   { value: controlled, defaultValue = '', onValueChange, label = 'Suche', className, ...props },
@@ -47,7 +48,7 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
       )}
     >
       <div className="flex h-11 min-w-zero flex-1 items-center gap-md-sm px-3">
-        <IconSearch aria-hidden className="shrink-0 text-search-icon" />
+        <IconSearch aria-hidden className="h-icon-search w-auto shrink-0 text-search-icon" />
         <input
           ref={inputRef}
           type="search"
@@ -71,7 +72,7 @@ export const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
           }}
           className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center text-search-close-icon focus-visible:outline-2 focus-visible:outline-btn-primary-bg"
         >
-          <IconClose14 aria-hidden />
+          <IconClose14 aria-hidden className="h-icon-btn w-auto" />
         </button>
       ) : null}
     </div>

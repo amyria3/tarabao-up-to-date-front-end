@@ -762,6 +762,7 @@
   --height-nav: 4rem;                       /* Nav/fix-h (md, lg)  64px */
   --height-nav-base: 2.75rem;               /* Nav/base/fix-h  44px */
   --height-icon-nav: 1.5rem;                /* Nav/Icons/fix-h  24px */
+  --height-icon-search: 1.875rem;           /* Search/Icons/fix-h  30px */
 
   /* ---- Icons (Seitenverhältnis bleibt, Breite folgt) ---- */
   --height-icon-btn: 1.25rem;               /* Icons/Buttons/fix-h  20px */
@@ -1262,6 +1263,7 @@
 @utility h-nav                          { height: var(--height-nav); }
 @utility h-nav-base                     { height: var(--height-nav-base); }
 @utility h-icon-nav                     { height: var(--height-icon-nav); }
+@utility h-icon-search                  { height: var(--height-icon-search); }
 
 @utility h-icon-btn                     { height: var(--height-icon-btn); }
 @utility h-icon-radio                   { height: var(--height-icon-radio); }

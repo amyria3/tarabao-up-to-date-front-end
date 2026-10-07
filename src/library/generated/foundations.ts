@@ -3166,6 +3166,11 @@ export const FOUNDATIONS = {
       comment: 'Nav/Icons/fix-h  24px',
     },
     {
+      name: 'icon-search',
+      value: '1.875rem',
+      comment: 'Search/Icons/fix-h  30px',
+    },
+    {
       name: 'icon-btn',
       value: '1.25rem',
       comment: 'Icons/Buttons/fix-h  20px',
