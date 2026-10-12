@@ -13,7 +13,7 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 
 /**
  * Figma: Buttons / IconButton (2588:2421). Schließen-Button mit Icon und Label,
- * Hover zeigt die Form „Very oval“ in card-btn-hover-click.
+ * Hover zeigt die Form „Very oval“ in btn-icon-bg-hover, Icon und Label in btn-icon-label-hover.
  */
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
   { label, icon = <IconClose14 />, forceHover, className, type = 'button', ...props },
@@ -26,13 +26,13 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(f
       {...(forceHover ? { 'data-hovered': '' } : {})}
       className={cn(
         // Figma: Wurzel Hug, 20 px hoch (nicht an Btns/XXXX-SM/fix-h gebunden).
-        'group relative inline-flex h-5 cursor-pointer items-center gap-xxs pr-sm pl-xxxs text-content-text',
+        'group relative inline-flex h-5 cursor-pointer items-center gap-xxs pr-sm pl-xxxs text-content-text hovered:text-btn-icon-label-hover',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-btn-primary-bg',
         className,
       )}
       {...props}
     >
-      <ButtonShape shape="very-oval" className="text-card-btn-hover-click opacity-0 group-hovered:opacity-100" />
+      <ButtonShape shape="very-oval" className="text-btn-icon-bg-hover opacity-0 group-hovered:opacity-100" />
       <span className="relative inline-flex">{icon}</span>
       <span className="relative type-label-default">{label}</span>
     </button>

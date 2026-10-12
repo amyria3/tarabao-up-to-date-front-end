@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Figma: Buttons / IconButton (2588:2421). Close button with icon and label; hover shows the shape Very oval in card-btn-hover-click · Warenkorb?, Search?, Menu?.',
+          'Figma: Buttons / IconButton (2588:2421). Close button with icon and label; hover shows the shape Very oval in btn-icon-bg-hover, icon and label in btn-icon-label-hover · Warenkorb?, Search?, Menu?.',
       },
     },
   },

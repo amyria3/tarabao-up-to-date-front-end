@@ -21,15 +21,15 @@ function block(selector: string) {
 }
 
 describe('app.css Theme-Achsen', () => {
-  it.each(GLOBAL_THEMES)('data-theme="%s" setzt alle 63 Pflicht-Tokens', (theme) => {
+  it.each(GLOBAL_THEMES)('data-theme="%s" setzt alle 65 Pflicht-Tokens', (theme) => {
     const body = block(`[data-theme="${theme}"]`)
     expect(body, `Block für ${theme} fehlt`).not.toBeNull()
     const missing = REQUIRED_GLOBAL_THEME_TOKENS.filter((token) => !body!.includes(`${token}:`))
     expect(missing).toEqual([])
   })
 
-  it('führt genau 63 Pflicht-Tokens', () => {
-    expect(REQUIRED_GLOBAL_THEME_TOKENS).toHaveLength(63)
+  it('führt genau 65 Pflicht-Tokens', () => {
+    expect(REQUIRED_GLOBAL_THEME_TOKENS).toHaveLength(65)
   })
 
   it.each(LIVELY_THEMES)('data-lively-theme="%s" existiert', (theme) => {

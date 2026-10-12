@@ -16,7 +16,7 @@ export interface DisclosureToggleProps extends Omit<React.ButtonHTMLAttributes<H
 /**
  * Figma: Buttons / DisclosureToggle (9734:30031). Kleinster Button mit Label (Label/default,
  * content-text) und ArrowUpOrDown 14 in einer Icon-Fläche 5 × 5. Wurzel Hug, h-5, pl-sm pr-xxxs,
- * gap-xxs. Hover: Button-Shape (Very oval) in btn-icon-bg-hover hinter dem Label.
+ * gap-xxs. Hover: Button-Shape (Very oval) in btn-icon-bg-hover hinter dem Label, Label und Pfeil in btn-icon-label-hover.
  * Nutzung: ContentModules / CMS / RecipeStep. Im Code trägt er aria-expanded.
  */
 export const DisclosureToggle = React.forwardRef<HTMLButtonElement, DisclosureToggleProps>(function DisclosureToggle(
@@ -37,9 +37,11 @@ export const DisclosureToggle = React.forwardRef<HTMLButtonElement, DisclosureTo
       {...props}
     >
       <ButtonShape shape="very-oval" className="text-btn-icon-bg-hover opacity-0 group-hovered:opacity-100" />
-      <span className="relative type-label-default text-content-text uppercase">{open ? openLabel : closedLabel}</span>
+      <span className="relative type-label-default text-content-text uppercase group-hovered:text-btn-icon-label-hover">
+        {open ? openLabel : closedLabel}
+      </span>
       <span aria-hidden className="relative inline-flex size-5 items-center justify-center">
-        <ArrowUpOrDown variant={open ? 'up' : 'down'} size={14} />
+        <ArrowUpOrDown variant={open ? 'up' : 'down'} size={14} className="group-hovered:text-btn-icon-label-hover" />
       </span>
     </button>
   )

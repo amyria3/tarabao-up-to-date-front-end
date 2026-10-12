@@ -19,7 +19,7 @@ export interface CounterProps {
 
 /**
  * Figma: Buttons / Counter (2442:2491). Mengenzähler 83 × 38 mit handgezeichnetem
- * Rahmen, drei Felder −, Wert, +. Hover füllt das Feld mit counter-bg-hover-click.
+ * Rahmen, drei Felder −, Wert, +. Hover füllt das Feld mit counter-bg-hover-click, das Zeichen wird counter-label-hover.
  */
 export function Counter({
   value,
@@ -39,7 +39,7 @@ export function Counter({
     onValueChange?.(clamped)
   }
   const segment =
-    'flex h-full flex-1 cursor-pointer items-center justify-center px-sm py-xs hover:bg-counter-bg-hover-click data-[hovered]:bg-counter-bg-hover-click disabled:cursor-not-allowed disabled:opacity-60'
+    'flex h-full flex-1 cursor-pointer items-center justify-center px-sm py-xs hover:bg-counter-bg-hover-click hover:text-counter-label-hover data-[hovered]:bg-counter-bg-hover-click data-[hovered]:text-counter-label-hover disabled:cursor-not-allowed disabled:opacity-60'
   return (
     <div
       role="group"

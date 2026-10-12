@@ -243,10 +243,12 @@
   /* Counter */
   --counter-bg: var(--transparent-100);
   --counter-label: var(--purple-tint-dark-90);
-  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+  --counter-bg-hover-click: var(--cole-tint-100);
+  --counter-label-hover: var(--warm-white-100);
 
   /* Button Icon */
-  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-icon-bg-hover: var(--cole-tint-100);
+  --btn-icon-label-hover: var(--warm-white-100);
 
   /* Options Selector Buttons */
   --btn-option-selection-bg: var(--purple-early-evening-sky-40);
@@ -263,6 +265,7 @@
   --card-content-text-hover: var(--cole-tint-100);
   --card-btn: var(--warm-white-100);
   --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+  --card-btn-round-bg-hover: var(--purple-early-evening-sky-100);
 
   /* Block */
   --block-surface: var(--warm-white-100);
@@ -339,10 +342,12 @@
   /* Counter */
   --counter-bg: var(--transparent-100);
   --counter-label: var(--purple-tint-dark-90);
-  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+  --counter-bg-hover-click: var(--cole-tint-100);
+  --counter-label-hover: var(--snow-white-100);
 
   /* Button Icon */
-  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-icon-bg-hover: var(--cole-tint-100);
+  --btn-icon-label-hover: var(--snow-white-100);
 
   /* Options Selector Button */
   --btn-option-selection-bg: var(--purple-early-evening-sky-40);
@@ -359,6 +364,7 @@
   --card-content-text-hover: var(--cole-tint-100);
   --card-btn: var(--snow-white-100);
   --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+  --card-btn-round-bg-hover: var(--purple-early-evening-sky-100);
 
   /* Block */
   --block-surface: var(--snow-white-100);
@@ -435,10 +441,12 @@
   /* Counter */
   --counter-bg: var(--transparent-100);
   --counter-label: var(--purple-tint-light-old);
-  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+  --counter-bg-hover-click: var(--purple-tint-light-100);
+  --counter-label-hover: var(--warm-white-100);
 
   /* Button Icon */
-  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-icon-bg-hover: var(--purple-tint-light-100);
+  --btn-icon-label-hover: var(--warm-white-100);
 
   /* Option Selector Button */
   --btn-option-selection-bg: var(--purple-early-evening-sky-40);
@@ -455,6 +463,7 @@
   --card-content-text-hover: var(--purple-tint-dark-dark);
   --card-btn: var(--warm-white-100);
   --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+  --card-btn-round-bg-hover: var(--purple-early-evening-sky-100);
 
   /* Block */
   --block-surface: var(--warm-white-100);
@@ -531,10 +540,12 @@
   /* Counter */
   --counter-bg: var(--transparent-100);
   --counter-label: var(--purple-tint-light-old);
-  --counter-bg-hover-click: var(--purple-early-evening-sky-100);
+  --counter-bg-hover-click: var(--purple-tint-light-100);
+  --counter-label-hover: var(--snow-white-100);
 
   /* Button Icon */
-  --btn-icon-bg-hover: var(--purple-early-evening-sky-100);
+  --btn-icon-bg-hover: var(--purple-tint-light-100);
+  --btn-icon-label-hover: var(--snow-white-100);
 
   /* Options Selector Button */
   --btn-option-selection-bg: var(--purple-early-evening-sky-40);
@@ -551,6 +562,7 @@
   --card-content-text-hover: var(--purple-tint-dark-dark);
   --card-btn: var(--snow-white-100);
   --card-btn-hover-click: var(--purple-early-evening-sky-40-opaque);
+  --card-btn-round-bg-hover: var(--purple-early-evening-sky-100);
 
   /* Block */
   --block-surface: var(--snow-white-100);
@@ -861,9 +873,11 @@
   --color-counter-bg: var(--counter-bg);
   --color-counter-label: var(--counter-label);
   --color-counter-bg-hover-click: var(--counter-bg-hover-click);
+  --color-counter-label-hover: var(--counter-label-hover);
 
   /* ---- Button Icon ---- */
   --color-btn-icon-bg-hover: var(--btn-icon-bg-hover);
+  --color-btn-icon-label-hover: var(--btn-icon-label-hover);
 
   /* ---- Option Selector Button ---- */
   --color-btn-option-selection-bg: var(--btn-option-selection-bg);
@@ -880,6 +894,7 @@
   --color-card-content-text-hover: var(--card-content-text-hover);
   --color-card-btn: var(--card-btn);
   --color-card-btn-hover-click: var(--card-btn-hover-click);
+  --color-card-btn-round-bg-hover: var(--card-btn-round-bg-hover);
 
   /* ---- Block ---- */
   --color-block-surface: var(--block-surface);

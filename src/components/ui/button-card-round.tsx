@@ -16,7 +16,7 @@ export interface ButtonCardRoundProps extends React.ButtonHTMLAttributes<HTMLBut
  * Runder Schnell-Button der Produktkarten in Mobil (viewport-range=base). Ein Tipp legt die Sorte
  * der Karte in den Warenkorb, im Nutmixer in den Mix.
  * Wurzel fest 2,75rem × 2,75rem (Btns/L/fix-h), Icons / plus 30 zentriert, Button-Shape „Very oval“
- * absolut dahinter. Fläche card-btn-hover-click, beim Hover btn-icon-bg-hover; Icon card-content-text
+ * absolut dahinter. Fläche card-btn-hover-click, beim Hover card-btn-round-bg-hover; Icon card-content-text
  * bzw. card-content-text-hover.
  * Die Position bestimmt die Karte: Das Zentrum liegt auf der unteren rechten Ecke des Produktbilds.
  */
@@ -39,7 +39,7 @@ export const ButtonCardRound = React.forwardRef<HTMLButtonElement, ButtonCardRou
     >
       <ButtonShape
         shape="very-oval"
-        className="text-card-btn-hover-click motion-hover group-hovered:text-btn-icon-bg-hover"
+        className="text-card-btn-hover-click motion-hover group-hovered:text-card-btn-round-bg-hover"
       />
       {/* Figma: Icons / plus · Size=30 ohne Höhen-Variable → 1.875rem. */}
       <IconPlus30
