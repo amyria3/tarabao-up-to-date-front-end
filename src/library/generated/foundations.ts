@@ -347,7 +347,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-secondary-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'btn-secondary-label-hover',
@@ -371,11 +371,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-inline-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'btn-inline-label-hover',
-        value: 'var(--warm-white-80)',
+        value: 'var(--warm-white-100)',
       },
       {
         name: 'btn-inline-bg-inactive',
@@ -415,11 +415,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'segmented-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'segmented-label-hover',
-        value: 'var(--warm-white-60)',
+        value: 'var(--warm-white-100)',
       },
       {
         name: 'segmented-bg-selected',
@@ -605,7 +605,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-secondary-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'btn-secondary-label-hover',
@@ -629,11 +629,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-inline-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'btn-inline-label-hover',
-        value: 'var(--snow-white-90)',
+        value: 'var(--snow-white-100)',
       },
       {
         name: 'btn-inline-bg-inactive',
@@ -673,11 +673,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'segmented-bg-hover',
-        value: 'var(--cole-tint-90)',
+        value: 'var(--cole-tint-100)',
       },
       {
         name: 'segmented-label-hover',
-        value: 'var(--snow-white-60)',
+        value: 'var(--snow-white-100)',
       },
       {
         name: 'segmented-bg-selected',
@@ -863,7 +863,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-secondary-bg-hover',
-        value: 'var(--purple-tint-light-old)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'btn-secondary-label-hover',
@@ -887,11 +887,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-inline-bg-hover',
-        value: 'var(--purple-early-evening-sky-100)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'btn-inline-label-hover',
-        value: 'var(--purple-tint-dark-dark)',
+        value: 'var(--warm-white-100)',
       },
       {
         name: 'btn-inline-bg-inactive',
@@ -931,11 +931,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'segmented-bg-hover',
-        value: 'var(--purple-early-evening-sky-100)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'segmented-label-hover',
-        value: 'var(--purple-tint-light-100)',
+        value: 'var(--warm-white-100)',
       },
       {
         name: 'segmented-bg-selected',
@@ -1121,7 +1121,7 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-secondary-bg-hover',
-        value: 'var(--purple-tint-light-old)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'btn-secondary-label-hover',
@@ -1145,11 +1145,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'btn-inline-bg-hover',
-        value: 'var(--purple-early-evening-sky-100)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'btn-inline-label-hover',
-        value: 'var(--purple-tint-dark-dark)',
+        value: 'var(--snow-white-100)',
       },
       {
         name: 'btn-inline-bg-inactive',
@@ -1189,11 +1189,11 @@ export const FOUNDATIONS = {
       },
       {
         name: 'segmented-bg-hover',
-        value: 'var(--purple-early-evening-sky-100)',
+        value: 'var(--purple-tint-light-100)',
       },
       {
         name: 'segmented-label-hover',
-        value: 'var(--purple-tint-light-100)',
+        value: 'var(--snow-white-100)',
       },
       {
         name: 'segmented-bg-selected',

@@ -202,7 +202,7 @@
   /* Button Secondary */
   --btn-secondary-bg: var(--transparent-100);
   --btn-secondary-label: var(--cole-tint-90);
-  --btn-secondary-bg-hover: var(--cole-tint-90);
+  --btn-secondary-bg-hover: var(--cole-tint-100);
   --btn-secondary-label-hover: var(--warm-white-100);
   --btn-secondary-bg-inactive: var(--transparent-100);
   --btn-secondary-label-inactive: var(--cole-tint-60);
@@ -210,8 +210,8 @@
   /* Button Inline */
   --btn-inline-bg: var(--transparent-100);
   --btn-inline-label: var(--cole-tint-90);
-  --btn-inline-bg-hover: var(--cole-tint-90);
-  --btn-inline-label-hover: var(--warm-white-80);
+  --btn-inline-bg-hover: var(--cole-tint-100);
+  --btn-inline-label-hover: var(--warm-white-100);
   --btn-inline-bg-inactive: var(--transparent-100);
   --btn-inline-label-inactive: var(--cole-tint-60);
 
@@ -225,8 +225,8 @@
   /* Segmented */
   --segmented-bg: var(--transparent-100);
   --segmented-label: var(--cole-tint-90);
-  --segmented-bg-hover: var(--cole-tint-90);
-  --segmented-label-hover: var(--warm-white-60);
+  --segmented-bg-hover: var(--cole-tint-100);
+  --segmented-label-hover: var(--warm-white-100);
   --segmented-bg-selected: var(--cole-tint-90);
   --segmented-label-selected: var(--warm-white-80);
 
@@ -298,7 +298,7 @@
   /* Button Secondary */
   --btn-secondary-bg: var(--transparent-100);
   --btn-secondary-label: var(--cole-tint-90);
-  --btn-secondary-bg-hover: var(--cole-tint-90);
+  --btn-secondary-bg-hover: var(--cole-tint-100);
   --btn-secondary-label-hover: var(--snow-white-100);
   --btn-secondary-bg-inactive: var(--transparent-100);
   --btn-secondary-label-inactive: var(--cole-tint-60);
@@ -306,8 +306,8 @@
   /* Button Inline */
   --btn-inline-bg: var(--transparent-100);
   --btn-inline-label: var(--cole-tint-90);
-  --btn-inline-bg-hover: var(--cole-tint-90);
-  --btn-inline-label-hover: var(--snow-white-90);
+  --btn-inline-bg-hover: var(--cole-tint-100);
+  --btn-inline-label-hover: var(--snow-white-100);
   --btn-inline-bg-inactive: var(--transparent-100);
   --btn-inline-label-inactive: var(--cole-tint-60);
 
@@ -321,8 +321,8 @@
   /* Segmented */
   --segmented-bg: var(--transparent-100);
   --segmented-label: var(--cole-tint-90);
-  --segmented-bg-hover: var(--cole-tint-90);
-  --segmented-label-hover: var(--snow-white-60);
+  --segmented-bg-hover: var(--cole-tint-100);
+  --segmented-label-hover: var(--snow-white-100);
   --segmented-bg-selected: var(--cole-tint-90);
   --segmented-label-selected: var(--snow-white-90);
 
@@ -394,7 +394,7 @@
   /* Button Secondary */
   --btn-secondary-bg: var(--transparent-100);
   --btn-secondary-label: var(--purple-tint-light-old);
-  --btn-secondary-bg-hover: var(--purple-tint-light-old);
+  --btn-secondary-bg-hover: var(--purple-tint-light-100);
   --btn-secondary-label-hover: var(--warm-white-100);
   --btn-secondary-bg-inactive: var(--transparent-100);
   --btn-secondary-label-inactive: var(--cole-tint-60);
@@ -402,8 +402,8 @@
   /* Button Inline */
   --btn-inline-bg: var(--transparent-100);
   --btn-inline-label: var(--purple-tint-dark-90);
-  --btn-inline-bg-hover: var(--purple-early-evening-sky-100);
-  --btn-inline-label-hover: var(--purple-tint-dark-dark);
+  --btn-inline-bg-hover: var(--purple-tint-light-100);
+  --btn-inline-label-hover: var(--warm-white-100);
   --btn-inline-bg-inactive: var(--transparent-100);
   --btn-inline-label-inactive: var(--cole-tint-60);
 
@@ -417,8 +417,8 @@
   /* Segmented */
   --segmented-bg: var(--transparent-100);
   --segmented-label: var(--purple-tint-light-old);
-  --segmented-bg-hover: var(--purple-early-evening-sky-100);
-  --segmented-label-hover: var(--purple-tint-light-100);
+  --segmented-bg-hover: var(--purple-tint-light-100);
+  --segmented-label-hover: var(--warm-white-100);
   --segmented-bg-selected: var(--purple-tint-light-old);
   --segmented-label-selected: var(--warm-white-80);
 
@@ -490,7 +490,7 @@
   /* Button Secondary */
   --btn-secondary-bg: var(--transparent-100);
   --btn-secondary-label: var(--purple-tint-light-old);
-  --btn-secondary-bg-hover: var(--purple-tint-light-old);
+  --btn-secondary-bg-hover: var(--purple-tint-light-100);
   --btn-secondary-label-hover: var(--snow-white-100);
   --btn-secondary-bg-inactive: var(--transparent-100);
   --btn-secondary-label-inactive: var(--cole-tint-60);
@@ -498,8 +498,8 @@
   /* Button Inline */
   --btn-inline-bg: var(--transparent-100);
   --btn-inline-label: var(--purple-tint-dark-90);
-  --btn-inline-bg-hover: var(--purple-early-evening-sky-100);
-  --btn-inline-label-hover: var(--purple-tint-dark-dark);
+  --btn-inline-bg-hover: var(--purple-tint-light-100);
+  --btn-inline-label-hover: var(--snow-white-100);
   --btn-inline-bg-inactive: var(--transparent-100);
   --btn-inline-label-inactive: var(--cole-tint-60);
 
@@ -513,8 +513,8 @@
   /* Segmented */
   --segmented-bg: var(--transparent-100);
   --segmented-label: var(--purple-tint-light-old);
-  --segmented-bg-hover: var(--purple-early-evening-sky-100);
-  --segmented-label-hover: var(--purple-tint-light-100);
+  --segmented-bg-hover: var(--purple-tint-light-100);
+  --segmented-label-hover: var(--snow-white-100);
   --segmented-bg-selected: var(--purple-tint-light-old);
   --segmented-label-selected: var(--snow-white-90);
 
